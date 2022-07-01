@@ -17,7 +17,7 @@ public class ToLocal extends ToZoned implements IProvider {
 
     @Override
     public Function<Instant, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(vary(clazz));
+        return super.get(clazz).andThen(found(clazz));
     }
 
 }

@@ -17,7 +17,7 @@ public class ToNumber extends ToInteger implements BProvider {
 
     @Override
     public Function<Boolean, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(vary(clazz));
+        return super.get(clazz).andThen(found(clazz));
     }
 
 }

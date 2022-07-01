@@ -5,6 +5,17 @@
 module vary {
 
     exports org.luvsa.vary;
+    exports org.luvsa.vary.bool;
+    exports org.luvsa.vary.chrono;
+    exports org.luvsa.vary.chrono.zoned;
+    exports org.luvsa.vary.date;
+    exports org.luvsa.vary.instant;
+    exports org.luvsa.vary.local;
+    exports org.luvsa.vary.number;
+    exports org.luvsa.vary.other;
+    exports org.luvsa.vary.string;
+    exports org.luvsa.vary.string.array;
+    exports org.luvsa.vary.temporal;
 
     uses org.luvsa.vary.Factory;
     uses org.luvsa.vary.bool.BProvider;
@@ -16,6 +27,7 @@ module vary {
     uses org.luvsa.vary.number.NProvider;
     uses org.luvsa.vary.other.OProvider;
     uses org.luvsa.vary.string.SProvider;
+    uses org.luvsa.vary.string.array.AProvider;
     uses org.luvsa.vary.temporal.TProvider;
 
     provides org.luvsa.vary.Factory with
@@ -28,6 +40,7 @@ module vary {
             org.luvsa.vary.number.NFactory,
             org.luvsa.vary.other.OFactory,
             org.luvsa.vary.string.SFactory,
+            org.luvsa.vary.string.array.AFactory,
             org.luvsa.vary.temporal.TFactory;
 
     provides org.luvsa.vary.bool.BProvider with
@@ -85,6 +98,9 @@ module vary {
             org.luvsa.vary.string.ToLocalDateTime,
             org.luvsa.vary.string.ToLocalTime,
             org.luvsa.vary.string.ToNumber;
+
+    provides org.luvsa.vary.string.array.AProvider with
+            org.luvsa.vary.string.array.ToList;
 
     provides org.luvsa.vary.temporal.TProvider with
             org.luvsa.vary.temporal.ToLocalDate,

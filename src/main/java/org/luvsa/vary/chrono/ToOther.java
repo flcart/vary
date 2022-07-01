@@ -18,6 +18,6 @@ public class ToOther extends ToZoned implements CProvider {
 
     @Override
     public Function<ChronoLocalDateTime<?>, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(vary(clazz));
+        return super.get(clazz).andThen(found(clazz));
     }
 }

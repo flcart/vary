@@ -17,7 +17,7 @@ public class ToZoned extends ToInstant implements DProvider {
 
     @Override
     public Function<Date, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(vary(clazz));
+        return super.get(clazz).andThen(found(clazz));
     }
 
 }

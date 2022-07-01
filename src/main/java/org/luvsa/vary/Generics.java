@@ -24,5 +24,6 @@ public class Generics {
             }
             throw new RuntimeException("泛型类型[" + argument + "]错误！");
         }
+        throw new IllegalArgumentException(generic + " 没有泛型参数！");
     }
 }

@@ -13,7 +13,6 @@ import java.util.function.Function;
  */
 @Types(String[].class)
 public class AFactory extends FunctionManager<String[], AProvider> implements Factory<String[]> {
-
     @Override
     public Function<String[], ?> create(DataType type) {
         return cache.computeIfAbsent(type.getClazz(), clz -> {

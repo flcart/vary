@@ -1,0 +1,11 @@
+org.luvsa.vary.bool.BFactory
+org.luvsa.vary.chrono.CFactory
+org.luvsa.vary.chrono.zoned.ZFactory
+org.luvsa.vary.date.DFactory
+org.luvsa.vary.instant.IFactory
+org.luvsa.vary.local.LFactory
+org.luvsa.vary.number.NFactory
+org.luvsa.vary.other.OFactory
+org.luvsa.vary.string.array.AFactory
+org.luvsa.vary.string.SFactory
+org.luvsa.vary.temporal.TFactory

@@ -1,12 +1,15 @@
 package org.luvsa.vary;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.luvsa.vary.proxy.DynamicProxy.MethodName;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -76,5 +79,56 @@ class VaryTest {
         System.out.println(bool);
     }
 
+    @Test
+    void strToList() {
+        var txt = """
+                 1、总论：发展性很小，切勿好高骛远，以免为钱财起纠纷，家庭生活能无忧就该满足，不要不平不满，注重精神生活才是聪明人。
+                 2、性格：表面乐观，内心苦闷，常有不平不满之心理，待人诚实而自劳，喜批评人家是非，自己却容易被煽动。
+                 3、意志：意志尚称坚定，但缺乏果断力，处事容易冲动，情绪苦闷又不安定。
+                 4、事业：一生辛勤而收获不多，常在忧愁中度日，六亲又难相助。
+                 5、家庭：与父母意见不和，夫妻表面平顺，但时常争吵，家内不太平安。
+                 6、婚姻：男娶勤俭之妻，夫妻常为小事闹意见；女嫁好胜好强之夫，婚姻不太美满。
+                 7、子女：子女运佳，责任心重，能在社会上成功。
+                 8、社交：待人诚恳有雅量，但要领不佳，常有受累之事发生，少管闲事为妙。
+                 9、精神：为朋友之事及金钱问题操心，心性欠开朗。
+                 10、财运：与金钱缘薄，纵有积蓄也有限。
+                 11、健康：易患胃肠病，筋骨酸痛。神经质。
+                 12、老运：运限平稳，但财源不佳，应注重精神修养。
+                """;
+        var talent = new Talent();
+        talent.setText(txt);
+        var future = Vary.change(talent, Future.class);
+        var means = future.getMeans();
+        System.out.println(means);
+    }
 
+    public static class Talent {
+
+        private String text;
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+    }
+
+
+    public interface Future {
+
+        @MethodName(value = "getText", code = "s.split(\"\n\");", generics = true)
+        List<Item> getMeans();
+
+    }
+
+    public interface Item {
+
+        int getGuid();
+
+        String getName();
+
+        String getText();
+    }
 }

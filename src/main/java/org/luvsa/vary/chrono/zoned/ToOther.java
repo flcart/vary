@@ -17,7 +17,7 @@ public class ToOther extends ToInstant implements ZProvider {
 
     @Override
     public Function<ChronoZonedDateTime<?>, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(vary(clazz));
+        return super.get(clazz).andThen(found(clazz));
     }
 
 }

@@ -21,9 +21,9 @@ public class ToList implements AProvider {
         return array -> {
             var size = array.length;
             var list = new ArrayList<>(size);
-            Generics.accept(type.getGenericType(), 0, aClass -> {
+            Generics.accept(type.getGenericType(), 0, clazz -> {
                 for (var s : array) {
-                    list.add(Vary.change(s, aClass));
+                    list.add(Vary.change(s, clazz));
                 }
             });
             return list;
