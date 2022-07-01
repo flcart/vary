@@ -8,11 +8,15 @@ import java.util.Date;
 import java.util.function.Function;
 
 /**
+ * {@link String} 转 {@link Date}， 案列: <pre>{@code
+ * Date date = Vary.change("2022/6/28 9:03", Date.class);
+ * }</pre>
+ *
  * @author Aglet
  * @create 2022/6/28 9:03
  */
 @Types(Date.class)
-public class ToDate extends BiDate implements SProvider, Function<String, Date> {
+public class ToDate extends BiDate<Date> implements SProvider, Function<String, Date> {
 
     @Override
     public Function<String, ?> get(Class<?> clazz) {
@@ -21,21 +25,16 @@ public class ToDate extends BiDate implements SProvider, Function<String, Date> 
 
     @Override
     public Date apply(String s) {
-        if (s.isBlank()) {
-            throw new IllegalArgumentException("空字符串！");
-        }
-        var dateTime = s.trim();
-        // 格式
-        var schema = format(_DATE_TIME, dateTime);
-        if (schema.isBlank()) {
-            throw new IllegalArgumentException("无法解析目标日期： " + dateTime);
-        }
+        return next(s, _DATE_TIME);
+    }
 
-        var format = new SimpleDateFormat(schema);
+    @Override
+    Date next(String value, String format) {
+        var formatter = new SimpleDateFormat(format);
         try {
-            return format.parse(dateTime);
+            return formatter.parse(value);
         } catch (ParseException e) {
-            throw new IllegalArgumentException("以[" + schema + "]格式解析日期[" + dateTime + "]失败！", e);
+            throw new IllegalArgumentException("以[" + format + "]格式解析日期[" + value + "]失败！", e);
         }
     }
 }

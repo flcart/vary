@@ -8,7 +8,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/27 13:57
  */
-@Types({Short.class, int.class})
+@Types({Short.class, short.class})
 public class ToShort implements NProvider {
 
     @Override

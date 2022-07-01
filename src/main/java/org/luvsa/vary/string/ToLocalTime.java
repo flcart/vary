@@ -1,7 +1,9 @@
 package org.luvsa.vary.string;
 
 import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.vary.Vary;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
@@ -11,7 +13,7 @@ import java.util.function.Function;
  * @create 2022/6/28 9:14
  */
 @Types(LocalTime.class)
-public class ToLocalTime extends BiDate implements SProvider, Function<String, LocalTime> {
+public class ToLocalTime extends BiDate<LocalTime> implements SProvider, Function<String, LocalTime> {
 
     @Override
     public Function<String, ?> get(Class<?> clazz) {
@@ -20,16 +22,17 @@ public class ToLocalTime extends BiDate implements SProvider, Function<String, L
 
     @Override
     public LocalTime apply(String s) {
-        if (s.isBlank()) {
-            return null;
-        }
-        var value = s.trim();
-        var format = format(ARRAY_TIME, value);
-        if (format.isBlank()) {
-            throw new IllegalArgumentException("Unable to convert " + value + " to LocalDateTime");
-        }
-        var formatter = DateTimeFormatter.ofPattern(format);
-        return LocalTime.parse(value, formatter);
+        return next(s, ARRAY_TIME);
     }
 
+    @Override
+    LocalTime next(String value, String format) {
+        try {
+            var formatter = DateTimeFormatter.ofPattern(format);
+            return LocalTime.parse(value, formatter);
+        } catch (Exception e) {
+            var change = Vary.change(value, LocalDateTime.class);
+            return change.toLocalTime();
+        }
+    }
 }

@@ -13,31 +13,26 @@ import java.util.function.Function;
  * @create 2022/6/28 9:18
  */
 @Types(LocalDateTime.class)
-public class ToLocalDateTime extends BiDate implements SProvider, Function<String, LocalDateTime> {
+public class ToLocalDateTime extends BiDate<LocalDateTime> implements SProvider, Function<String, LocalDateTime> {
 
     @Override
     public LocalDateTime apply(String s) {
-        if (s.isBlank()) {
-            return null;
-        }
-
-        var dateTime = s.trim();
-        var format = format(_DATE_TIME, dateTime);
-        if (format.isBlank()) {
-            throw new IllegalArgumentException("Unable to convert " + dateTime + " to LocalDateTime");
-        }
-
-        var pattern = DateTimeFormatter.ofPattern(format);
-        try {
-            return LocalDateTime.parse(dateTime, pattern);
-        } catch (DateTimeException e) {
-            // issue "2021-08-10" 依据 “yyyy-MM-dd” 转成 LocalDateTime 异常， 这里暂时提供 转 LocalDate 然后获取这天的开始时间
-            return LocalDate.parse(dateTime, pattern).atStartOfDay();
-        }
+        return next(s, _DATE_TIME);
     }
 
     @Override
     public Function<String, ?> get(Class<?> clazz) {
         return this;
+    }
+
+    @Override
+    LocalDateTime next(String value, String format) {
+        var pattern = DateTimeFormatter.ofPattern(format);
+        try {
+            return LocalDateTime.parse(value, pattern);
+        } catch (DateTimeException e) {
+            // issue "2021-08-10" 依据 “yyyy-MM-dd” 转成 LocalDateTime 异常， 这里暂时提供 转 LocalDate 然后获取这天的开始时间
+            return LocalDate.parse(value, pattern).atStartOfDay();
+        }
     }
 }

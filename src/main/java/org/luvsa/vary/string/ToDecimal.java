@@ -12,6 +12,7 @@ import java.util.function.Function;
 
 @Types(BigDecimal.class)
 public class ToDecimal implements SProvider {
+
     /**
      * 中文数字表
      */
