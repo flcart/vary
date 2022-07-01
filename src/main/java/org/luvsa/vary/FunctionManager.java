@@ -44,6 +44,8 @@ public abstract class FunctionManager<T, R extends Provider<T>> extends Manager<
                 return;
             }
         }
+
+
         throw new RuntimeException(aClass + " 没有泛型参数！");
     }
 }
