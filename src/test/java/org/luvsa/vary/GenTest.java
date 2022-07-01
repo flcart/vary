@@ -10,6 +10,7 @@ import org.luvsa.vary.instant.IProvider;
 import org.luvsa.vary.local.LProvider;
 import org.luvsa.vary.number.NProvider;
 import org.luvsa.vary.other.OProvider;
+import org.luvsa.vary.string.SProvider;
 import org.luvsa.vary.string.array.AProvider;
 import org.luvsa.vary.temporal.TProvider;
 
@@ -27,7 +28,7 @@ class GenTest {
 
     @ParameterizedTest
     @ValueSource(classes = {Factory.class, BProvider.class, CProvider.class, ZProvider.class, DProvider.class, IProvider.class,
-            LProvider.class, NProvider.class, OProvider.class, AProvider.class, TProvider.class})
+            LProvider.class, NProvider.class, OProvider.class, SProvider.class, AProvider.class, TProvider.class})
     void gen(Class<?> service) throws IOException {
         var aClass = Vary.class;
         var domain = aClass.getProtectionDomain();
@@ -38,7 +39,7 @@ class GenTest {
         var path = Path.of(root);
         var from = path.getNameCount();
 
-        var filePath = "src/main/resources/MATA-INF/services/" + service.getName();
+        var filePath = "src/main/resources/META-INF/services/" + service.getName();
         var services = Path.of(filePath);
 
         var builder = new StringBuilder();
