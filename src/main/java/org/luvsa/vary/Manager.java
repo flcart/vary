@@ -1,3 +1,19 @@
+/*
+ * Copyright 2021 Dale's personal project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.luvsa.vary;
 
 import org.luvsa.vary.TypeSupplier.Types;
@@ -8,11 +24,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 
 /**
- * @author Aglet
- * @create 2022/6/29 16:59
+ * 数据转换函数的管理器
+ *
+ * @author 49897
  */
-abstract class Manager<T> {
-
+public abstract class Manager<T> {
     /**
      * 数据转换函数的缓存
      */

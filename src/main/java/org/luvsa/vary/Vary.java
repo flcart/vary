@@ -7,8 +7,14 @@ import java.util.Objects;
  * @create 2022/6/29 16:47
  */
 public interface Vary {
-    static <T, R> R change(T value, Class<R> clazz) {
-        return DefaultVary.instance.accept(value, clazz);
+
+    @SuppressWarnings("unchecked")
+    static <T, R> R change(T value, Class<R> cls) {
+        return (R) DefaultVary.instance.apply(value, new Clazz(cls));
+    }
+
+    static <T> Object change(T value, DataType type) {
+        return DefaultVary.instance.apply(value, type);
     }
 
     static <T, R> R change(T value, R dev) {
@@ -27,5 +33,5 @@ public interface Vary {
         }
     }
 
-    <T, R> R accept(T value, Class<R> aClass);
+    <T> Object apply(T value, DataType type);
 }

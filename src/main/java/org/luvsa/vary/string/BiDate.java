@@ -43,10 +43,6 @@ abstract class BiDate<T> {
     }
 
     T next(String txt, char[] chars) {
-        if (txt.isBlank()) {
-            return null;
-        }
-
         var value = txt.trim();
         var format = format(chars, value).trim();
 

@@ -1,5 +1,6 @@
 package org.luvsa.vary.instant;
 
+import org.luvsa.vary.DataType;
 import org.luvsa.vary.Factory;
 import org.luvsa.vary.FunctionManager;
 import org.luvsa.vary.TypeSupplier.Types;
@@ -12,12 +13,11 @@ import java.util.function.Function;
  * @create 2022/6/27 14:26
  */
 @Types(Instant.class)
-public class IFactory extends FunctionManager<Instant, IProvider> implements Factory {
+public class IFactory extends FunctionManager<Instant, IProvider> implements Factory<Instant> {
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T, R> Function<T, R> create(Class<R> clazz) {
-        return (Function<T, R>) cache.computeIfAbsent(clazz, this::offer);
+    public Function<Instant, ?> create(DataType type) {
+        return cache.computeIfAbsent(type.getClazz(), this::offer);
     }
 
 }

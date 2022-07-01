@@ -1,5 +1,6 @@
 package org.luvsa.vary.local;
 
+import org.luvsa.vary.DataType;
 import org.luvsa.vary.Factory;
 import org.luvsa.vary.FunctionManager;
 import org.luvsa.vary.TypeSupplier.Types;
@@ -15,12 +16,11 @@ import java.util.function.Function;
  * @create 2022/6/27 14:26
  */
 @Types({LocalDate.class, LocalTime.class, LocalDateTime.class})
-public class LFactory extends FunctionManager<TemporalAccessor, LProvider> implements Factory {
+public class LFactory extends FunctionManager<TemporalAccessor, LProvider> implements Factory<TemporalAccessor> {
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T, R> Function<T, R> create(Class<R> clazz) {
-        return (Function<T, R>) cache.computeIfAbsent(clazz, this::offer);
+    public Function<TemporalAccessor, ?> create(DataType type) {
+        return cache.computeIfAbsent(type.getClazz(), this::offer);
     }
 
 }

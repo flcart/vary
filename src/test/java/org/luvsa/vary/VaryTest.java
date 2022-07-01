@@ -39,8 +39,8 @@ class VaryTest {
     @ParameterizedTest
     @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30", "12:51", "12:51:26", "12:51:26:333"})
     void strToLocalTime(String txt) {
-        LocalTime tiem = Vary.change(txt, LocalTime.class);
-        System.out.println(tiem);
+        LocalTime time = Vary.change(txt, LocalTime.class);
+        System.out.println(time);
     }
 
     @ParameterizedTest
@@ -65,7 +65,7 @@ class VaryTest {
         var aDouble = Vary.change(txt, Double.class);
         var bDouble = Vary.change(txt, double.class);
 
-        System.out.println(aByte);
+        System.out.println(bDouble);
     }
 
 

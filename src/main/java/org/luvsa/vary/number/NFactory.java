@@ -1,5 +1,6 @@
 package org.luvsa.vary.number;
 
+import org.luvsa.vary.DataType;
 import org.luvsa.vary.Factory;
 import org.luvsa.vary.FunctionManager;
 import org.luvsa.vary.TypeSupplier.Types;
@@ -16,12 +17,11 @@ import java.util.function.Function;
  */
 @Types({Byte.class, byte.class, Short.class, short.class, Integer.class, int.class, Long.class, long.class, Float.class, float.class,
         Double.class, double.class, BigDecimal.class, BigInteger.class})
-public class NFactory extends FunctionManager<Number,NProvider> implements Factory {
+public class NFactory extends FunctionManager<Number, NProvider> implements Factory<Number> {
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T, R> Function<T, R> create(Class<R> clazz) {
-        return (Function<T, R>) cache.computeIfAbsent(clazz, this::offer);
+    public Function<Number, ?> create(DataType type) {
+        return cache.computeIfAbsent(type.getClazz(), this::offer);
     }
 
 }

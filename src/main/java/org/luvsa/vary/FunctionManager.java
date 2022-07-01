@@ -19,7 +19,7 @@ public abstract class FunctionManager<T, R extends Provider<T>> extends Manager<
 
     @Override
     protected Function<T, ?> offer(Class<?> clazz) {
-        var function = map.get(clazz);
+        var function = map.getFunction(clazz);
         if (function == null) {
             return next(clazz);
         }
@@ -44,8 +44,6 @@ public abstract class FunctionManager<T, R extends Provider<T>> extends Manager<
                 return;
             }
         }
-
-
         throw new RuntimeException(aClass + " 没有泛型参数！");
     }
 }

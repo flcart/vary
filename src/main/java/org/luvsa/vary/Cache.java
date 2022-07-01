@@ -22,7 +22,7 @@ public final class Cache<T, R extends Provider<T>> {
         this.initiator = initiator;
     }
 
-    public Function<T, ?> get(Class<?> clazz) {
+    public Function<T, ?> getFunction(Class<?> clazz) {
         if (map.isEmpty()) {
             initiator.accept(map::put);
         }
@@ -31,5 +31,16 @@ public final class Cache<T, R extends Provider<T>> {
             return null;
         }
         return provider.get(clazz);
+    }
+
+    public R get(DataType type) {
+        return get(type.getClazz());
+    }
+
+    public R get(Class<?> clazz) {
+        if (map.isEmpty()) {
+            initiator.accept(map::put);
+        }
+        return map.get(clazz);
     }
 }

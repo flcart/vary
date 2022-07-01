@@ -1,7 +1,9 @@
 package org.luvsa.vary.other;
 
+import org.luvsa.vary.DataType;
 import org.luvsa.vary.Factory;
 import org.luvsa.vary.FunctionManager;
+import org.luvsa.vary.proxy.DynamicProxy;
 
 import java.util.function.Function;
 
@@ -11,12 +13,20 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/25 10:47
  */
-public class OFactory extends FunctionManager<Object, OProvider> implements Factory {
+public class OFactory extends FunctionManager<Object, OProvider> implements Factory<Object> {
+
+    private final OProvider proxy = new DynamicProxy();
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T, R> Function<T, R> create(Class<R> clazz) {
-        return (Function<T, R>) cache.computeIfAbsent(clazz, this::offer);
+    protected Function<Object, ?> next(Class<?> clazz) {
+        if (clazz.isInterface()) {
+            return proxy.get(clazz);
+        }
+        return super.next(clazz);
     }
 
+    @Override
+    public Function<Object, ?> create(DataType type) {
+        return cache.computeIfAbsent(type.getClazz(), this::offer);
+    }
 }

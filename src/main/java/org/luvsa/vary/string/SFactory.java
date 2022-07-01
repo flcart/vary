@@ -1,5 +1,6 @@
 package org.luvsa.vary.string;
 
+import org.luvsa.vary.DataType;
 import org.luvsa.vary.Factory;
 import org.luvsa.vary.FunctionManager;
 import org.luvsa.vary.TypeSupplier.Types;
@@ -13,19 +14,11 @@ import java.util.function.Function;
  * @create 2022/6/25 10:47
  */
 @Types(String.class)
-public class SFactory extends FunctionManager<String, SProvider> implements Factory {
+public class SFactory extends FunctionManager<String, SProvider> implements Factory<String> {
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T, R> Function<T, R> create(Class<R> clazz) {
-        return (Function<T, R>) cache.computeIfAbsent(clazz, this::offer);
+    public Function<String, ?> create(DataType type) {
+        return cache.computeIfAbsent(type.getClazz(), this::offer);
     }
 
-    @Override
-    protected Function<String, ?> offer(Class<?> clazz) {
-        if (CharSequence.class.isAssignableFrom(clazz)) {
-            return String::toString;
-        }
-        return map.get(clazz);
-    }
 }

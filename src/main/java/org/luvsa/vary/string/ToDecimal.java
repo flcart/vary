@@ -24,9 +24,6 @@ public class ToDecimal implements SProvider {
     @Override
     public Function<String, ?> get(Class<?> clazz) {
         return s -> {
-            if (s.isBlank()) {
-                return null;
-            }
             if (hasChinese(s)) {
                 // 解析
                 return new Parser(s).get();
