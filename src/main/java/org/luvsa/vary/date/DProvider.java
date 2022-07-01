@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.function.Function;
 
 /**
+ * {@link java.util.Date} 数据转换器函数提供者
+ *
  * @author Aglet
  * @create 2022/6/27 14:35
  */

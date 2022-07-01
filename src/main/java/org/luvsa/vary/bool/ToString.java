@@ -5,6 +5,8 @@ import org.luvsa.vary.TypeSupplier.Types;
 import java.util.function.Function;
 
 /**
+ * {@link Boolean bool} 转 {@link String 字符串}
+ *
  * @author Aglet
  * @create 2022/6/28 9:28
  */

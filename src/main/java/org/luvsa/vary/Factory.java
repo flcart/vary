@@ -3,6 +3,8 @@ package org.luvsa.vary;
 import java.util.function.Function;
 
 /**
+ * 数据转换函数工厂接口
+ *
  * @author Aglet
  * @create 2022/6/29 16:59
  */
@@ -17,7 +19,4 @@ public interface Factory extends TypeSupplier {
      * @return 转换函数
      */
     <T, R> Function<T, R> create(Class<R> clazz);
-
-    abstract class FManager<T> extends Manager<Function<T, ?>> {
-    }
 }

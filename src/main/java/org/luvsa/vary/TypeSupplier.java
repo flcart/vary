@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 import java.util.function.Function;
 
 /**
+ * 数据转换类型支持
+ *
  * @author Aglet
  * @create 2022/6/29 16:44
  */
@@ -21,7 +23,13 @@ public interface TypeSupplier {
         return new Class[0];
     }
 
-    default Function<Object, Object> next(Class<?> clazz) {
+    /**
+     * 默认下一步处理器
+     *
+     * @param clazz 目标数据类型
+     * @return 数据转换函数
+     */
+    default Function<Object, Object> vary(Class<?> clazz) {
         return o -> Vary.change(o, clazz);
     }
 
@@ -31,6 +39,7 @@ public interface TypeSupplier {
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface Types {
+
         /**
          * 可供数据转换的数据类型
          *

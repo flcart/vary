@@ -23,13 +23,11 @@ public class ToLocalTime extends BiDate implements SProvider, Function<String, L
         if (s.isBlank()) {
             return null;
         }
-
         var value = s.trim();
         var format = format(ARRAY_TIME, value);
         if (format.isBlank()) {
             throw new IllegalArgumentException("Unable to convert " + value + " to LocalDateTime");
         }
-
         var formatter = DateTimeFormatter.ofPattern(format);
         return LocalTime.parse(value, formatter);
     }

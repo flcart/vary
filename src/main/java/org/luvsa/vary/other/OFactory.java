@@ -1,8 +1,7 @@
 package org.luvsa.vary.other;
 
-import org.luvsa.vary.Cache;
 import org.luvsa.vary.Factory;
-import org.luvsa.vary.Factory.FManager;
+import org.luvsa.vary.FunctionManager;
 
 import java.util.function.Function;
 
@@ -12,13 +11,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/25 10:47
  */
-public class OFactory extends FManager<Object> implements Factory {
-
-    private final Cache<Object, OProvider> map = new Cache<>(){};
-
-    public OFactory() {
-        map.register(this::load);
-    }
+public class OFactory extends FunctionManager<Object, OProvider> implements Factory {
 
     @Override
     @SuppressWarnings("unchecked")
@@ -26,8 +19,4 @@ public class OFactory extends FManager<Object> implements Factory {
         return (Function<T, R>) cache.computeIfAbsent(clazz, this::offer);
     }
 
-    @Override
-    protected Function<Object, ?> offer(Class<?> clazz) {
-        return map.get(clazz);
-    }
 }

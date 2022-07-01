@@ -16,6 +16,6 @@ public class ToLocal  extends ToInstant implements NProvider {
 
     @Override
     public Function<Number, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(next(clazz));
+        return super.get(clazz).andThen(vary(clazz));
     }
 }

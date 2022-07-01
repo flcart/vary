@@ -30,6 +30,64 @@ module vary {
             org.luvsa.vary.string.SFactory,
             org.luvsa.vary.temporal.TFactory;
 
+    provides org.luvsa.vary.bool.BProvider with
+            org.luvsa.vary.bool.ToInteger,
+            org.luvsa.vary.bool.ToNumber,
+            org.luvsa.vary.bool.ToString;
+
+    provides org.luvsa.vary.chrono.CProvider with
+            org.luvsa.vary.chrono.ToZoned,
+            org.luvsa.vary.chrono.ToOther;
+
+    provides org.luvsa.vary.chrono.zoned.ZProvider with
+            org.luvsa.vary.chrono.zoned.ToInstant,
+            org.luvsa.vary.chrono.zoned.ToOther;
+
+    provides org.luvsa.vary.date.DProvider with
+            org.luvsa.vary.date.ToInstant,
+            org.luvsa.vary.date.ToZoned,
+            org.luvsa.vary.date.ToLocal,
+            org.luvsa.vary.date.ToLong,
+            org.luvsa.vary.date.ToString;
+
+    provides org.luvsa.vary.instant.IProvider with
+            org.luvsa.vary.instant.ToZoned,
+            org.luvsa.vary.instant.ToDate,
+            org.luvsa.vary.instant.ToLocal,
+            org.luvsa.vary.instant.ToLong;
+
+    provides org.luvsa.vary.local.LProvider with
+            org.luvsa.vary.local.ToChrono,
+            org.luvsa.vary.local.ToOther,
+            org.luvsa.vary.local.ToString;
+
+    provides org.luvsa.vary.number.NProvider with
+            org.luvsa.vary.number.ToBool,
+            org.luvsa.vary.number.ToByte,
+            org.luvsa.vary.number.ToDate,
+            org.luvsa.vary.number.ToDouble,
+            org.luvsa.vary.number.ToFloat,
+            org.luvsa.vary.number.ToInstant,
+            org.luvsa.vary.number.ToInteger,
+            org.luvsa.vary.number.ToLocal,
+            org.luvsa.vary.number.ToLong,
+            org.luvsa.vary.number.ToShort,
+            org.luvsa.vary.number.ToString;
+
+    provides org.luvsa.vary.other.OProvider with
+            org.luvsa.vary.other.ToMap;
+
     provides org.luvsa.vary.string.SProvider with
-            org.luvsa.vary.string.ToDate;
+            org.luvsa.vary.string.ToBool,
+            org.luvsa.vary.string.ToDate,
+            org.luvsa.vary.string.ToDecimal,
+            org.luvsa.vary.string.ToLocalDate,
+            org.luvsa.vary.string.ToLocalDateTime,
+            org.luvsa.vary.string.ToLocalTime,
+            org.luvsa.vary.string.ToNumber;
+
+    provides org.luvsa.vary.temporal.TProvider with
+            org.luvsa.vary.temporal.ToLocalDate,
+            org.luvsa.vary.temporal.ToLocalDateTime,
+            org.luvsa.vary.temporal.ToLocalTime;
 }

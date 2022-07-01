@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.function.Function;
 
 /**
+ * {@link java.util.Date} 转 {@link Long 时间戳}
+ *
  * @author Aglet
  * @create 2022/6/27 17:02
  */

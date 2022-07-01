@@ -1,8 +1,7 @@
 package org.luvsa.vary.string;
 
-import org.luvsa.vary.Cache;
 import org.luvsa.vary.Factory;
-import org.luvsa.vary.Factory.FManager;
+import org.luvsa.vary.FunctionManager;
 import org.luvsa.vary.TypeSupplier.Types;
 
 import java.util.function.Function;
@@ -14,13 +13,7 @@ import java.util.function.Function;
  * @create 2022/6/25 10:47
  */
 @Types(String.class)
-public class SFactory extends FManager<String> implements Factory {
-
-    private final Cache<String, SProvider> map = new Cache<>(){};
-
-    public SFactory() {
-        map.register(this::load);
-    }
+public class SFactory extends FunctionManager<String, SProvider> implements Factory {
 
     @Override
     @SuppressWarnings("unchecked")

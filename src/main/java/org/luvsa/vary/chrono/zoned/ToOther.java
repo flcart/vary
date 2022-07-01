@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.function.Function;
 
 /**
+ * {@link ChronoZonedDateTime} 转 {@link Date} 和 {@link Long 时间戳}
+ *
  * @author Aglet
  * @create 2022/6/27 16:22
  */
@@ -15,7 +17,7 @@ public class ToOther extends ToInstant implements ZProvider {
 
     @Override
     public Function<ChronoZonedDateTime<?>, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(next(clazz));
+        return super.get(clazz).andThen(vary(clazz));
     }
 
 }

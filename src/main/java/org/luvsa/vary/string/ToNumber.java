@@ -14,7 +14,7 @@ public class ToNumber extends ToDecimal implements SProvider {
 
     @Override
     public Function<String, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(next(clazz));
+        return super.get(clazz).andThen(vary(clazz));
     }
 
 }

@@ -16,7 +16,7 @@ public class ToOther extends ToChrono implements LProvider {
 
     @Override
     public Function<TemporalAccessor, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(next(clazz));
+        return super.get(clazz).andThen(vary(clazz));
     }
 
 }

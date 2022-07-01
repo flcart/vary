@@ -4,11 +4,10 @@ import org.luvsa.vary.TypeSupplier.Types;
 
 import java.time.Instant;
 import java.time.chrono.ChronoZonedDateTime;
-import java.util.Date;
 import java.util.function.Function;
 
 /**
- * 时间戳 转 {@link Date}
+ * {@link ChronoZonedDateTime} 转 {@link Instant}
  *
  * @author Aglet
  * @create 2022/6/27 13:56

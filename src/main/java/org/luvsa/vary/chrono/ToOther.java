@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.function.Function;
 
 /**
+ * {@link ChronoLocalDateTime} 转 {@link Date} 和 {@link Long 时间戳}
+ *
  * @author Aglet
  * @create 2022/6/27 16:24
  */
@@ -16,7 +18,6 @@ public class ToOther extends ToZoned implements CProvider {
 
     @Override
     public Function<ChronoLocalDateTime<?>, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(next(clazz));
+        return super.get(clazz).andThen(vary(clazz));
     }
-
 }

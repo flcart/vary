@@ -7,6 +7,8 @@ import java.math.BigInteger;
 import java.util.function.Function;
 
 /**
+ * {@link Boolean bool} 转 {@link Number 数字}
+ *
  * @author Aglet
  * @create 2022/6/28 9:32
  */
@@ -15,7 +17,7 @@ public class ToNumber extends ToInteger implements BProvider {
 
     @Override
     public Function<Boolean, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(next(clazz));
+        return super.get(clazz).andThen(vary(clazz));
     }
 
 }
