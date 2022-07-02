@@ -3,6 +3,8 @@ package org.luvsa.vary;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.luvsa.vary.other.ToMap.Iob;
+import org.luvsa.vary.other.ToMap.SupportIob;
 import org.luvsa.vary.proxy.DynamicProxy.MethodName;
 
 import java.time.LocalDate;
@@ -10,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -97,14 +100,24 @@ class VaryTest {
                 """;
         var talent = new Talent();
         talent.setText(txt);
+        talent.setPoint(20);
         var future = Vary.change(talent, Future.class);
-        var means = future.getMeans();
-        System.out.println(means);
+        var change = Vary.change(future, Map.class);
+        System.out.println(change);
     }
 
     public static class Talent {
-
+        private int point;
         private String text;
+
+
+        public int getPoint() {
+            return point;
+        }
+
+        public void setPoint(int point) {
+            this.point = point;
+        }
 
         public String getText() {
             return text;
@@ -115,20 +128,27 @@ class VaryTest {
         }
     }
 
-
+    @SupportIob
     public interface Future {
+        @Iob(value = "P值")
+        int getPoint();
 
+        @Iob(value = "含义")
         @MethodName(value = "getText", code = "s.split(\"\n\");", generics = true)
         List<Item> getMeans();
 
     }
 
+    @SupportIob
     public interface Item {
 
+        @Iob("序号")
         int getGuid();
 
+        @Iob( "名称")
         String getName();
 
+        @Iob( "数据")
         String getText();
     }
 }
