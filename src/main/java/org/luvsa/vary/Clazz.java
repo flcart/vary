@@ -4,11 +4,16 @@ import java.lang.reflect.Type;
 import java.util.Objects;
 
 /**
+ * 目标 Class 包装类
+ *
  * @author Aglet
  * @create 2022/7/1 16:26
  */
 public class Clazz implements DataType {
 
+    /**
+     * 目标 class
+     */
     private final Class<?> value;
 
     public Clazz(Class<?> value) {

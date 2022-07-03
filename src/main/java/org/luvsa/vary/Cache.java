@@ -1,46 +1,59 @@
 package org.luvsa.vary;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
- * 容器
+ * Provider 缓存
  *
  * @author Aglet
  * @create 2022/6/29 9:56
  */
-public final class Cache<T, R extends Provider<T>> {
+public final class Cache<T, R extends Provider<T>> extends Manager<R> {
 
-    private final Map<Class<?>, R> map = new HashMap<>();
+	/**
+	 * 初始化处理器
+	 */
+	private final Initiator<R> initiator;
 
-    private final Consumer<BiConsumer<Class<?>, R>> initiator;
+	public Cache(Initiator<R> initiator) {
+		this.initiator = initiator;
+	}
 
-    public Cache(Consumer<BiConsumer<Class<?>, R>> initiator) {
-        this.initiator = initiator;
-    }
+	/**
+	 * 获取转换函数
+	 *
+	 * @param clazz 目标数据类型
+	 * @return 转换函数
+	 */
+	public Function<T, ?> getFunction(Class<?> clazz) {
+		var provider = offer(clazz);
+		if (provider == null) {
+			return null;
+		}
+		return provider.get(clazz);
+	}
 
-    public Function<T, ?> getFunction(Class<?> clazz) {
-        if (map.isEmpty()) {
-            initiator.accept(map::put);
-        }
-        var provider = map.get(clazz);
-        if (provider == null) {
-            return null;
-        }
-        return provider.get(clazz);
-    }
+	/**
+	 * 获取 Provider
+	 *
+	 * @param type 目标数据类型
+	 * @return Provider
+	 */
+	public R get(DataType type) {
+		return offer(type.getClazz());
+	}
 
-    public R get(DataType type) {
-        return get(type.getClazz());
-    }
-
-    public R get(Class<?> clazz) {
-        if (map.isEmpty()) {
-            initiator.accept(map::put);
-        }
-        return map.get(clazz);
-    }
+	/**
+	 * 获取 Provider
+	 *
+	 * @param clazz 目标数据类型
+	 * @return Provider
+	 */
+	@Override
+	protected R offer(Class<?> clazz) {
+		if (cache.isEmpty()) {
+			initiator.accept(cache::put);
+		}
+		return cache.get(clazz);
+	}
 }

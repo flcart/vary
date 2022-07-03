@@ -3,7 +3,7 @@ package org.luvsa.vary;
 import java.util.function.Function;
 
 /**
- * 提供
+ * 数据转换函数的提供者接口
  *
  * @author Dale
  * @create 2022/5/5 1:45
