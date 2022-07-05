@@ -1,8 +1,8 @@
-package org.luvsa.vary;
+package org.luvsa.vary.string;
 
+import org.luvsa.vary.Item;
 import org.luvsa.vary.TypeSupplier.Types;
-import org.luvsa.vary.VaryTest.Item;
-import org.luvsa.vary.string.SProvider;
+import org.luvsa.vary.Vary;
 
 import java.util.function.Function;
 

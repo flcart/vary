@@ -1,8 +1,7 @@
-package org.luvsa.vary.proxy;
+package org.luvsa.vary.other;
 
 import org.luvsa.vary.GenericType;
 import org.luvsa.vary.Vary;
-import org.luvsa.vary.other.OProvider;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -37,21 +36,19 @@ public class DynamicProxy implements OProvider {
             for (int i = 0; i < size; i++) {
                 types[i] = args[i].getClass();
             }
-
             var aClass = source.getClass();
+
             var target = aClass.getMethod(name, types);
+
             var invoke = target.invoke(source, args);
             var cur = target.getReturnType();
-
             var tar = method.getReturnType();
             if (tar.isAssignableFrom(cur)) {
                 return invoke;
             }
-
             if (anno == null) {
                 return null;
             }
-
             var code = anno.code();
             if (code.isBlank()) {
                 return null;
@@ -64,6 +61,7 @@ public class DynamicProxy implements OProvider {
             return Vary.change(o, tar);
         }
     }
+
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

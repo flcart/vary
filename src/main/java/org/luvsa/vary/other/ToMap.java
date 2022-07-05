@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-
 /**
  * @author Aglet
  * @create 2022/6/28 11:16
@@ -22,7 +21,7 @@ import java.util.function.Function;
 @Types(Map.class)
 public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
 
-    private final Map<Class<? extends Annotation>, BiFunction<Class<?>, Object, Map<String, Object>>> map = Map.of(SupportIob.class,(clazz, o) -> {
+    private final Map<Class<? extends Annotation>, BiFunction<Class<?>, Object, Map<String, Object>>> map = Map.of(SupportIob.class, (clazz, o) -> {
         var map = new HashMap<String, Object>();
         var methods = clazz.getDeclaredMethods();
         for (var method : methods) {
@@ -32,7 +31,7 @@ public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
             }
             var alias = iob.alias();
             var value = iob.value();
-            var name = alias.isBlank() ? refer(method.getName()) : alias;
+            var name = alias.isBlank() ? Util.refer(method.getName()) : alias;
             try {
                 var invoke = method.invoke(o);
                 map.put(name, Map.of("name", value, "value", realize(invoke)));
@@ -41,7 +40,7 @@ public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
             }
         }
         return map;
-    }, SupportField.class,(clazz, o) -> {
+    }, SupportField.class, (clazz, o) -> {
         var map = new HashMap<String, Object>();
         var fields = clazz.getDeclaredFields();
         for (var field : fields) {
@@ -59,7 +58,7 @@ public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
     });
 
     private Object realize(Object invoke) {
-        if (invoke instanceof List<?> list){
+        if (invoke instanceof List<?> list) {
             var maps = new ArrayList<>();
             for (var o : list) {
                 maps.add(Vary.change(o, Map.class));
@@ -79,11 +78,11 @@ public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
         // 推断
         var aClass = infer(o);
         var apply = apply(aClass, o);
-        if (apply == null){
+        if (apply == null) {
             var interfaces = aClass.getInterfaces();
             for (Class<?> item : interfaces) {
                 var result = apply(item, o);
-                if (result != null){
+                if (result != null) {
                     return result;
                 }
             }
@@ -93,6 +92,9 @@ public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
     }
 
     private Map<String, Object> apply(Class<?> aClass, Object o) {
+        if (aClass == null) {
+            return null;
+        }
         var entries = map.entrySet();
         for (var entry : entries) {
             var key = entry.getKey();
@@ -100,12 +102,12 @@ public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
                 return entry.getValue().apply(aClass, o);
             }
         }
-        return null;
+        return apply(aClass.getSuperclass(), o);
     }
 
     private Class<?> infer(Object o) {
         var aClass = o.getClass();
-        if (Proxy.class.isAssignableFrom(aClass)){
+        if (Proxy.class.isAssignableFrom(aClass)) {
             var interfaces = aClass.getInterfaces();
             for (Class<?> anInterface : interfaces) {
                 return anInterface;
@@ -115,12 +117,6 @@ public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
         return aClass;
     }
 
-    private String refer(String name) {
-        if (name.startsWith("get")) {
-            name = name.substring(3);
-        }
-        return Strings.uncapitalize(name);
-    }
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

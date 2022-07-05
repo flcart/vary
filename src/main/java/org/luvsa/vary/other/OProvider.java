@@ -7,4 +7,6 @@ import org.luvsa.vary.Provider;
  * @create 2022/6/27 10:02
  */
 public interface OProvider extends Provider<Object> {
+
+
 }

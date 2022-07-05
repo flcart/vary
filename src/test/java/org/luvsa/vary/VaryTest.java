@@ -5,7 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.luvsa.vary.other.ToMap.Iob;
 import org.luvsa.vary.other.ToMap.SupportIob;
-import org.luvsa.vary.proxy.DynamicProxy.MethodName;
+import org.luvsa.vary.other.DynamicProxy.MethodName;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -98,38 +98,19 @@ class VaryTest {
                  11、健康：易患胃肠病，筋骨酸痛。神经质。
                  12、老运：运限平稳，但财源不佳，应注重精神修养。
                 """;
+
         var talent = new Talent();
         talent.setText(txt);
         talent.setPoint(20);
-        var future = Vary.change(talent, Future.class);
+        var future = Vary.change(talent, Tuple.class);
         var change = Vary.change(future, Map.class);
         System.out.println(change);
     }
 
-    public static class Talent {
-        private int point;
-        private String text;
-
-
-        public int getPoint() {
-            return point;
-        }
-
-        public void setPoint(int point) {
-            this.point = point;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-    }
 
     @SupportIob
     public interface Future {
+
         @Iob(value = "P值")
         int getPoint();
 
@@ -137,18 +118,33 @@ class VaryTest {
         @MethodName(value = "getText", code = "s.split(\"\n\");", generics = true)
         List<Item> getMeans();
 
+        @Iob(value = "时间")
+        default Time getTime() {
+            return new Time();
+        }
     }
 
+
     @SupportIob
-    public interface Item {
+    static class Prism {
 
-        @Iob("序号")
-        int getGuid();
+        /**
+         * @return 天干元素
+         */
+        @Iob("天干")
+        public char getGan() {
+            return '甲';
+        }
 
-        @Iob( "名称")
-        String getName();
+        /**
+         * @return 地支元素
+         */
+        @Iob("地支")
+        public char getZhi() {
+            return '午';
+        }
+    }
 
-        @Iob( "数据")
-        String getText();
+    static class Time extends Prism {
     }
 }
