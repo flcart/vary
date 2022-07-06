@@ -1,5 +1,6 @@
 package org.luvsa.vary;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -22,6 +23,7 @@ import java.util.Map;
 class VaryTest {
 
     @ParameterizedTest
+    @DisplayName("字符串转 Date")
     @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30"})
     void strToDate(String txt) {
         Date date = Vary.change(txt, Date.class);
@@ -29,6 +31,7 @@ class VaryTest {
     }
 
     @ParameterizedTest
+    @DisplayName("字符串转 LocalDate")
     @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30"})
     void strToLocalDate(String txt) {
         LocalDate date = Vary.change(txt, LocalDate.class);
@@ -36,6 +39,7 @@ class VaryTest {
     }
 
     @ParameterizedTest
+    @DisplayName("字符串转 LocalDateTime")
     @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30"})
     void strToLocalDateTime(String txt) {
         LocalDateTime dateTime = Vary.change(txt, LocalDateTime.class);
@@ -43,6 +47,7 @@ class VaryTest {
     }
 
     @ParameterizedTest
+    @DisplayName("字符串转 LocalTime")
     @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30", "12:51", "12:51:26", "12:51:26:333"})
     void strToLocalTime(String txt) {
         LocalTime time = Vary.change(txt, LocalTime.class);
@@ -50,6 +55,7 @@ class VaryTest {
     }
 
     @ParameterizedTest
+    @DisplayName("字符串转数字")
     @ValueSource(strings = {"50", "72.89", "九亿零八百零八万零六百零三", "三", "十一亿零五百万", "十", "十七", "五十三", "一百零八", "九百五十", "三千零五十四", "一万零三", "七千八百六十三万九千五百八十八", "十万", "一万零三"})
     void strToNumber(String txt) {
 
@@ -77,10 +83,36 @@ class VaryTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"1", "ok", "on", "true", "up", "y", "yes", "对", "是", "男", "真", "2002/6/28", "2002年12月1日 15:30"})
+    @DisplayName("字符串转Boolean")
     void strToBool(String txt) {
         Boolean bool = Vary.change(txt, Boolean.class);
         System.out.println(bool);
     }
+
+    @ParameterizedTest
+    @DisplayName("时间戳 转 LocalDate")
+    @ValueSource(longs = {0L, 1657109858000L, 946656000000L})
+    void longToLocalDate(long l) {
+        var date = Vary.change(l, LocalDate.class);
+        System.out.println(date);
+    }
+
+    @ParameterizedTest
+    @DisplayName("时间戳 转 LocalDateTime")
+    @ValueSource(longs = {0L, 1657109858000L, 946656000000L})
+    void longToLocalDateTime(long l) {
+        var date = Vary.change(l, LocalDateTime.class);
+        System.out.println(date);
+    }
+
+    @ParameterizedTest
+    @DisplayName("时间戳 转 LocalTime")
+    @ValueSource(longs = {0L, 1657109858000L, 946656000000L})
+    void longToLocalTime(long l) {
+        var date = Vary.change(l, LocalTime.class);
+        System.out.println(date);
+    }
+
 
     @Test
     void strToList() {

@@ -118,7 +118,7 @@ public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
     }
 
 
-    @Target(ElementType.METHOD)
+    @Target({ElementType.METHOD, ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
     public @interface Iob {
 
