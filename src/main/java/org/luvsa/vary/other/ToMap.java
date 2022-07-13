@@ -15,6 +15,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
+ *
+ *
  * @author Aglet
  * @create 2022/6/28 11:16
  */
@@ -115,27 +117,5 @@ public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
             return aClass.getSuperclass();
         }
         return aClass;
-    }
-
-
-    @Target({ElementType.METHOD, ElementType.FIELD})
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface Iob {
-
-        String value() default "";
-
-        String alias() default "";
-
-        boolean show() default true;
-    }
-
-    @Target(ElementType.TYPE)
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface SupportIob {
-    }
-
-    @Target(ElementType.TYPE)
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface SupportField {
     }
 }

@@ -9,6 +9,8 @@ import java.util.function.Function;
 /**
  * 数据转换类型支持
  *
+ * 自动转换
+ * conversion
  * @author Aglet
  * @create 2022/6/29 16:44
  */

@@ -26,6 +26,11 @@ public class DynamicProxy implements OProvider {
         return o -> Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]{clazz}, new ProxyInvocationHandler(o));
     }
 
+    @Override
+    public boolean test(Class<?> clazz) {
+        return clazz.isInterface();
+    }
+
     private record ProxyInvocationHandler(Object source) implements InvocationHandler {
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

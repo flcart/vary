@@ -1,7 +1,8 @@
 package org.luvsa.vary;
 
-import org.luvsa.vary.other.ToMap.Iob;
-import org.luvsa.vary.other.ToMap.SupportIob;
+
+import org.luvsa.vary.other.Iob;
+import org.luvsa.vary.other.SupportIob;
 
 /**
  * @author Aglet

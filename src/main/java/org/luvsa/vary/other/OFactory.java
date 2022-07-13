@@ -3,10 +3,13 @@ package org.luvsa.vary.other;
 import org.luvsa.vary.DataType;
 import org.luvsa.vary.Factory;
 import org.luvsa.vary.FunctionManager;
+import org.luvsa.vary.TypeSupplier;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -18,28 +21,30 @@ import java.util.function.Function;
  */
 public class OFactory extends FunctionManager<Object, OProvider> implements Factory<Object> {
 
-    /**
-     * 转换为代理对象
-     */
-    private final OProvider proxy = new DynamicProxy();
+    private final List<OProvider> list = new ArrayList<>();
+
+    public OFactory() {
+    }
+
+    @Override
+    public Function<Object, ?> create(DataType type) {
+        return cache.computeIfAbsent(type.getClazz(), this::offer);
+    }
+
+    @Override
+    protected <R extends TypeSupplier> void handle(R item) {
+        if (item instanceof OProvider provider) {
+            list.add(provider);
+        }
+    }
 
     @Override
     protected Function<Object, ?> next(Class<?> clazz) {
-        if (clazz.isInterface()) {
-            return proxy.get(clazz);
+        for (var item : list) {
+            if (item.test(clazz)) {
+                return item.get(clazz);
+            }
         }
-        // 相似转换
-//        return o -> {
-//            try {
-//                var tar = clazz.getConstructor().newInstance();
-//                if (fill(tar, getValues(o))) {
-//                    return tar;
-//                }
-//                return next(clazz);
-//            } catch (Exception e) {
-//                return next(clazz);
-//            }
-//        };
         return super.next(clazz);
     }
 
@@ -92,8 +97,4 @@ public class OFactory extends FunctionManager<Object, OProvider> implements Fact
         return null;
     }
 
-    @Override
-    public Function<Object, ?> create(DataType type) {
-        return cache.computeIfAbsent(type.getClazz(), this::offer);
-    }
 }

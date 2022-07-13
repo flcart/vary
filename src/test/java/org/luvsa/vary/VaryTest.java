@@ -4,16 +4,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.luvsa.vary.other.ToMap.Iob;
-import org.luvsa.vary.other.ToMap.SupportIob;
 import org.luvsa.vary.other.DynamicProxy.MethodName;
+import org.luvsa.vary.other.Iob;
+import org.luvsa.vary.other.SupportIob;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -134,8 +133,18 @@ class VaryTest {
         var talent = new Talent();
         talent.setText(txt);
         talent.setPoint(20);
-        var future = Vary.change(talent, Tuple.class);
-        var change = Vary.change(future, Map.class);
+//        var future = Vary.change(talent, Tuple.class);
+//        var change = Vary.change(future, Map.class);
+//        System.out.println(change);
+        var prism = Vary.change(talent, Prism.class);
+        System.out.println(prism);
+    }
+
+
+    @Test
+    void oto(){
+        var prism = new Prism();
+        var change = Vary.change(prism, Future.class);
         System.out.println(change);
     }
 
@@ -154,10 +163,12 @@ class VaryTest {
         default Time getTime() {
             return new Time();
         }
+
     }
 
 
     @SupportIob
+    @Conversion("toPrism")
     static class Prism {
 
         /**
@@ -175,6 +186,7 @@ class VaryTest {
         public char getZhi() {
             return '午';
         }
+
     }
 
     static class Time extends Prism {

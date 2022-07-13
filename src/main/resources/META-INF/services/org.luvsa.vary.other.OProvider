@@ -1,2 +1,3 @@
 org.luvsa.vary.other.ToMap
 org.luvsa.vary.other.DynamicProxy
+org.luvsa.vary.other.SpecifyMethod
