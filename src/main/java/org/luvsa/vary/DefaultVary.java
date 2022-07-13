@@ -67,7 +67,6 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
                 }
             }
         }
-
         if (Proxy.class.isAssignableFrom(clazz)) {
             // 动态代理问题， 会取第一个接口， 如果是多个接口，则会有问题
             var interfaces = clazz.getInterfaces();
@@ -78,6 +77,17 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
                 }
             }
         }
-        return cache.get(clazz);
+        // 继承
+        return cache.computeIfAbsent(clazz, this::inherit);
+    }
+
+    private Factory<?> inherit(Class<?> clazz) {
+        var set = cache.keySet();
+        for (var item : set) {
+            if (item.isAssignableFrom(clazz)) {
+                return cache.get(item);
+            }
+        }
+        return null;
     }
 }

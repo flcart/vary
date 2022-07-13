@@ -21,6 +21,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Objects;
 
 /**
+ *
  * @author Aglet
  * @create 2022/7/1 17:22
  */
@@ -41,9 +42,7 @@ class GenTest {
 
         var filePath = "src/main/resources/META-INF/services/" + service.getName();
         var services = Path.of(filePath);
-
         var builder = new StringBuilder();
-
         Files.walkFileTree(path, new SimpleFileVisitor<>() {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
@@ -116,6 +115,7 @@ class GenTest {
             if (file.isDirectory()) {
                 throw new IllegalArgumentException(file + " is directory!");
             }
+
         } else {
             var parent = file.getParentFile();
             if (!parent.exists() && !parent.mkdirs()) {

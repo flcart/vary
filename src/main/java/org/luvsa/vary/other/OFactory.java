@@ -40,7 +40,7 @@ public class OFactory extends FunctionManager<Object, OProvider> implements Fact
 //                return next(clazz);
 //            }
 //        };
-        return next(clazz);
+        return super.next(clazz);
     }
 
     private Map<String, Object> getValues(Object o) {
