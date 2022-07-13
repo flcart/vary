@@ -6,11 +6,15 @@ import java.util.function.Consumer;
 
 /**
  * 获取泛型参数工具
- *
+ * Reflect
  * @author Aglet
  * @create 2022/7/1 13:53
  */
-public class Generics {
+public final class Generics {
+
+	private Generics() {
+		throw new AssertionError("No org.luvsa.vary.Generics instances for you!");
+	}
 
 	/**
 	 * 处理泛型参数

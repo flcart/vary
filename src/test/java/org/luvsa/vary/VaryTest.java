@@ -167,16 +167,11 @@ class VaryTest {
         @MethodName(value = "getText", code = "s.split(\"\n\");", generics = true)
         List<Item> getMeans();
 
-        @Iob(value = "时间")
-        default Time getTime() {
-            return new Time();
-        }
-
     }
 
 
     @SupportIob
-    @Conversion("toPrism")
+    @Conversion("org.luvsa.vary.VaryTest#toPrism")
     static class Prism {
 
         /**
@@ -198,5 +193,9 @@ class VaryTest {
     }
 
     static class Time extends Prism {
+    }
+
+    public static Time toPrism(Talent talent) {
+        return new Time();
     }
 }

@@ -1,10 +1,12 @@
 package org.luvsa.vary.other;
 
 import org.luvsa.vary.Conversion;
+import org.luvsa.vary.Reflects;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
@@ -14,7 +16,7 @@ import java.util.function.Function;
  */
 public class SpecifyMethod implements OProvider {
 
-    private final Map<String, Method> cache = new ConcurrentHashMap<>();
+    private final Map<Class<?>, Map<String, Method>> cache = new ConcurrentHashMap<>();
 
     @Override
     public boolean test(Class<?> clazz) {
@@ -25,35 +27,63 @@ public class SpecifyMethod implements OProvider {
     public Function<Object, ?> get(Class<?> clazz) {
         var anno = clazz.getAnnotation(Conversion.class);
         var guid = anno.value();
-        return o -> {
-            var method = fetch(o, guid);
-            if (method == null) {
-                throw new UnsupportedOperationException();
-            }
-            try {
-                return method.invoke(o);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
-        };
+        return o -> invoke(o, guid);
     }
 
-    private Method fetch(Object o, String name) {
-        var aClass = o.getClass();
-        var className = aClass.getName();
-        var key = className + "#" + name;
-        var method = cache.get(key);
-        if (method == null) {
-            var methods = aClass.getDeclaredMethods();
-            for (var item : methods) {
-                var anno = item.getAnnotation(Conversion.class);
-                if (anno == null) {
-                    continue;
-                }
-                cache.put(className + "#" + item.getName(), item);
-            }
-            return cache.get(key);
+    private Object invoke(Object o, String name) {
+        var index = name.indexOf("#");
+        if (index < 0) {
+            var method = find(o, name);
+            return Reflects.invokeMethod(method, o);
         }
-        return method;
+        var sub = name.substring(0, index);
+        try {
+            var aClass = Class.forName(sub);
+            var methodName = name.substring(index + 1);
+            var methods = Reflects.getUniqueDeclaredMethods(aClass, method -> Objects.equals(methodName, method.getName()));
+            for (var method : methods) {
+                try {
+                    var types = method.getParameterTypes();
+                    if (types.length == 1 && types[0].isAssignableFrom(o.getClass())) {
+                        return Reflects.invokeMethod(method, null, o);
+                    }
+                    return Reflects.invokeMethod(method, null);
+                } catch (Throwable ex) {
+                    throw new IllegalStateException(name, ex);
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        throw new IllegalStateException(name);
+    }
+
+    private Method find(Object o, String name) {
+        var aClass = o.getClass();
+        var map = cache.get(aClass);
+        if (map == null || map.isEmpty()) {
+            var temp = new HashMap<String, Method>();
+            Reflects.doWithMethods(aClass, item -> {
+                temp.put(item.getName(), item);
+            }, item -> item.isAnnotationPresent(Conversion.class));
+            if (temp.isEmpty()) {
+                throw new IllegalStateException("类" + aClass.getName() + "中不存在带有[org.luvsa.vary.Conversion]注解的方法!");
+            }
+            cache.put(aClass, (map = temp));
+        }
+        var method = map.get(name);
+        if (method != null) {
+            return method;
+        }
+        if (!name.isBlank()) {
+            throw new IllegalStateException("在" + aClass + "类中没有找到" + name + "方法");
+        }
+        if (map.size() != 1) {
+            throw new IllegalStateException("无法确认您具体需要方法！");
+        }
+        for (var item : map.values()) {
+            return item;
+        }
+        throw new IllegalStateException("无法运行到这里");
     }
 }

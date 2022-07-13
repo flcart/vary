@@ -6,7 +6,11 @@ package org.luvsa.vary;
  * @author Dale
  * @create 2022/4/29 0:17
  */
-public abstract class Strings {
+public final class Strings {
+
+	private Strings() {
+		throw new AssertionError("No org.luvsa.vary.Strings instances for you!");
+	}
 
 	/**
 	 * 小写首字母
