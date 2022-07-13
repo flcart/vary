@@ -42,7 +42,6 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
             // 当前数据与目标数据存在继承或者实现关系
             return value;
         }
-
         try {
             // 查找数据转换工厂 对应的类型转换器
             return next(offer(clz), value, type);

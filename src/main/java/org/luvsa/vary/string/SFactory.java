@@ -5,6 +5,7 @@ import org.luvsa.vary.Factory;
 import org.luvsa.vary.FunctionManager;
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -16,9 +17,12 @@ import java.util.function.Function;
 @Types(String.class)
 public class SFactory extends FunctionManager<String, SProvider> implements Factory<String> {
 
+    private final Function<String, Optional<String>> barrier = s -> s.isBlank() ? Optional.empty() : Optional.of(s);
+    
     @Override
     public Function<String, ?> create(DataType type) {
-        return cache.computeIfAbsent(type.getClazz(), this::offer);
+        return  barrier.andThen(
+                optional -> optional.map(cache.computeIfAbsent(type.getClazz(), this::offer)).orElse(null)
+        );
     }
-
 }

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="8.752367424242493" y="229.0">org.luvsa.vary.other.DynamicProxy</node>
+    <node x="196.71212121212125" y="302.0">org.luvsa.vary.other.OFactory</node>
+    <node x="918.25" y="229.0">org.luvsa.vary.FunctionManager</node>
+    <node x="552.3731060606062" y="-57.0">org.luvsa.vary.temporal.ToLocalDateTime</node>
+    <node x="1290.3731060606062" y="149.0">org.luvsa.vary.temporal.ToLocalDate</node>
+    <node x="569.3731060606062" y="69.0">org.luvsa.vary.Provider</node>
+    <node x="401.1503722570534" y="501.0">org.luvsa.vary.string.SProvider</node>
+    <node x="110.5" y="-87.0">org.luvsa.vary.DataType</node>
+    <node x="584.3731060606062" y="381.0">org.luvsa.vary.string.SFactory</node>
+    <node x="780.7926136363637" y="229.0">org.luvsa.vary.other.ToMap</node>
+    <node x="89.37310606060618" y="69.0">org.luvsa.vary.Factory</node>
+    <node x="760.2926136363637" y="-57.0">org.luvsa.vary.temporal.ToLocalTime</node>
+    <node x="1018.5426136363637" y="581.0">org.luvsa.vary.string.ToLocalTime</node>
+    <node x="-97.0" y="-9.0">org.luvsa.vary.Clazz</node>
+    <node x="268.54261363636374" y="581.0">org.luvsa.vary.string.ToBool</node>
+    <node x="166.0" y="-9.0">org.luvsa.vary.GenericType</node>
+    <node x="-106.0" y="302.0">org.luvsa.vary.Generics</node>
+    <node x="390.54261363636374" y="581.0">org.luvsa.vary.string.ToDate</node>
+    <node x="410.37310606060623" y="69.0">org.luvsa.vary.Initiator</node>
+    <node x="410.25" y="149.0">org.luvsa.vary.Cache</node>
+    <node x="1000.2926136363637" y="501.0">org.luvsa.vary.string.BiDate</node>
+    <node x="1300.3731060606062" y="-107.5">org.luvsa.vary.temporal.TProvider</node>
+    <node x="-95.0" y="69.0">org.luvsa.vary.Vary</node>
+    <node x="282.904682601881" y="661.0">org.luvsa.vary.string.ToNumber</node>
+    <node x="-37.486742424242436" y="149.0">org.luvsa.vary.DefaultVary</node>
+    <node x="857.5426136363637" y="581.0">org.luvsa.vary.string.ToLocalDate</node>
+    <node x="140.54261363636374" y="581.0">org.luvsa.vary.string.ToArray</node>
+    <node x="244.37310606060618" y="69.0">org.luvsa.vary.Manager</node>
+    <node x="681.7926136363637" y="149.0">org.luvsa.vary.other.OProvider</node>
+    <node x="513.5426136363637" y="581.0">org.luvsa.vary.string.ToDecimal</node>
+    <node x="660.5426136363637" y="581.0">org.luvsa.vary.string.ToLocalDateTime</node>
+    <node x="1193.811553030303" y="302.0">org.luvsa.vary.temporal.TFactory</node>
+    <node x="328.0" y="-9.0">org.luvsa.vary.TypeSupplier</node>
+    <node x="52.0" y="302.0">org.luvsa.vary.Strings</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.luvsa.vary.other.DynamicProxy" target="org.luvsa.vary.other.OProvider" relationship="REALIZATION">
+      <point x="-3.674242424978047E-4" y="-14.0" />
+      <point x="85.252" y="203.0" />
+      <point x="743.793" y="203.0" />
+      <point x="3.8636363626665116E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.Clazz" target="org.luvsa.vary.DataType" relationship="REALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="-54.0" y="-34.0" />
+      <point x="170.0" y="-34.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.FunctionManager" target="org.luvsa.vary.Cache" relationship="CREATE">
+      <point x="-16.5" y="-14.0" />
+      <point x="1015.25" y="190.0" />
+      <point x="492.25" y="190.0" />
+      <point x="10.5" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.Factory" target="org.luvsa.vary.TypeSupplier" relationship="INTERFACE_GENERALIZATION">
+      <point x="-1.0606060618556512E-4" y="-14.0" />
+      <point x="156.873" y="44.0" />
+      <point x="401.5" y="44.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToLocalDate" target="org.luvsa.vary.string.BiDate" relationship="GENERALIZATION">
+      <point x="-14.999613636363733" y="-14.0" />
+      <point x="913.043" y="513.0" />
+      <point x="761.5" y="513.0" />
+      <point x="761.5" y="483.5" />
+      <point x="1064.293" y="483.5" />
+      <point x="3.863636361529643E-4" y="-14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.FunctionManager" target="org.luvsa.vary.Manager" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="1031.75" y="123.0" />
+      <point x="317.373" y="123.0" />
+      <point x="-1.0606060618556512E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.other.OFactory" target="org.luvsa.vary.other.OProvider" relationship="TO_MANY">
+      <point x="58.0" y="0.0" />
+      <point x="728.793" y="316.0" />
+      <point x="-14.999613636363733" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToLocalTime" target="org.luvsa.vary.string.SProvider" relationship="REALIZATION">
+      <point x="3.863636361529643E-4" y="-14.0" />
+      <point x="1090.043" y="555.0" />
+      <point x="461.65" y="555.0" />
+      <point x="-3.7225705341370485E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.SProvider" target="org.luvsa.vary.Provider" relationship="INTERFACE_GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="461.6503722570534" y="441.5" />
+      <point x="1463.8731060606062" y="441.5" />
+      <point x="1463.8731060606062" y="44.0" />
+      <point x="670.873" y="44.0" />
+      <point x="29.999893939393814" y="-14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.DefaultVary" target="org.luvsa.vary.Vary" relationship="TO_ONE">
+      <point x="-59.5" y="-14.0" />
+      <point x="24.013257575757564" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.DefaultVary" target="org.luvsa.vary.Manager" relationship="GENERALIZATION">
+      <point x="-2.57575757562023E-4" y="-14.0" />
+      <point x="29.513" y="123.0" />
+      <point x="317.373" y="123.0" />
+      <point x="-1.0606060618556512E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.DefaultVary" target="org.luvsa.vary.Vary" relationship="REALIZATION">
+      <point x="-67.0" y="0.0" />
+      <point x="-54.986742424242436" y="163.0" />
+      <point x="-0.9867424242424363" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.other.OFactory" target="org.luvsa.vary.FunctionManager" relationship="GENERALIZATION">
+      <point x="0.0" y="14.0" />
+      <point x="254.71212121212125" y="347.5" />
+      <point x="1016.75" y="347.5" />
+      <point x="-15.0" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.DefaultVary" target="org.luvsa.vary.other.OFactory" relationship="CREATE">
+      <point x="67.0" y="0.0" />
+      <point x="201.87310606060618" y="163.0" />
+      <point x="-52.83901515151507" y="-14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.Vary" target="org.luvsa.vary.Clazz" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.temporal.ToLocalTime" target="org.luvsa.vary.temporal.TProvider" relationship="REALIZATION">
+      <point x="3.8636363626665116E-4" y="-14.0" />
+      <point x="831.793" y="-81.0" />
+      <point x="1270.0" y="-81.0" />
+      <point x="1270.0" y="-93.5" />
+      <point x="-60.500106060606186" y="-0.0" />
+    </edge>
+    <edge source="org.luvsa.vary.Cache" target="org.luvsa.vary.Provider" relationship="DEPENDENCY">
+      <point x="0.0" y="14.0" />
+      <point x="481.75" y="280.0" />
+      <point x="1162.75" y="280.0" />
+      <point x="1162.75" y="83.0" />
+      <point x="71.49989393939381" y="0.0" />
+    </edge>
+    <edge source="org.luvsa.vary.other.OFactory" target="org.luvsa.vary.Factory" relationship="REALIZATION">
+      <point x="-37.83901515151507" y="-14.0" />
+      <point x="60.0" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.other.ToMap" target="org.luvsa.vary.other.OProvider" relationship="REALIZATION">
+      <point x="3.8636363626665116E-4" y="-14.0" />
+      <point x="831.793" y="203.0" />
+      <point x="743.793" y="203.0" />
+      <point x="3.8636363626665116E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.temporal.ToLocalDate" target="org.luvsa.vary.temporal.TProvider" relationship="REALIZATION">
+      <point x="-70.50010606060619" y="-0.0" />
+      <point x="1270.0" y="163.0" />
+      <point x="1270.0" y="-93.5" />
+      <point x="-60.500106060606186" y="-0.0" />
+    </edge>
+    <edge source="org.luvsa.vary.temporal.ToLocalDateTime" target="org.luvsa.vary.temporal.TProvider" relationship="REALIZATION">
+      <point x="-1.0606060618556512E-4" y="-14.0" />
+      <point x="640.873" y="-81.0" />
+      <point x="1270.0" y="-81.0" />
+      <point x="1270.0" y="-93.5" />
+      <point x="-60.500106060606186" y="-0.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToNumber" target="org.luvsa.vary.string.SProvider" relationship="REALIZATION">
+      <point x="-64.49968260188103" y="0.0" />
+      <point x="123.043" y="675.0" />
+      <point x="123.043" y="555.0" />
+      <point x="461.65" y="555.0" />
+      <point x="-3.7225705341370485E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToLocalDateTime" target="org.luvsa.vary.string.BiDate" relationship="GENERALIZATION">
+      <point x="-14.999613636363733" y="-14.0" />
+      <point x="734.043" y="513.0" />
+      <point x="761.5" y="513.0" />
+      <point x="761.5" y="483.5" />
+      <point x="1064.293" y="483.5" />
+      <point x="3.863636361529643E-4" y="-14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.temporal.TProvider" target="org.luvsa.vary.Provider" relationship="INTERFACE_GENERALIZATION">
+      <point x="-0.0" y="14.0" />
+      <point x="1360.8731060606062" y="11.5" />
+      <point x="655.873" y="11.5" />
+      <point x="14.999893939393814" y="-14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.FunctionManager" target="org.luvsa.vary.Cache" relationship="TO_ONE">
+      <point x="-10.5" y="-14.0" />
+      <point x="1021.25" y="136.0" />
+      <point x="492.25" y="136.0" />
+      <point x="10.5" y="-14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToBool" target="org.luvsa.vary.string.SProvider" relationship="REALIZATION">
+      <point x="3.8636363626665116E-4" y="-14.0" />
+      <point x="319.543" y="555.0" />
+      <point x="461.65" y="555.0" />
+      <point x="-3.7225705341370485E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToArray" target="org.luvsa.vary.string.SProvider" relationship="REALIZATION">
+      <point x="3.8636363626665116E-4" y="-14.0" />
+      <point x="194.543" y="555.0" />
+      <point x="461.65" y="555.0" />
+      <point x="-3.7225705341370485E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToLocalTime" target="org.luvsa.vary.string.BiDate" relationship="GENERALIZATION">
+      <point x="3.863636361529643E-4" y="14.0" />
+      <point x="1090.043" y="632.0" />
+      <point x="776.0" y="632.0" />
+      <point x="776.0" y="706.5" />
+      <point x="1209.5" y="706.5" />
+      <point x="1209.5" y="468.5" />
+      <point x="689.873" y="468.5" />
+      <point x="689.873" y="513.0" />
+      <point x="761.5" y="513.0" />
+      <point x="761.5" y="483.5" />
+      <point x="1064.293" y="483.5" />
+      <point x="3.863636361529643E-4" y="-14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToDecimal" target="org.luvsa.vary.string.SProvider" relationship="REALIZATION">
+      <point x="3.8636363626665116E-4" y="-14.0" />
+      <point x="577.043" y="555.0" />
+      <point x="461.65" y="555.0" />
+      <point x="-3.7225705341370485E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.SFactory" target="org.luvsa.vary.FunctionManager" relationship="GENERALIZATION">
+      <point x="56.5" y="0.0" />
+      <point x="1046.75" y="395.0" />
+      <point x="15.0" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToDate" target="org.luvsa.vary.string.BiDate" relationship="GENERALIZATION">
+      <point x="3.8636363626665116E-4" y="14.0" />
+      <point x="442.043" y="632.0" />
+      <point x="776.0" y="632.0" />
+      <point x="776.0" y="706.5" />
+      <point x="1209.5" y="706.5" />
+      <point x="1209.5" y="468.5" />
+      <point x="689.873" y="468.5" />
+      <point x="689.873" y="513.0" />
+      <point x="761.5" y="513.0" />
+      <point x="761.5" y="483.5" />
+      <point x="1064.293" y="483.5" />
+      <point x="3.863636361529643E-4" y="-14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.temporal.TFactory" target="org.luvsa.vary.Factory" relationship="REALIZATION">
+      <point x="56.5" y="0.0" />
+      <point x="1448.8731060606062" y="316.0" />
+      <point x="1448.8731060606062" y="-125.0" />
+      <point x="93.0" y="-125.0" />
+      <point x="-63.873106060606176" y="-14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.other.OProvider" target="org.luvsa.vary.Provider" relationship="INTERFACE_GENERALIZATION">
+      <point x="-38.91950757575751" y="-14.0" />
+      <point x="64.0" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.temporal.TFactory" target="org.luvsa.vary.FunctionManager" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="1250.311553030303" y="243.0" />
+      <point x="113.5" y="0.0" />
+    </edge>
+    <edge source="org.luvsa.vary.Provider" target="org.luvsa.vary.TypeSupplier" relationship="INTERFACE_GENERALIZATION">
+      <point x="-1.0606060618556512E-4" y="-14.0" />
+      <point x="640.873" y="44.0" />
+      <point x="401.5" y="44.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.FunctionManager" target="org.luvsa.vary.Provider" relationship="DEPENDENCY">
+      <point x="0.0" y="14.0" />
+      <point x="1031.75" y="280.0" />
+      <point x="1162.75" y="280.0" />
+      <point x="1162.75" y="83.0" />
+      <point x="71.49989393939381" y="0.0" />
+    </edge>
+    <edge source="org.luvsa.vary.GenericType" target="org.luvsa.vary.DataType" relationship="REALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="237.0" y="-34.0" />
+      <point x="170.0" y="-34.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.Cache" target="org.luvsa.vary.Initiator" relationship="TO_ONE">
+      <point x="-15.0" y="-14.0" />
+      <point x="-13.123106060606233" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.DefaultVary" target="org.luvsa.vary.Factory" relationship="TO_ONE">
+      <point x="-15.000257575757558" y="-14.0" />
+      <point x="14.513000000000005" y="83.0" />
+      <point x="-67.5" y="0.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.SFactory" target="org.luvsa.vary.Factory" relationship="REALIZATION">
+      <point x="-56.5" y="0.0" />
+      <point x="-123.5" y="395.0" />
+      <point x="-123.5" y="44.0" />
+      <point x="141.873" y="44.0" />
+      <point x="-15.000106060606186" y="-14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToDate" target="org.luvsa.vary.string.SProvider" relationship="REALIZATION">
+      <point x="3.8636363626665116E-4" y="-14.0" />
+      <point x="442.043" y="555.0" />
+      <point x="461.65" y="555.0" />
+      <point x="-3.7225705341370485E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToNumber" target="org.luvsa.vary.string.ToDecimal" relationship="GENERALIZATION">
+      <point x="64.5" y="0.0" />
+      <point x="577.0426136363637" y="675.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.Cache" target="org.luvsa.vary.Manager" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.0" />
+      <point x="481.75" y="123.0" />
+      <point x="317.373" y="123.0" />
+      <point x="-1.0606060618556512E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToLocalDate" target="org.luvsa.vary.string.SProvider" relationship="REALIZATION">
+      <point x="3.8636363626665116E-4" y="-14.0" />
+      <point x="928.043" y="555.0" />
+      <point x="461.65" y="555.0" />
+      <point x="-3.7225705341370485E-4" y="14.0" />
+    </edge>
+    <edge source="org.luvsa.vary.string.ToLocalDateTime" target="org.luvsa.vary.string.SProvider" relationship="REALIZATION">
+      <point x="3.8636363626665116E-4" y="-14.0" />
+      <point x="749.043" y="555.0" />
+      <point x="461.65" y="555.0" />
+      <point x="-3.7225705341370485E-4" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="分层" zoom="0.875" showDependencies="true" x="670.0" y="295.0" />
+  <SelectedNodes>
+    <node>org.luvsa.vary.string.BiDate</node>
+    <node>org.luvsa.vary.string.ToLocalDate</node>
+    <node>org.luvsa.vary.string.ToLocalDateTime</node>
+    <node>org.luvsa.vary.string.ToLocalTime</node>
+    <node>org.luvsa.vary.string.SProvider</node>
+    <node>org.luvsa.vary.string.ToDecimal</node>
+    <node>org.luvsa.vary.string.SFactory</node>
+    <node>org.luvsa.vary.string.ToBool</node>
+    <node>org.luvsa.vary.string.ToDate</node>
+    <node>org.luvsa.vary.string.ToArray</node>
+    <node>org.luvsa.vary.string.ToNumber</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

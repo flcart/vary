@@ -79,6 +79,14 @@ class VaryTest {
         System.out.println(bDouble);
     }
 
+    @Test
+    void strToNum(){
+        var a = Vary.change("", int.class);
+        var b = Vary.change("", 0);
+        var change = Vary.change("", LocalTime.class);
+        System.out.println(a + " + " + b);
+    }
+
 
     @ParameterizedTest
     @ValueSource(strings = {"1", "ok", "on", "true", "up", "y", "yes", "对", "是", "男", "真", "2002/6/28", "2002年12月1日 15:30"})

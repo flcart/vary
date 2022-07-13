@@ -9,7 +9,6 @@ import java.util.function.Function;
  * @create 2022/6/25 10:31
  */
 public interface Factory<T> extends TypeSupplier {
-
     /**
      * 创建转换函数
      *

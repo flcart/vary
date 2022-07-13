@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>vary</artifactId>
-    <groupId>org.luvsa</groupId>
+    <groupId>cn.luvsa</groupId>
     <version>0.0.1</version>
 
     <properties>
