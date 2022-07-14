@@ -28,7 +28,6 @@ public class Talent {
         this.text = text;
     }
 
-    @Conversion
     public Prism toPrism(){
         return new Prism();
     }

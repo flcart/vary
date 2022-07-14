@@ -1,6 +1,7 @@
 package org.luvsa.vary;
 
 import org.junit.jupiter.api.Test;
+import org.luvsa.reflect.Generics;
 
 import java.util.ArrayList;
 import java.util.List;

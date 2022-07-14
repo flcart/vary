@@ -1,10 +1,10 @@
 package org.luvsa.vary.other;
 
-import org.luvsa.vary.Strings;
+import org.luvsa.lang.Strings;
 import org.luvsa.vary.TypeSupplier.Types;
 import org.luvsa.vary.Vary;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;

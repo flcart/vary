@@ -1,4 +1,4 @@
-package org.luvsa.vary;
+package org.luvsa.reflect;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 public final class Generics {
 
 	private Generics() {
-		throw new AssertionError("No org.luvsa.vary.Generics instances for you!");
+		throw new AssertionError("No org.luvsa.reflect.Generics instances for you!");
 	}
 
 	/**

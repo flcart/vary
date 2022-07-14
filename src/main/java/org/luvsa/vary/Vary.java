@@ -83,4 +83,5 @@ public interface Vary {
      * @return 目标数据
      */
     <T> Object apply(T value, DataType type);
+
 }

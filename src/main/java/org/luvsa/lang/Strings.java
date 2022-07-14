@@ -1,4 +1,4 @@
-package org.luvsa.vary;
+package org.luvsa.lang;
 
 /**
  * 字符串工具

@@ -1,6 +1,6 @@
 package org.luvsa.vary.other;
 
-import org.luvsa.vary.Strings;
+import org.luvsa.lang.Strings;
 
 /**
  * @author Aglet

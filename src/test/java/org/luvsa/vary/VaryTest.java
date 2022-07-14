@@ -11,6 +11,7 @@ import org.luvsa.vary.other.SupportIob;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -81,10 +82,12 @@ class VaryTest {
 
     @Test
     void strToNum(){
-        var a = Vary.change("", int.class);
-        var b = Vary.change("", 0);
-        var change = Vary.change("", LocalTime.class);
-        System.out.println(a + " + " + b);
+//        var a = Vary.change("", int.class);
+//        var b = Vary.change("", 0);
+//        var change = Vary.change("", LocalTime.class);
+//        System.out.println(a + " + " + b);
+        var change = Vary.change('c', char.class);
+        System.out.println(change);
     }
 
 
@@ -92,7 +95,7 @@ class VaryTest {
     @ValueSource(strings = {"1", "ok", "on", "true", "up", "y", "yes", "对", "是", "男", "真", "2002/6/28", "2002年12月1日 15:30"})
     @DisplayName("字符串转Boolean")
     void strToBool(String txt) {
-        Boolean bool = Vary.change(txt, Boolean.class);
+        var bool = Vary.change(txt, Boolean.class);
         System.out.println(bool);
     }
 
@@ -120,6 +123,23 @@ class VaryTest {
         System.out.println(date);
     }
 
+    @Test
+    void numToChar(){
+        // lowSurrogate
+        //highSurrogate
+//        var A = Vary.change(65, char.class);
+//        var Z = Vary.change(65, char.class);
+//        var c = Vary.change(65, char.class);
+//        var a = Vary.change(65, char.class);
+//        var b = Vary.change(65, char.class);
+//        var c = Vary.change(65, char.class);
+        var list = new ArrayList<>();
+        for (int i = 0; i < 127; i++) {
+            var change = Vary.change(i, char.class);
+            list.add(change);
+        }
+        System.out.println(list);
+    }
 
     @Test
     void strToList() {
@@ -171,7 +191,6 @@ class VaryTest {
 
 
     @SupportIob
-    @Conversion("org.luvsa.vary.VaryTest#toPrism")
     static class Prism {
 
         /**

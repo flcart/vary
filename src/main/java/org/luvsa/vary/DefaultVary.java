@@ -71,7 +71,7 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
             // 加载 转换器工厂
             synchronized (cache) {
                 if (cache.isEmpty()) {
-                    load(Factory.class, cache::put);
+                    loader.load(Factory.class, cache::put);
                 }
             }
         }

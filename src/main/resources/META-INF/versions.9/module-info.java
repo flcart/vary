@@ -1,3 +1,5 @@
+import org.luvsa.vary.bool.ToBoolean;
+
 /**
  * @author Aglet
  * @create 2022/6/29 17:39
@@ -77,6 +79,7 @@ module vary {
     provides org.luvsa.vary.number.NProvider with
             org.luvsa.vary.number.ToBool,
             org.luvsa.vary.number.ToByte,
+            org.luvsa.vary.number.ToChar,
             org.luvsa.vary.number.ToDate,
             org.luvsa.vary.number.ToDouble,
             org.luvsa.vary.number.ToFloat,

@@ -1,5 +1,7 @@
 package org.luvsa.vary;
 
+import org.luvsa.reflect.Generics;
+
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -64,7 +66,7 @@ public abstract class FunctionManager<T, R extends Provider<T>> extends Manager<
 			@SuppressWarnings("unchecked")
 			var clazz = (Class<R>) aClass;
             // 加载 Provider
-			load(clazz, initiator);
+			loader.load(clazz, initiator, this::handle);
 		});
 	}
 }

@@ -1,7 +1,7 @@
 package org.luvsa.vary.string.array;
 
 import org.luvsa.vary.DataType;
-import org.luvsa.vary.Generics;
+import org.luvsa.reflect.Generics;
 import org.luvsa.vary.TypeSupplier.Types;
 import org.luvsa.vary.Vary;
 

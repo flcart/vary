@@ -1,5 +1,6 @@
 org.luvsa.vary.number.ToBool
 org.luvsa.vary.number.ToByte
+org.luvsa.vary.number.ToChar
 org.luvsa.vary.number.ToDate
 org.luvsa.vary.number.ToDouble
 org.luvsa.vary.number.ToFloat
