@@ -5,6 +5,7 @@ import org.luvsa.vary.Factory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,13 +23,13 @@ public class OFactory extends AbstractFactory<Object, OProvider> implements Fact
     private final List<OProvider> list = new ArrayList<>();
 
     @Override
-    protected Function<Object, ?> next(Class<?> clazz) {
+    protected Function<Object, ?> next(Type type) {
         for (var item : list) {
-            if (item.test(clazz)) {
-                return item.get(clazz);
+            if (item.test(type)){
+                return item.get(type);
             }
         }
-        return super.next(clazz);
+        return super.next(type);
     }
 
     @Override

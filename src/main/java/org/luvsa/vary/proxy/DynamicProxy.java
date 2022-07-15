@@ -1,13 +1,13 @@
 package org.luvsa.vary.proxy;
 
 import org.luvsa.reflect.Reflects;
-import org.luvsa.vary.DataType;
 import org.luvsa.vary.Vary;
 import org.luvsa.vary.other.OProvider;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
@@ -23,13 +23,17 @@ import java.util.function.Function;
 public class DynamicProxy implements OProvider {
 
     @Override
-    public Function<Object, ?> get(Class<?> clazz) {
+    public Function<Object, ?> get(Type type) {
+        var clazz = (Class<?>) type;
         return o -> Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]{clazz}, new ProxyInvocationHandler(o));
     }
 
     @Override
-    public boolean test(Class<?> clazz) {
-        return clazz.isInterface();
+    public boolean test(Type type) {
+        if (type instanceof Class<?> clazz) {
+            return clazz.isInterface();
+        }
+        return false;
     }
 
     private record ProxyInvocationHandler(Object source) implements InvocationHandler {
@@ -69,9 +73,8 @@ public class DynamicProxy implements OProvider {
             }
             var value = Reflects.invokeMethod(target, source, args);
             // 检查返回类型是否一样
-            var tar = DataType.of(method.getGenericReturnType());
             var change = beforeChange(value, anno);
-            return Vary.change(change, tar);
+            return Vary.convert(change, method.getGenericReturnType());
         }
 
         private Object beforeChange(Object value, Mapper mapper) throws Exception {

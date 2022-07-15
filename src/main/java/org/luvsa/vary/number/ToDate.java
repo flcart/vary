@@ -2,6 +2,7 @@ package org.luvsa.vary.number;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -11,10 +12,8 @@ import java.util.function.Function;
  */
 @Types(Date.class)
 public class ToDate extends ToInstant implements NProvider {
-
     @Override
-    public Function<Number, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(found(clazz));
+    public Function<Number, ?> get(Type type) {
+        return super.get(type).andThen(found(type));
     }
-
 }

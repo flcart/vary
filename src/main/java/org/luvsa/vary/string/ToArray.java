@@ -2,6 +2,7 @@ package org.luvsa.vary.string;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.util.function.Function;
 
 /**
@@ -12,12 +13,11 @@ import java.util.function.Function;
 public class ToArray implements SProvider {
 
     @Override
-    public Function<String, ?> get(Class<?> clazz) {
+    public Function<String, ?> get(Type type) {
 //        return s -> {
 //            // 需要分割符号
 //        };
 //        Thread.currentThread().set
         return null;
     }
-
 }

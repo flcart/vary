@@ -4,6 +4,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.Type;
 import java.util.function.Function;
 
 /**
@@ -28,11 +29,11 @@ public interface TypeSupplier {
     /**
      * 默认下一步处理器
      * 创建
-     * @param clazz 目标数据类型
+     * @param type 目标数据类型
      * @return 数据转换函数
      */
-    default Function<Object, Object> found(Class<?> clazz) {
-        return o -> Vary.change(o, clazz);
+    default Function<Object, Object> found(Type type) {
+        return o -> Vary.convert(o, type);
     }
 
     /**

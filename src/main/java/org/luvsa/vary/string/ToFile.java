@@ -3,6 +3,7 @@ package org.luvsa.vary.string;
 import org.luvsa.vary.TypeSupplier.Types;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.function.Function;
 
 /**
@@ -13,7 +14,7 @@ import java.util.function.Function;
 public class ToFile implements SProvider {
 
     @Override
-    public Function<String, ?> get(Class<?> clazz) {
+    public Function<String, ?> get(Type type) {
         return File::new;
     }
 

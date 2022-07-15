@@ -15,6 +15,8 @@
  */
 package org.luvsa.vary;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,18 +29,18 @@ import java.util.function.Function;
  *
  * @author 49897
  */
-public abstract class Manager<T> implements Iterable<Class<?>> {
+public abstract class Manager<T> implements Iterable<Type> {
 
     /**
      * 数据转换函数的缓存
      */
-    protected final Map<Class<?>, T> cache = new ConcurrentHashMap<>();
+    protected final Map<Type, T> cache = new ConcurrentHashMap<>();
 
-    protected final Map<Class<?>, List<T>> map = new ConcurrentHashMap<>();
+    protected final Map<Type, List<T>> map = new ConcurrentHashMap<>();
 
     protected static final Loader loader = new DefaultLoader();
 
-    public void put(Class<?> key, T value) {
+    public void put(Type key, T value) {
         var list = map.get(key);
         if (list == null) {
             var remove = cache.remove(key);
@@ -55,7 +57,10 @@ public abstract class Manager<T> implements Iterable<Class<?>> {
         }
     }
 
-    public T get(Class<?> key) {
+    public T get(Type key) {
+        if (key instanceof ParameterizedType param){
+            key = param.getRawType();
+        }
         var value = cache.get(key);
         if (value == null) {
             var list = this.map.get(key);
@@ -73,8 +78,8 @@ public abstract class Manager<T> implements Iterable<Class<?>> {
     }
 
     @Override
-    public Iterator<Class<?>> iterator() {
-        var list = new ArrayList<Class<?>>();
+    public Iterator<Type> iterator() {
+        var list = new ArrayList<Type>();
         list.addAll(cache.keySet());
         list.addAll(map.keySet());
         return list.iterator();
@@ -86,30 +91,29 @@ public abstract class Manager<T> implements Iterable<Class<?>> {
      * @param clazz 目标数据类型
      * @return 转换函数
      */
-    protected abstract T offer(Class<?> clazz) throws Exception;
+    protected abstract T offer(Type clazz) throws Exception;
 
     protected boolean isEmpty() {
         return cache.isEmpty() && map.isEmpty();
     }
 
-    protected T computeIfAbsent(DataType type, Function<Class<?>, T> function) {
-        var clazz = type.getClazz();
-        var value = get(clazz);
+    protected T computeIfAbsent(Type type, Function<Type, T> function) {
+        var value = get(type);
         if (value == null) {
-            var apply = function.apply(clazz);
+            var apply = function.apply(type);
             if (apply == null) {
                 return null;
             }
-            if (containsKey(clazz)) {
+            if (containsKey(type)) {
                 return apply;
             }
-            put(clazz, apply);
+            put(type, apply);
             return apply;
         }
         return null;
     }
 
-    public boolean containsKey(Class<?> clazz) {
-        return cache.containsKey(clazz) || map.containsKey(clazz);
+    public boolean containsKey(Type type) {
+        return cache.containsKey(type) || map.containsKey(type);
     }
 }

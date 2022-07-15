@@ -1,5 +1,6 @@
 package org.luvsa.vary.string;
 
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.function.Function;
 
@@ -10,7 +11,7 @@ import java.util.function.Function;
 public class ToURI implements SProvider {
 
     @Override
-    public Function<String, ?> get(Class<?> clazz) {
+    public Function<String, ?> get(Type type) {
         return URI::create;
     }
 

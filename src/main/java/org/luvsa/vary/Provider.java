@@ -1,5 +1,6 @@
 package org.luvsa.vary;
 
+import java.lang.reflect.Type;
 import java.util.function.Function;
 
 /**
@@ -13,8 +14,8 @@ public interface Provider<T> extends TypeSupplier {
     /**
      * 获取数据转换函数
      *
-     * @param clazz 需要转换的目标数据类型
+     * @param type 需要转换的目标数据类型
      * @return 数据转换函数
      */
-    Function<T, ?> get(Class<?> clazz);
+    Function<T, ?> get(Type type);
 }

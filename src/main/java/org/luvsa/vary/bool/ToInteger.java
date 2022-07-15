@@ -2,6 +2,7 @@ package org.luvsa.vary.bool;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.util.function.Function;
 
 /**
@@ -14,8 +15,7 @@ import java.util.function.Function;
 public class ToInteger implements BProvider {
 
     @Override
-    public Function<Boolean, ?> get(Class<?> clazz) {
+    public Function<Boolean, ?> get(Type type) {
         return flag -> flag ? 0 : 1;
     }
-
 }

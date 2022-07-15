@@ -2,6 +2,7 @@ package org.luvsa.vary.date;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.time.Instant;
 import java.util.Date;
 import java.util.function.Function;
@@ -16,7 +17,8 @@ import java.util.function.Function;
 public class ToInstant implements DProvider {
 
     @Override
-    public Function<Date, ?> get(Class<?> clazz) {
+    public Function<Date, ?> get(Type type) {
         return Date::toInstant;
     }
+
 }

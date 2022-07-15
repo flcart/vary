@@ -2,6 +2,7 @@ package org.luvsa.vary.date;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.function.Function;
@@ -16,8 +17,8 @@ import java.util.function.Function;
 public class ToZoned extends ToInstant implements DProvider {
 
     @Override
-    public Function<Date, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(found(clazz));
+    public Function<Date, ?> get(Type type) {
+        return super.get(type).andThen(found(type));
     }
 
 }

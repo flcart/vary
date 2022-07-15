@@ -1,9 +1,9 @@
 package org.luvsa.vary.string;
 
 import org.luvsa.vary.AbstractFactory;
-import org.luvsa.vary.DataType;
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -19,7 +19,7 @@ public class SFactory extends AbstractFactory<String, SProvider> {
     private final static Function<String, Optional<String>> barrier = s -> s.isBlank() ? Optional.empty() : Optional.of(s);
     
     @Override
-    public Function<String, ?> create(DataType type) {
-        return barrier.andThen(optional ->  optional.map(super.create(type)).orElse(null));
+    public Function<String, ?> create(Type type) {
+        return barrier.andThen(optional -> optional.map(super.create(type)).orElse(null));
     }
 }

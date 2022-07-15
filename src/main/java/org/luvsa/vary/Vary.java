@@ -1,5 +1,6 @@
 package org.luvsa.vary;
 
+import java.lang.reflect.Type;
 import java.util.Optional;
 
 /**
@@ -21,7 +22,7 @@ public interface Vary {
      */
     @SuppressWarnings("unchecked")
     static <T, R> R change(T value, Class<R> cls) {
-        return (R) change(value, new Clazz(cls));
+        return (R) convert(value,  cls);
     }
 
     /**
@@ -32,7 +33,7 @@ public interface Vary {
      * @param <T>   当前数据类型
      * @return 目标数据
      */
-    static <T> Object change(T value, DataType type) {
+    static <T> Object convert(T value, Type type) {
         return DefaultVary.INSTANCE.apply(value, type);
     }
 
@@ -45,7 +46,7 @@ public interface Vary {
      * @param <R>   目标数据类型
      * @return 目标数据
      */
-    static <T, R> R change(T value, R dev) {
+    static <T, R> R exchange(T value, R dev) {
         return Optional.ofNullable(value).map(t -> {
             if (dev == null) {
                 return null;
@@ -82,6 +83,6 @@ public interface Vary {
      * @param <T>   当前数据类型
      * @return 目标数据
      */
-    <T> Object apply(T value, DataType type);
+    <T> Object apply(T value, Type type);
 
 }

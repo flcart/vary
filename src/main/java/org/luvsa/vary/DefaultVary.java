@@ -3,6 +3,7 @@ package org.luvsa.vary;
 import org.luvsa.vary.other.OFactory;
 
 import java.lang.reflect.Proxy;
+import java.lang.reflect.Type;
 import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
@@ -16,7 +17,6 @@ import java.util.function.Function;
  * @create 2022/6/29 16:50
  */
 public class DefaultVary extends Manager<Factory<?>> implements Vary {
-
     /**
      * 不支持类型的默认转换函数工厂
      */
@@ -36,7 +36,7 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
     }
 
     @Override
-    public <T> Object apply(T value, DataType type) {
+    public <T> Object apply(T value, Type type) {
         //如果值为空,直接返回默认值
         if (value == null) {
             return null;
@@ -44,10 +44,11 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
 
         //获取当前数据的Class对象
         var clz = value.getClass();
-        if (type.isAssignableFrom(clz)) {
+        if (checkAssignable(clz, type)) {
             // 当前数据与目标数据存在继承或者实现关系
             return value;
         }
+
         try {
             // 查找数据转换工厂 对应的类型转换器
             return next(offer(clz), value, type);
@@ -56,7 +57,19 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
         }
     }
 
-    private <T> Object next(Factory<?> factory, T value, DataType type) {
+    private boolean checkAssignable(Class<?> clz, Type type) {
+        if (type instanceof Class<?> cls) {
+            if (cls == clz){
+                return true;
+            }
+            var wrap = Util.wrap(cls);
+            return wrap.isAssignableFrom(clz);
+        }
+        return false;
+    }
+
+
+    private <T> Object next(Factory<?> factory, T value, Type type) {
         // 创建转换函数
         @SuppressWarnings("unchecked")
         var fun = (Function<T, ?>) factory.create(type);
@@ -70,12 +83,12 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
      * @param clazz 当前数据类型
      * @return 数据转换函数工厂
      */
-    @Override
-    protected Factory<?> offer(Class<?> clazz) throws Exception {
+
+    private Factory<?> offer0(Class<?> clazz) throws Exception {
         //初始化管理器
-        while (this.isEmpty()){
+        while (this.isEmpty()) {
             // 加载 转换器工厂
-            if (lock.tryLock()){
+            if (lock.tryLock()) {
                 // 解锁之前进入，那就办法了，只能重新初始化一次
                 loader.load(Factory.class, this::put);
                 // 解锁
@@ -107,12 +120,20 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
         }
 
         for (var item : this) {
-            if (item.isAssignableFrom(clazz)) {
+            if (checkAssignable(clazz, item)) {
                 var fact = this.get(item);
                 this.put(clazz, fact);
                 return fact;
             }
         }
         throw new FactoryNotFoundException();
+    }
+
+    @Override
+    protected Factory<?> offer(Type type) throws Exception {
+        if (type instanceof Class<?> clazz) {
+            return offer0(clazz);
+        }
+        throw new UnsupportedOperationException();
     }
 }

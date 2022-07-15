@@ -4,6 +4,7 @@ import org.luvsa.vary.Item;
 import org.luvsa.vary.TypeSupplier.Types;
 import org.luvsa.vary.Vary;
 
+import java.lang.reflect.Type;
 import java.util.function.Function;
 
 /**
@@ -14,7 +15,7 @@ import java.util.function.Function;
 public class ToItem implements SProvider {
 
     @Override
-    public Function<String, ?> get(Class<?> clazz) {
+    public Function<String, ?> get(Type type) {
         return s -> {
             var from = s.indexOf("、");
             if (from < 0) {

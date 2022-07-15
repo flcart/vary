@@ -1,5 +1,7 @@
 package org.luvsa.vary;
 
+import java.lang.reflect.Type;
+
 /**
  *
  * @author Aglet
@@ -8,7 +10,7 @@ package org.luvsa.vary;
 public class OptionalVary implements Vary {
 
     @Override
-    public <T> Object apply(T value, DataType type) {
+    public <T> Object apply(T value, Type type) {
         return null;
     }
 }

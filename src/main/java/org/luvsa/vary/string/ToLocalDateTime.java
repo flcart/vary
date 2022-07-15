@@ -2,6 +2,7 @@ package org.luvsa.vary.string;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ public class ToLocalDateTime extends BiDate<LocalDateTime> implements SProvider,
     }
 
     @Override
-    public Function<String, ?> get(Class<?> clazz) {
+    public Function<String, ?> get(Type type) {
         return this;
     }
 

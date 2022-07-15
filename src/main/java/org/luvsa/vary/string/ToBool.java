@@ -2,6 +2,7 @@ package org.luvsa.vary.string;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.function.Function;
 
@@ -25,7 +26,7 @@ public class ToBool implements SProvider {
     private final Function<String, Integer> function = value -> Arrays.binarySearch(POSITIVE, value, String::compareToIgnoreCase);
 
     @Override
-    public Function<String, ?> get(Class<?> clazz) {
+    public Function<String, ?> get(Type type) {
         return function.andThen(index -> index >= 0 && POSITIVE.length > index);
     }
 }

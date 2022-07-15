@@ -2,6 +2,7 @@ package org.luvsa.vary.bool;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.function.Function;
@@ -16,8 +17,8 @@ import java.util.function.Function;
 public class ToNumber extends ToInteger implements BProvider {
 
     @Override
-    public Function<Boolean, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(found(clazz));
+    public Function<Boolean, ?> get(Type type) {
+        return super.get(type).andThen(found(type));
     }
 
 }

@@ -2,6 +2,7 @@ package org.luvsa.vary.temporal;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.function.Function;
@@ -14,7 +15,7 @@ import java.util.function.Function;
 public class ToLocalDate implements TProvider {
 
     @Override
-    public Function<ZonedDateTime, ?> get(Class<?> clazz) {
+    public Function<ZonedDateTime, ?> get(Type type) {
         return ZonedDateTime::toLocalDate;
     }
 

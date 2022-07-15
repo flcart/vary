@@ -7,6 +7,7 @@ import org.luvsa.vary.Vary;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,7 +72,7 @@ public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
     }
 
     @Override
-    public Function<Object, ?> get(Class<?> clazz) {
+    public Function<Object, ?> get(Type type) {
         return this;
     }
 
@@ -118,4 +119,6 @@ public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
         }
         return aClass;
     }
+
+
 }

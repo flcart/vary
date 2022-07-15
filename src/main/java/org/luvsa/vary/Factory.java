@@ -1,5 +1,6 @@
 package org.luvsa.vary;
 
+import java.lang.reflect.Type;
 import java.util.function.Function;
 
 /**
@@ -15,5 +16,5 @@ public interface Factory<T> extends TypeSupplier {
      * @param type 目标数据类型
      * @return 转换函数
      */
-    Function<T, ?> create(DataType type);
+    Function<T, ?> create(Type type);
 }

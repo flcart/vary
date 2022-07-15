@@ -2,6 +2,7 @@ package org.luvsa.vary.local;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.time.Instant;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.temporal.TemporalAccessor;
@@ -16,7 +17,8 @@ import java.util.function.Function;
 public class ToChrono implements LProvider {
 
     @Override
-    public Function<TemporalAccessor, ?> get(Class<?> clazz) {
+    public Function<TemporalAccessor, ?> get(Type type) {
         return ChronoLocalDateTime::from;
     }
+
 }

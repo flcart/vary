@@ -2,6 +2,7 @@ package org.luvsa.vary.number;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.util.function.Function;
 
 /**
@@ -11,7 +12,7 @@ import java.util.function.Function;
 @Types({Float.class, float.class})
 public class ToFloat implements NProvider {
     @Override
-    public Function<Number, ?> get(Class<?> clazz) {
+    public Function<Number, ?> get(Type type) {
         return Number::floatValue;
     }
 }

@@ -2,6 +2,7 @@ package org.luvsa.vary.instant;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,8 +17,8 @@ import java.util.function.Function;
 public class ToLocal extends ToZoned implements IProvider {
 
     @Override
-    public Function<Instant, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(found(clazz));
+    public Function<Instant, ?> get(Type type) {
+        return super.get(type).andThen(found(type));
     }
 
 }

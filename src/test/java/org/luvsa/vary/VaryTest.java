@@ -155,7 +155,6 @@ class VaryTest {
                  11、健康：易患胃肠病，筋骨酸痛。神经质。
                  12、老运：运限平稳，但财源不佳，应注重精神修养。
                 """;
-
         var talent = new Talent();
         talent.setText(txt);
         talent.setPoint(20);

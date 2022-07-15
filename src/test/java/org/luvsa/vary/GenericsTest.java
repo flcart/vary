@@ -30,8 +30,8 @@ class GenericsTest {
     void type() {
         var clazz = Future.class;
         Reflects.doWithMethods(clazz, method -> {
-            var type = DataType.of(method.getGenericReturnType());
-            System.out.println(type);
+//            var type = DataType.of(method.getGenericReturnType());
+//            System.out.println(type);
         });
     }
 

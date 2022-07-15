@@ -2,6 +2,7 @@ package org.luvsa.vary.string;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.function.Function;
 
@@ -22,13 +23,17 @@ public class ToDecimal implements SProvider {
     private static final BigDecimal ZERO = new BigDecimal(0);
 
     @Override
-    public Function<String, ?> get(Class<?> clazz) {
+    public Function<String, ?> get(Type type) {
         return s -> {
             if (hasChinese(s)) {
                 // 解析
                 return new Parser(s).get();
             }
-            return new BigDecimal(s);
+            try {
+                return new BigDecimal(s);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("无法将【" + s + "】转换成数字", e);
+            }
         };
     }
 

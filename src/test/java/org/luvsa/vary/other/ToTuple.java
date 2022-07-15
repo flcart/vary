@@ -6,6 +6,7 @@ import org.luvsa.vary.Tuple;
 import org.luvsa.vary.TypeSupplier.Types;
 import org.luvsa.vary.Vary;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.function.Function;
 
@@ -17,7 +18,7 @@ import java.util.function.Function;
 public class ToTuple implements OProvider {
 
     @Override
-    public Function<Object, ?> get(Class<?> clazz) {
+    public Function<Object, ?> get(Type type) {
         return o -> {
             if (o instanceof Talent talent) {
                 var tuple = new Tuple();

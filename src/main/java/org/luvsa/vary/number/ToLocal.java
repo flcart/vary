@@ -2,6 +2,7 @@ package org.luvsa.vary.number;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -12,10 +13,10 @@ import java.util.function.Function;
  * @create 2022/6/27 16:47
  */
 @Types({LocalDate.class, LocalTime.class, LocalDateTime.class})
-public class ToLocal  extends ToInstant implements NProvider {
+public class ToLocal extends ToInstant implements NProvider {
 
     @Override
-    public Function<Number, ?> get(Class<?> clazz) {
-        return super.get(clazz).andThen(found(clazz));
+    public Function<Number, ?> get(Type type) {
+        return super.get(type).andThen(found(type));
     }
 }

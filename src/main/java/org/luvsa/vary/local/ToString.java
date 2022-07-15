@@ -2,6 +2,7 @@ package org.luvsa.vary.local;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -27,7 +28,7 @@ public class ToString implements LProvider, Function<TemporalAccessor, String> {
     private final static String DEFAULT_TIME_FORMAT = "HH:mm:ss:SSS";
 
     @Override
-    public Function<TemporalAccessor, ?> get(Class<?> clazz) {
+    public Function<TemporalAccessor, ?> get(Type type) {
         return this;
     }
 

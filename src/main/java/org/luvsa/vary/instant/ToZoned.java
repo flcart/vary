@@ -2,6 +2,7 @@ package org.luvsa.vary.instant;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
+import java.lang.reflect.Type;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -15,7 +16,7 @@ import java.util.function.Function;
 @Types(ZonedDateTime.class)
 public class ToZoned implements IProvider {
     @Override
-    public Function<Instant, ?> get(Class<?> clazz) {
+    public Function<Instant, ?> get(Type type) {
         return instant -> instant.atZone(ZoneId.systemDefault());
     }
 
