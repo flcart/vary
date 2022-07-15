@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.luvsa.vary.other.DynamicProxy.MethodName;
 import org.luvsa.vary.other.Iob;
 import org.luvsa.vary.other.SupportIob;
 
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -142,7 +140,7 @@ class VaryTest {
     }
 
     @Test
-    void strToList() {
+    void proxy() {
         var txt = """
                  1、总论：发展性很小，切勿好高骛远，以免为钱财起纠纷，家庭生活能无忧就该满足，不要不平不满，注重精神生活才是聪明人。
                  2、性格：表面乐观，内心苦闷，常有不平不满之心理，待人诚实而自劳，喜批评人家是非，自己却容易被煽动。
@@ -161,11 +159,23 @@ class VaryTest {
         var talent = new Talent();
         talent.setText(txt);
         talent.setPoint(20);
+        var future = Vary.change(talent, Future.class);
+        var point = future.getPoint();
+        var means = future.getMeans();
+        System.out.println("Point : " + point + ", means : " + means);
+    }
+
+    @Test
+    void strToList() {
+
+
+//        Vary.
+
 //        var future = Vary.change(talent, Tuple.class);
 //        var change = Vary.change(future, Map.class);
 //        System.out.println(change);
-        var prism = Vary.change(talent, Prism.class);
-        System.out.println(prism);
+//        var prism = Vary.change(talent, Prism.class);
+//        System.out.println(prism);
     }
 
 
@@ -174,19 +184,6 @@ class VaryTest {
         var prism = new Prism();
         var change = Vary.change(prism, Future.class);
         System.out.println(change);
-    }
-
-
-    @SupportIob
-    public interface Future {
-
-        @Iob(value = "P值")
-        int getPoint();
-
-        @Iob(value = "含义")
-        @MethodName(value = "getText", code = "s.split(\"\n\");", generics = true)
-        List<Item> getMeans();
-
     }
 
 

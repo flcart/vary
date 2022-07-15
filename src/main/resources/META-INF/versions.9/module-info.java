@@ -90,7 +90,7 @@ module vary {
 
     provides org.luvsa.vary.other.OProvider with
             org.luvsa.vary.other.ToMap,
-            org.luvsa.vary.other.DynamicProxy;
+            org.luvsa.vary.proxy.DynamicProxy;
 
     provides org.luvsa.vary.string.SProvider with
             org.luvsa.vary.string.ToBool,

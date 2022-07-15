@@ -1,6 +1,5 @@
 package org.luvsa.vary;
 
-import org.luvsa.vary.VaryTest.Future;
 
 import java.util.List;
 

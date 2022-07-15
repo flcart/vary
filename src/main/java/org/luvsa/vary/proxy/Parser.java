@@ -1,4 +1,4 @@
-package org.luvsa.vary.other;
+package org.luvsa.vary.proxy;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -9,10 +9,19 @@ import java.util.Map;
  */
 class Parser {
 
+    /**
+     * 代码
+     */
     private final String code;
 
+    /**
+     * 变量表
+     */
     private final Map<String, Object> variables;
 
+    /**
+     *
+     */
     private Object base;
 
     private Call call;
@@ -64,6 +73,12 @@ class Parser {
         return base;
     }
 
+    /**
+     * 获取变量
+     *
+     * @param name 变量名称
+     * @return 变量值
+     */
     private Object getVariable(String name) {
         var o = variables.get(name);
         if (o == null) {

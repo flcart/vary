@@ -1,4 +1,4 @@
-package org.luvsa.vary.other;
+package org.luvsa.vary.proxy;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

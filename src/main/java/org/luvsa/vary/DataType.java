@@ -1,5 +1,6 @@
 package org.luvsa.vary;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
@@ -9,6 +10,21 @@ import java.lang.reflect.Type;
  * @create 2022/7/1 14:53
  */
 public interface DataType {
+    static DataType of(Type type) {
+        if (type instanceof Class<?> clazz) {
+            return new Clazz(clazz);
+        }
+
+        if (type instanceof ParameterizedType param) {
+            var rawType = param.getRawType();
+            var ownerType = param.getOwnerType();
+            var arguments = param.getActualTypeArguments();
+            return new GenericType(null, type);
+        }
+
+        throw new IllegalStateException(type.toString());
+    }
+
     /**
      * 获取目标数据类型
      *
