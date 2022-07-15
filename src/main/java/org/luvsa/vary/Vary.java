@@ -46,7 +46,7 @@ public interface Vary {
      * @param <R>   目标数据类型
      * @return 目标数据
      */
-    static <T, R> R exchange(T value, R dev) {
+    static <T, R> R apply(T value, R dev) {
         return Optional.ofNullable(value).map(t -> {
             if (dev == null) {
                 return null;

@@ -13,8 +13,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Mapper {
 
-    String value();
+    String value() default "";
 
     String code() default "";
+
+    Class<? extends Parser> parser() default ParserImpl.class;
 
 }

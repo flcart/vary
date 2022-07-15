@@ -80,10 +80,9 @@ class VaryTest {
 
     @Test
     void strToNum() {
-//        var a = Vary.change("", int.class);
-//        var b = Vary.change("", 0);
-//        var change = Vary.change("", LocalTime.class);
-//        System.out.println(a + " + " + b);
+        var a = Vary.change("", int.class);
+        var b = Vary.apply("", 0);
+        var time = Vary.change("", LocalTime.class);
         var change = Vary.change(66, char.class);
         System.out.println(change);
     }

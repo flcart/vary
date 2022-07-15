@@ -1,5 +1,6 @@
 package org.luvsa.vary.proxy;
 
+import org.luvsa.reflect.Reflections;
 import org.luvsa.reflect.Reflects;
 import org.luvsa.vary.Vary;
 import org.luvsa.vary.other.OProvider;
@@ -9,7 +10,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.function.Function;
@@ -44,7 +44,9 @@ public class DynamicProxy implements OProvider {
             var anno = method.getAnnotation(Mapper.class);
 
             // 方法名称
-            var name = anno == null ? method.getName() : anno.value();
+            var name = getMethodName(method, anno );
+
+//            anno == null ? method.getName() : anno.value();
 
             // 方法参数
             var size = args == null ? 0 : args.length;
@@ -73,11 +75,22 @@ public class DynamicProxy implements OProvider {
             }
             var value = Reflects.invokeMethod(target, source, args);
             // 检查返回类型是否一样
-            var change = beforeChange(value, anno);
+            var change = beforeChange(method, value, anno);
             return Vary.convert(change, method.getGenericReturnType());
         }
 
-        private Object beforeChange(Object value, Mapper mapper) throws Exception {
+        private String getMethodName(Method method, Mapper mapper) {
+            if (mapper == null){
+                return method.getName();
+            }
+            var value = mapper.value();
+            if (value.isBlank()){
+                return method.getName();
+            }
+            return value;
+        }
+
+        private Object beforeChange(Method method,  Object value, Mapper mapper) throws Exception {
             if (mapper == null) {
                 return value;
             }
@@ -86,12 +99,25 @@ public class DynamicProxy implements OProvider {
             if (code.isBlank()) {
                 return value;
             }
-            // 1. 初始化本地变量表
-            // 2. 执行相应的方法
-            // 3. 返回执行结果
-            // 执行临时代码
-            var parser = new Parser(code, Map.of("o", value));
-            return parser.get();
+
+            var parser = Reflections.newInstance(mapper.parser());
+            if (parser == null){
+                return value;
+            }
+
+            parser.register(method);
+            parser.register(value);
+
+            var function = parser.create(code);
+
+//            // 1. 初始化本地变量表
+//            // 2. 执行相应的方法
+//            // 3. 返回执行结果
+//            // 执行临时代码
+//            var parser = new ParserImpl(code, Map.of("o", value));
+//            return parser.get();
+
+            return function.apply(value);
         }
 
         private String removePrefix(String target) {

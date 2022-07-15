@@ -14,7 +14,7 @@ public interface Future {
     int getPoint();
 
     @Iob(value = "含义")
-    @Mapper(value = "getText", code = "s.split(\"\n\");")
+    @Mapper(value = "getText", code = "split(\"\n\");")
     List<Item> getMeans();
 
 }

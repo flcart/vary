@@ -19,8 +19,8 @@ public final class Reflects {
         throw new AssertionError("No org.luvsa.vary.Reflects instances for you!");
     }
 
-    private static final Field[] EMPTY_FIELD_ARRAY = new Field[0];
-    private static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
+    public static final Field[] EMPTY_FIELD_ARRAY = new Field[0];
+    public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
     private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
     private static final Method[] EMPTY_METHOD_ARRAY = new Method[0];
     private static final String CGLIB_RENAMED_METHOD_PREFIX = "CGLIB$";
@@ -53,6 +53,11 @@ public final class Reflects {
 
     private static final Map<Field, Method> GET_FIELDS = new ConcurrentHashMap<>(256);
 
+    public static void clearCache() {
+        declaredMethodsCache.clear();
+        declaredFieldsCache.clear();
+        GET_FIELDS.clear();
+    }
 
     public static Method findMethod(Class<?> clazz, String name) {
         return findMethod(clazz, name, EMPTY_CLASS_ARRAY);
@@ -226,7 +231,7 @@ public final class Reflects {
                 var index = methods.length;
                 System.arraycopy(methods, 0, result, 0, index);
                 for (var method : list) {
-                    result[++index] = method;
+                    result[index++] = method;
                 }
             } catch (Throwable e) {
                 throw new IllegalStateException("Failed to introspect Class [" + clazz.getName() + "] from ClassLoader [" + clazz.getClassLoader() + "]", e);

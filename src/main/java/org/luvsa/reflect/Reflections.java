@@ -1,5 +1,6 @@
 package org.luvsa.reflect;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 /**
@@ -31,5 +32,16 @@ public class Reflections {
             }
         }
         throw new IllegalArgumentException("无法找到调用 " + clazz + " 的类对象！");
+    }
+
+
+    public static <T> T newInstance(Class<T> clazz) {
+        try {
+            var constructor = clazz.getConstructor();
+            return constructor.newInstance();
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
+                 IllegalAccessException e) {
+            return null;
+        }
     }
 }

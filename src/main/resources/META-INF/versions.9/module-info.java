@@ -94,6 +94,7 @@ module vary {
 
     provides org.luvsa.vary.string.SProvider with
             org.luvsa.vary.string.ToBool,
+            org.luvsa.vary.string.ToChars,
             org.luvsa.vary.string.ToDate,
             org.luvsa.vary.string.ToDecimal,
             org.luvsa.vary.string.ToLocalDate,
