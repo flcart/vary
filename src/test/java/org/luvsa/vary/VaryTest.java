@@ -81,12 +81,12 @@ class VaryTest {
     }
 
     @Test
-    void strToNum(){
+    void strToNum() {
 //        var a = Vary.change("", int.class);
 //        var b = Vary.change("", 0);
 //        var change = Vary.change("", LocalTime.class);
 //        System.out.println(a + " + " + b);
-        var change = Vary.change('c', char.class);
+        var change = Vary.change(66, char.class);
         System.out.println(change);
     }
 
@@ -109,7 +109,7 @@ class VaryTest {
 
     @ParameterizedTest
     @DisplayName("时间戳 转 LocalDateTime")
-    @ValueSource(longs = {0L, 1657109858000L, 946656000000L})
+    @ValueSource(longs = {1657109858000L, 946656000000L, 0L})
     void longToLocalDateTime(long l) {
         var date = Vary.change(l, LocalDateTime.class);
         System.out.println(date);
@@ -124,7 +124,7 @@ class VaryTest {
     }
 
     @Test
-    void numToChar(){
+    void numToChar() {
         // lowSurrogate
         //highSurrogate
 //        var A = Vary.change(65, char.class);
@@ -170,7 +170,7 @@ class VaryTest {
 
 
     @Test
-    void oto(){
+    void oto() {
         var prism = new Prism();
         var change = Vary.change(prism, Future.class);
         System.out.println(change);

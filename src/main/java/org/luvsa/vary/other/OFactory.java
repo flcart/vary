@@ -1,9 +1,7 @@
 package org.luvsa.vary.other;
 
-import org.luvsa.vary.DataType;
+import org.luvsa.vary.AbstractFactory;
 import org.luvsa.vary.Factory;
-import org.luvsa.vary.FunctionManager;
-import org.luvsa.vary.TypeSupplier;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -19,24 +17,9 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/25 10:47
  */
-public class OFactory extends FunctionManager<Object, OProvider> implements Factory<Object> {
+public class OFactory extends AbstractFactory<Object, OProvider> implements Factory<Object> {
 
     private final List<OProvider> list = new ArrayList<>();
-
-    public OFactory() {
-    }
-
-    @Override
-    public Function<Object, ?> create(DataType type) {
-        return cache.computeIfAbsent(type.getClazz(), this::offer);
-    }
-
-    @Override
-    protected <R extends TypeSupplier> void handle(R item) {
-        if (item instanceof OProvider provider) {
-            list.add(provider);
-        }
-    }
 
     @Override
     protected Function<Object, ?> next(Class<?> clazz) {
@@ -46,6 +29,11 @@ public class OFactory extends FunctionManager<Object, OProvider> implements Fact
             }
         }
         return super.next(clazz);
+    }
+
+    @Override
+    protected void handle(OProvider item) {
+        list.add(item);
     }
 
     private Map<String, Object> getValues(Object o) {
@@ -96,5 +84,4 @@ public class OFactory extends FunctionManager<Object, OProvider> implements Fact
 //        clazz.getMethod()
         return null;
     }
-
 }

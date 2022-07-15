@@ -4,6 +4,9 @@ import org.luvsa.vary.other.OFactory;
 
 import java.lang.reflect.Proxy;
 import java.util.StringJoiner;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 
 /**
@@ -13,6 +16,7 @@ import java.util.function.Function;
  * @create 2022/6/29 16:50
  */
 public class DefaultVary extends Manager<Factory<?>> implements Vary {
+
     /**
      * 不支持类型的默认转换函数工厂
      */
@@ -22,6 +26,8 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
      * 采取单列模式
      */
     static final Vary INSTANCE = new DefaultVary();
+
+    private final Lock lock = new ReentrantLock();
 
     /**
      * 私有化构造函数
@@ -67,16 +73,19 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
     @Override
     protected Factory<?> offer(Class<?> clazz) throws Exception {
         //初始化管理器
-        if (cache.isEmpty()) {
+        while (this.isEmpty()){
             // 加载 转换器工厂
-            synchronized (cache) {
-                if (cache.isEmpty()) {
-                    loader.load(Factory.class, cache::put);
-                }
+            if (lock.tryLock()){
+                // 解锁之前进入，那就办法了，只能重新初始化一次
+                loader.load(Factory.class, this::put);
+                // 解锁
+                lock.unlock();
+            } else {
+                TimeUnit.SECONDS.sleep(3);
             }
         }
 
-        var factory = cache.get(clazz);
+        var factory = this.get(clazz);
         if (factory != null) {
             return factory;
         }
@@ -89,7 +98,7 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
                 var offer = offer(item);
                 if (offer != null) {
                     // 保存下
-                    cache.put(clazz, offer);
+                    this.put(clazz, offer);
                     return offer;
                 }
                 joiner.add(item.getName());
@@ -97,11 +106,10 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
             throw new FactoryNotFoundException(joiner.toString());
         }
 
-        var set = cache.keySet();
-        for (var item : set) {
+        for (var item : this) {
             if (item.isAssignableFrom(clazz)) {
-                var fact = cache.get(item);
-                cache.put(clazz, fact);
+                var fact = this.get(item);
+                this.put(clazz, fact);
                 return fact;
             }
         }

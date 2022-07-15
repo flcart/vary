@@ -15,32 +15,69 @@
  */
 package org.luvsa.vary;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 /**
  * 数据转换函数的管理器
  *
  * @author 49897
  */
-public abstract class Manager<T> {
+public abstract class Manager<T> implements Iterable<Class<?>> {
 
     /**
      * 数据转换函数的缓存
      */
-    protected final Map<Class<?>, T> cache = new ConcurrentHashMap<>() {
-        @Override
-        public T put(Class<?> key, T value) {
-            if (containsKey(key)) {
-                return value;
-            }
-            return super.put(key, value);
-        }
-    };
+    protected final Map<Class<?>, T> cache = new ConcurrentHashMap<>();
+
+    protected final Map<Class<?>, List<T>> map = new ConcurrentHashMap<>();
 
     protected static final Loader loader = new DefaultLoader();
 
-    protected <R extends TypeSupplier> void handle(R item) {
+    public void put(Class<?> key, T value) {
+        var list = map.get(key);
+        if (list == null) {
+            var remove = cache.remove(key);
+            if (remove == null) {
+                cache.put(key, value);
+            } else {
+                list = new ArrayList<>();
+                list.add(remove);
+                list.add(value);
+                map.put(key, list);
+            }
+        } else {
+            list.add(value);
+        }
+    }
+
+    public T get(Class<?> key) {
+        var value = cache.get(key);
+        if (value == null) {
+            var list = this.map.get(key);
+            if (list == null) {
+                return null;
+            }
+//            var moduleA = Reflections.getCallerClass(Vary.class).getModule();
+            for (var item : list) {
+//                var moduleB = item.getClass().getModule();
+                return item;
+            }
+            throw new IllegalArgumentException();
+        }
+        return value;
+    }
+
+    @Override
+    public Iterator<Class<?>> iterator() {
+        var list = new ArrayList<Class<?>>();
+        list.addAll(cache.keySet());
+        list.addAll(map.keySet());
+        return list.iterator();
     }
 
     /**
@@ -50,4 +87,29 @@ public abstract class Manager<T> {
      * @return 转换函数
      */
     protected abstract T offer(Class<?> clazz) throws Exception;
+
+    protected boolean isEmpty() {
+        return cache.isEmpty() && map.isEmpty();
+    }
+
+    protected T computeIfAbsent(DataType type, Function<Class<?>, T> function) {
+        var clazz = type.getClazz();
+        var value = get(clazz);
+        if (value == null) {
+            var apply = function.apply(clazz);
+            if (apply == null) {
+                return null;
+            }
+            if (containsKey(clazz)) {
+                return apply;
+            }
+            put(clazz, apply);
+            return apply;
+        }
+        return null;
+    }
+
+    public boolean containsKey(Class<?> clazz) {
+        return cache.containsKey(clazz) || map.containsKey(clazz);
+    }
 }
