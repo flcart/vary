@@ -12,11 +12,11 @@ import org.luvsa.vary.other.SupportIob;
 public interface Item {
 
     @Iob("序号")
-    int getGuid();
+    int guid();
 
     @Iob("名称")
-    String getName();
+    String name();
 
     @Iob("数据")
-    String getText();
+    String text();
 }

@@ -30,7 +30,6 @@ import java.util.function.Function;
  * @author 49897
  */
 public abstract class Manager<T> implements Iterable<Type> {
-
     /**
      * 数据转换函数的缓存
      */
