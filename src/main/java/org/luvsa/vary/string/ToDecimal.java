@@ -13,11 +13,11 @@ import java.util.function.Function;
 
 @Types(BigDecimal.class)
 public class ToDecimal implements SProvider {
-
     /**
      * 中文数字表
      */
-    private static final char[] TABLE = {'零', '一', '二', '三', '四', '五', '六', '七', '八', '九',
+    private static final char[] TABLE = {
+            '零', '一', '二', '三', '四', '五', '六', '七', '八', '九',
             '十', '百', '千', '万', '亿'};
 
     private static final BigDecimal ZERO = new BigDecimal(0);
@@ -129,7 +129,10 @@ public class ToDecimal implements SProvider {
                 return i;
             }
         }
-        throw new IllegalArgumentException();
+        if (c == '两') {
+            return 2;
+        }
+        throw new IllegalArgumentException("字符：【" + c + "】 错误");
     }
 
     private static boolean hasChinese(String s) {

@@ -19,7 +19,7 @@ class Util {
             boolean.class, Boolean.class
     );
 
-    public static Class<?> wrap(Class<?> clazz){
+    public static Class<?> wrap(Class<?> clazz) {
         return PRIMITIVES.getOrDefault(clazz, clazz);
     }
 
