@@ -11,6 +11,8 @@ import java.time.temporal.TemporalAccessor;
 import java.util.function.Function;
 
 /**
+ * {@link LocalDate}、{@link LocalTime}、{@link LocalDateTime} 转换成  {@link String} 数据的函数供应商
+ *
  * @author Aglet
  * @create 2022/6/27 15:43
  */

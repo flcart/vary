@@ -16,7 +16,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
- *
+ * {@link Object} 转换成 {@link Map<>}
  *
  * @author Aglet
  * @create 2022/6/28 11:16

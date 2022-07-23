@@ -9,6 +9,8 @@ import java.time.LocalTime;
 import java.time.temporal.TemporalAccessor;
 
 /**
+ * {@link LocalDate}、{@link LocalTime}、{@link LocalDateTime} 转换成 指定数据 数据的函数工厂
+ *
  * @author Aglet
  * @create 2022/6/27 14:26
  */
