@@ -1,13 +1,15 @@
 package org.luvsa.vary.local;
 
 import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.vary.Vary;
 
 import java.lang.reflect.Type;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.TemporalAccessor;
+import java.time.chrono.ChronoZonedDateTime;
+import java.time.temporal.Temporal;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -19,11 +21,13 @@ import java.util.function.Function;
  * @create 2022/6/29 17:20
  */
 @Types({Instant.class, Date.class, Long.class})
-public class ToOther extends ToChrono implements LProvider {
+public class ToOther implements Provider {
 
     @Override
-    public Function<TemporalAccessor, ?> get(Type type) {
-        return super.get(type).andThen(found(type));
+    public Function<Temporal, ?> get(Type type) {
+        return accessor -> {
+            var target = Vary.change(accessor, ChronoZonedDateTime.class);
+            return Vary.convert(target, type);
+        };
     }
-
 }

@@ -4,15 +4,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.luvsa.vary.bool.BProvider;
 import org.luvsa.vary.chrono.CProvider;
-import org.luvsa.vary.chrono.zoned.ZProvider;
 import org.luvsa.vary.date.DProvider;
-import org.luvsa.vary.instant.IProvider;
-import org.luvsa.vary.local.LProvider;
+import org.luvsa.vary.instant.Provider;
 import org.luvsa.vary.number.NProvider;
 import org.luvsa.vary.other.OProvider;
 import org.luvsa.vary.string.SProvider;
 import org.luvsa.vary.string.array.AProvider;
-import org.luvsa.vary.temporal.TProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,8 +25,8 @@ import java.util.Objects;
 class GenTest {
 
     @ParameterizedTest
-    @ValueSource(classes = {Factory.class, BProvider.class, CProvider.class, ZProvider.class, DProvider.class, IProvider.class,
-            LProvider.class, NProvider.class, OProvider.class, SProvider.class, AProvider.class, TProvider.class})
+    @ValueSource(classes = {Factory.class, BProvider.class, CProvider.class, DProvider.class, Provider.class,
+            org.luvsa.vary.local.Provider.class, NProvider.class, OProvider.class, SProvider.class, AProvider.class, org.luvsa.vary.zone.Provider.class})
     void gen(Class<?> service) throws IOException {
         var aClass = Vary.class;
         var domain = aClass.getProtectionDomain();

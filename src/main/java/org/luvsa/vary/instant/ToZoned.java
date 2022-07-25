@@ -14,7 +14,7 @@ import java.util.function.Function;
  * @create 2022/6/27 14:40
  */
 @Types(ZonedDateTime.class)
-public class ToZoned implements IProvider {
+public class ToZoned implements Provider {
     @Override
     public Function<Instant, ?> get(Type type) {
         return instant -> instant.atZone(ZoneId.systemDefault());

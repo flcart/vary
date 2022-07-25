@@ -1,4 +1,4 @@
-package org.luvsa.vary.temporal;
+package org.luvsa.vary.zone;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
@@ -12,7 +12,7 @@ import java.util.function.Function;
  * @create 2022/6/27 15:37
  */
 @Types(LocalTime.class)
-public class ToLocalTime implements TProvider {
+public class ToLocalTime implements Provider {
     @Override
     public Function<ZonedDateTime, ?> get(Type type) {
         return ZonedDateTime::toLocalTime;

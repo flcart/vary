@@ -1,8 +1,0 @@
-org.luvsa.vary.string.ToBool
-org.luvsa.vary.string.ToChars
-org.luvsa.vary.string.ToDate
-org.luvsa.vary.string.ToDecimal
-org.luvsa.vary.string.ToLocalDate
-org.luvsa.vary.string.ToLocalDateTime
-org.luvsa.vary.string.ToLocalTime
-org.luvsa.vary.string.ToNumber

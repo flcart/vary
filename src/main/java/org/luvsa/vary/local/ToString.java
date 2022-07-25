@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
+import java.time.temporal.Temporal;
 import java.util.function.Function;
 
 /**
@@ -17,7 +17,7 @@ import java.util.function.Function;
  * @create 2022/6/27 15:43
  */
 @Types(String.class)
-public class ToString implements LProvider, Function<TemporalAccessor, String> {
+public class ToString implements Provider, Function<Temporal, String> {
 
     /**
      * 默认日期格式
@@ -30,12 +30,12 @@ public class ToString implements LProvider, Function<TemporalAccessor, String> {
     private final static String DEFAULT_TIME_FORMAT = "HH:mm:ss:SSS";
 
     @Override
-    public Function<TemporalAccessor, ?> get(Type type) {
+    public Function<Temporal, ?> get(Type type) {
         return this;
     }
 
     @Override
-    public String apply(TemporalAccessor accessor) {
+    public String apply(Temporal accessor) {
         if (accessor instanceof LocalTime) {
             return DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT).format(accessor);
         }
@@ -47,6 +47,7 @@ public class ToString implements LProvider, Function<TemporalAccessor, String> {
         if (accessor instanceof LocalDateTime) {
             return DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT + " " + DEFAULT_TIME_FORMAT).format(accessor);
         }
+
         throw new UnsupportedOperationException("日期数据： " + accessor);
     }
 }

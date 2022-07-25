@@ -11,7 +11,7 @@ import java.util.function.Function;
  * @create 2022/6/27 16:07
  */
 @Types(Long.class)
-public class ToLong implements IProvider {
+public class ToLong implements Provider {
 
     @Override
     public Function<Instant, ?> get(Type type) {

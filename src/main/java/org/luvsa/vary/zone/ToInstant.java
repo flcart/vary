@@ -1,9 +1,10 @@
-package org.luvsa.vary.chrono.zoned;
+package org.luvsa.vary.zone;
 
 import org.luvsa.vary.TypeSupplier.Types;
 
 import java.lang.reflect.Type;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.time.chrono.ChronoZonedDateTime;
 import java.util.function.Function;
 
@@ -14,10 +15,10 @@ import java.util.function.Function;
  * @create 2022/6/27 13:56
  */
 @Types(Instant.class)
-public class ToInstant implements ZProvider {
+public class ToInstant implements Provider {
 
     @Override
-    public Function<ChronoZonedDateTime<?>, ?> get(Type type) {
+    public Function<ZonedDateTime, ?> get(Type type) {
         return ChronoZonedDateTime::toInstant;
     }
 }

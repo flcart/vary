@@ -12,7 +12,7 @@ import java.util.function.Function;
  * @create 2022/6/27 14:36
  */
 @Types(Date.class)
-public class ToDate implements IProvider {
+public class ToDate implements Provider {
 
     @Override
     public Function<Instant, ?> get(Type type) {

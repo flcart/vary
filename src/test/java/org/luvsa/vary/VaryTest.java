@@ -54,7 +54,7 @@ class VaryTest {
 
     @ParameterizedTest
     @DisplayName("字符串转数字")
-    @ValueSource(strings = { "两百","二百", "50", "72.89", "九亿零八百零八万零六百零三", "三", "十一亿零五百万", "十", "十七", "五十三", "一百零八", "九百五十", "三千零五十四", "一万零三", "七千八百六十三万九千五百八十八", "十万", "一万零三"})
+    @ValueSource(strings = {"两百", "二百", "50", "72.89", "九亿零八百零八万零六百零三", "三", "十一亿零五百万", "十", "十七", "五十三", "一百零八", "九百五十", "三千零五十四", "一万零三", "七千八百六十三万九千五百八十八", "十万", "一万零三"})
     void strToNumber(String txt) {
 
         var aShort = Vary.change(txt, short.class);
@@ -109,6 +109,7 @@ class VaryTest {
     @ValueSource(longs = {1657109858000L, 946656000000L, 0L})
     void longToLocalDateTime(long l) {
         var date = Vary.change(l, LocalDateTime.class);
+        var b = Vary.change(null, LocalDateTime.class);
         System.out.println(date);
     }
 
@@ -119,6 +120,19 @@ class VaryTest {
         var date = Vary.change(l, LocalTime.class);
         System.out.println(date);
     }
+
+    @Test
+    void dateToLocal() {
+        var change = Vary.change(new Date(), LocalDateTime.class);
+        System.out.println(change);
+    }
+
+    @Test
+    void localToDate() {
+        var change = Vary.change(LocalDateTime.now(), Date.class);
+        System.out.println(change);
+    }
+
 
     @Test
     void numToChar() {

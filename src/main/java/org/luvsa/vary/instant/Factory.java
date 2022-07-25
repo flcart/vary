@@ -10,6 +10,5 @@ import java.time.Instant;
  * @create 2022/6/27 14:26
  */
 @Types(Instant.class)
-public class IFactory extends AbstractFactory<Instant, IProvider> {
-
+public class Factory extends AbstractFactory<Instant, Provider> {
 }
