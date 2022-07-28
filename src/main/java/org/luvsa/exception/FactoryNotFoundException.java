@@ -1,4 +1,4 @@
-package org.luvsa.vary;
+package org.luvsa.exception;
 
 /**
  * @author Aglet

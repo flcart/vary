@@ -55,4 +55,39 @@ public final class Strings {
 	public static String capitalize(String str) {
 		return changeFirstChar(str, true);
 	}
+
+
+	/**
+	 * 检测字符串是否全是数字(包括小数点， 即如果含有小数点，也会返回false)
+	 *
+	 * @param text 需检测的字符串
+	 * @return true ： 全是数字； false ： 含有非数字
+	 */
+	public static boolean isNumber(String text) {
+		if (text == null || text.isBlank()) {
+			return false;
+		}
+		var first = text.charAt(0);
+		if (first == '-' || first == '+') {
+			text = text.substring(1);
+		}
+		if (text.isEmpty()) {
+			return false;
+		}
+		var index = text.indexOf('.');
+		if (index < 0) {
+			var chars = text.toCharArray();
+			return Arrays.have0(Character::isDigit, chars);
+		}
+		for (int i = 0, size = text.length(); i < size; i++) {
+			if (i == index) {
+				continue;
+			}
+			var c = text.charAt(i);
+			if (!Character.isDigit(c)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

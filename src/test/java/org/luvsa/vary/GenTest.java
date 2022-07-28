@@ -13,9 +13,9 @@ import org.luvsa.vary.string.array.AProvider;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Modifier;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Objects;
 
 /**
  *
@@ -28,6 +28,7 @@ class GenTest {
     @ValueSource(classes = {Factory.class, BProvider.class, CProvider.class, DProvider.class, Provider.class,
             org.luvsa.vary.local.Provider.class, NProvider.class, OProvider.class, SProvider.class, AProvider.class, org.luvsa.vary.zone.Provider.class})
     void gen(Class<?> service) throws IOException {
+
         var aClass = Vary.class;
         var domain = aClass.getProtectionDomain();
         var source = domain.getCodeSource();
@@ -37,8 +38,9 @@ class GenTest {
         var path = Path.of(root);
         var from = path.getNameCount();
 
-        var filePath = "src/main/resources/META-INF/services/" + service.getName();
-        var services = Path.of(filePath);
+        var servicesPath = Path.of( "src/main/resources/META-INF/services/" + service.getName());
+        var modulePath = Path.of( "src/main/resources/META-INF/versions.9/module-info.java");
+
         var builder = new StringBuilder();
         Files.walkFileTree(path, new SimpleFileVisitor<>() {
             @Override
@@ -47,14 +49,14 @@ class GenTest {
                 var sub = file.subpath(from, to);
                 var s = sub.toString();
                 var name = s.replace("\\", ".");
-                if (Objects.equals(name, "module-info.class")) {
+                if (name.endsWith("-info.class")) {
                     return FileVisitResult.CONTINUE;
                 }
                 try {
                     var index = name.lastIndexOf(".");
                     var className = name.substring(0, index);
                     var clazz = Class.forName(className);
-                    if (clazz.isInterface()) {
+                    if (clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers())) {
                         return FileVisitResult.CONTINUE;
                     }
                     if (service.isAssignableFrom(clazz)) {
@@ -66,7 +68,7 @@ class GenTest {
                 return FileVisitResult.CONTINUE;
             }
         });
-        write(services, builder);
+        write(servicesPath, builder);
     }
 
     public static void write(Path path, CharSequence data) throws IOException {
@@ -87,43 +89,6 @@ class GenTest {
             } else {
                 throw new IOException("create file failure, path : " + path);
             }
-        }
-    }
-
-    /**
-     * 向指定文件中写入内容
-     *
-     * @param file 指定文件
-     * @param data 内容
-     */
-    public static void write(File file, CharSequence data) {
-        write(file, data, false);
-    }
-
-    /**
-     * 向指定文件写入数据
-     *
-     * @param file   指定文件
-     * @param data   数据
-     * @param append 是否在文件末尾添加数据
-     */
-    public static void write(File file, CharSequence data, boolean append) {
-        if (file.exists()) {
-            if (file.isDirectory()) {
-                throw new IllegalArgumentException(file + " is directory!");
-            }
-
-        } else {
-            var parent = file.getParentFile();
-            if (!parent.exists() && !parent.mkdirs()) {
-                throw new IllegalArgumentException("Create directory[" + parent + "] failure!");
-            }
-        }
-
-        try {
-            Files.writeString(file.toPath(), data, append ? StandardOpenOption.APPEND : StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Write data to file[" + file + "] failure!");
         }
     }
 }

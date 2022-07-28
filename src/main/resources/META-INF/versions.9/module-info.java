@@ -15,6 +15,7 @@ module vary {
     exports org.luvsa.vary.string;
     exports org.luvsa.vary.string.array;
     exports org.luvsa.vary.zone;
+    exports org.luvsa.exception;
 
     uses org.luvsa.vary.Factory;
     uses org.luvsa.vary.bool.BProvider;

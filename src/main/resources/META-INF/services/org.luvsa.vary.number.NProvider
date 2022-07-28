@@ -1,0 +1,12 @@
+org.luvsa.vary.number.ToBool
+org.luvsa.vary.number.ToByte
+org.luvsa.vary.number.ToChar
+org.luvsa.vary.number.ToDate
+org.luvsa.vary.number.ToDouble
+org.luvsa.vary.number.ToFloat
+org.luvsa.vary.number.ToInstant
+org.luvsa.vary.number.ToInteger
+org.luvsa.vary.number.ToLocal
+org.luvsa.vary.number.ToLong
+org.luvsa.vary.number.ToShort
+org.luvsa.vary.number.ToString

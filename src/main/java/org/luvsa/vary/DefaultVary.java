@@ -1,11 +1,14 @@
 package org.luvsa.vary;
 
+import org.luvsa.exception.EmptyFactoryException;
+import org.luvsa.exception.FactoryNotFoundException;
 import org.luvsa.vary.other.OFactory;
 
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
@@ -59,7 +62,7 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
 
     private boolean checkAssignable(Class<?> clz, Type type) {
         if (type instanceof Class<?> cls) {
-            if (cls == clz){
+            if (cls == clz) {
                 return true;
             }
             var wrap = Util.wrap(cls);
@@ -86,15 +89,20 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
 
     private Factory<?> offer0(Class<?> clazz) throws Exception {
         //初始化管理器
+        var times = new AtomicLong(0);
         while (this.isEmpty()) {
             // 加载 转换器工厂
-            if (lock.tryLock()) {
+            if (lock.tryLock(2, TimeUnit.SECONDS)) {
                 // 解锁之前进入，那就办法了，只能重新初始化一次
                 loader.load(Factory.class, this::put);
                 // 解锁
                 lock.unlock();
+                times.incrementAndGet();
             } else {
                 TimeUnit.SECONDS.sleep(3);
+            }
+            if (times.get() > 10) {
+                throw new EmptyFactoryException();
             }
         }
 

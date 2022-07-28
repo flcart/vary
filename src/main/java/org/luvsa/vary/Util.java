@@ -6,7 +6,7 @@ import java.util.Map;
  * @author Aglet
  * @create 2022/7/15 11:27
  */
-class Util {
+public class Util {
 
     private final static Map<Class<?>, Class<?>> PRIMITIVES = Map.of(
             byte.class, Byte.class,
