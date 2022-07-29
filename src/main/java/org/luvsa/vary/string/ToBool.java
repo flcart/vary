@@ -11,7 +11,7 @@ import java.util.function.Function;
  * @create 2022/6/27 17:31
  */
 @Types({Boolean.class, boolean.class})
-public class ToBool implements SProvider {
+public class ToBool implements Provider {
 
     /**
      * 值为 true 时的 字符串数组， 用于 String 转 Boolean 类型

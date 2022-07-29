@@ -8,7 +8,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/7/14 11:16
  */
-public class ToURI implements SProvider {
+public class ToURI implements Provider {
 
     @Override
     public Function<String, ?> get(Type type) {

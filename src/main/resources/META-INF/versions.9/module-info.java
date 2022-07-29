@@ -1,3 +1,6 @@
+import org.luvsa.vary.string.Factory;
+import org.luvsa.vary.string.Provider;
+
 /**
  * @author Aglet
  * @create 2022/6/29 17:39
@@ -25,7 +28,7 @@ module vary {
     uses org.luvsa.vary.local.Provider;
     uses org.luvsa.vary.number.Provider;
     uses org.luvsa.vary.other.OProvider;
-    uses org.luvsa.vary.string.SProvider;
+    uses Provider;
     uses org.luvsa.vary.string.array.AProvider;
     uses org.luvsa.vary.zone.Provider;
 
@@ -37,7 +40,7 @@ module vary {
             org.luvsa.vary.local.Factory,
             org.luvsa.vary.number.NFactory,
             org.luvsa.vary.other.OFactory,
-            org.luvsa.vary.string.SFactory,
+            Factory,
             org.luvsa.vary.string.array.AFactory,
             org.luvsa.vary.zone.Factory;
 
@@ -87,7 +90,7 @@ module vary {
             org.luvsa.vary.other.ToMap,
             org.luvsa.vary.proxy.DynamicProxy;
 
-    provides org.luvsa.vary.string.SProvider with
+    provides Provider with
             org.luvsa.vary.string.ToBool,
             org.luvsa.vary.string.ToChars,
             org.luvsa.vary.string.ToDate,

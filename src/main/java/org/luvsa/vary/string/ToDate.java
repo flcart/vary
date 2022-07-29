@@ -17,7 +17,7 @@ import java.util.function.Function;
  * @create 2022/6/28 9:03
  */
 @Types(Date.class)
-public class ToDate extends BiDate<Date> implements SProvider, Function<String, Date> {
+public class ToDate extends BiDate<Date> implements Provider, Function<String, Date> {
 
     @Override
     public Function<String, ?> get(Type type) {

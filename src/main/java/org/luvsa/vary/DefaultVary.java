@@ -2,6 +2,7 @@ package org.luvsa.vary;
 
 import org.luvsa.exception.EmptyFactoryException;
 import org.luvsa.exception.FactoryNotFoundException;
+import org.luvsa.reflect.Reflections;
 import org.luvsa.vary.other.OFactory;
 
 import java.lang.reflect.Proxy;
@@ -65,7 +66,7 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
             if (cls == clz) {
                 return true;
             }
-            var wrap = Util.wrap(cls);
+            var wrap = Reflections.wrap(cls);
             return wrap.isAssignableFrom(clz);
         }
         return false;

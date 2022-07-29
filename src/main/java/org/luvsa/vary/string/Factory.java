@@ -14,7 +14,7 @@ import java.util.function.Function;
  * @create 2022/6/25 10:47
  */
 @Types(String.class)
-public class SFactory extends AbstractFactory<String, SProvider> {
+public class Factory extends AbstractFactory<String, Provider> {
 
     private final static Function<String, Optional<String>> barrier = s -> s.isBlank() ? Optional.empty() : Optional.of(s);
     

@@ -13,7 +13,7 @@ import java.util.function.Function;
  * @create 2022/7/1 20:39
  */
 @Types(Item.class)
-public class ToItem implements SProvider {
+public class ToItem implements Provider {
 
 	@Override
 	public Function<String, ?> get(Type type) {

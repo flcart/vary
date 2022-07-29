@@ -12,7 +12,7 @@ import java.util.function.Function;
  */
 
 @Types(BigDecimal.class)
-public class ToDecimal implements SProvider {
+public class ToDecimal implements Provider {
     /**
      * 中文数字表
      */

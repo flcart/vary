@@ -136,6 +136,9 @@ class VaryTest {
 
     @Test
     void toBigDecimal() {
+        char[] array0 = Vary.change("char", char[].class);
+        Character[] array1 = Vary.change("Character", Character[].class);
+
         var change = Vary.change(1, BigDecimal.class);
         System.out.println(change);
     }

@@ -1,4 +1,4 @@
-org.luvsa.vary.array.AFactory
+org.luvsa.vary.array.Factory
 org.luvsa.vary.bool.BFactory
 org.luvsa.vary.chrono.CFactory
 org.luvsa.vary.date.DFactory
@@ -7,5 +7,5 @@ org.luvsa.vary.local.Factory
 org.luvsa.vary.number.Factory
 org.luvsa.vary.other.OFactory
 org.luvsa.vary.string.array.AFactory
-org.luvsa.vary.string.SFactory
+org.luvsa.vary.string.Factory
 org.luvsa.vary.zone.Factory

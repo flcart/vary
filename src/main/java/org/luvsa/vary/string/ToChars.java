@@ -6,13 +6,19 @@ import java.lang.reflect.Type;
 import java.util.function.Function;
 
 /**
+ * {@link String 字符串} 转 {@link Character 字符数组}, 使用案例: <pre>{@code
+ *  char[] array = Vary.change("char", char[].class);
+ * }</pre>
+ *
  * @author Aglet
  * @create 2022/7/15 14:05
  */
-@Types({char[].class, Character[].class})
-public class ToChars implements SProvider {
+@Types(char[].class)
+public class ToChars implements Provider {
+
     @Override
     public Function<String, ?> get(Type type) {
         return s -> s.strip().toCharArray();
     }
+
 }

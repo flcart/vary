@@ -11,7 +11,7 @@ import java.util.function.Function;
  * @create 2022/7/14 11:03
  */
 @Types(File.class)
-public class ToFile implements SProvider {
+public class ToFile implements Provider {
 
     @Override
     public Function<String, ?> get(Type type) {

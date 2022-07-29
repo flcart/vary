@@ -14,7 +14,7 @@ import java.util.function.Function;
  * @create 2022/6/28 9:18
  */
 @Types(LocalDateTime.class)
-public class ToLocalDateTime extends BiDate<LocalDateTime> implements SProvider, Function<String, LocalDateTime> {
+public class ToLocalDateTime extends BiDate<LocalDateTime> implements Provider, Function<String, LocalDateTime> {
 
     @Override
     public LocalDateTime apply(String s) {

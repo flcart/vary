@@ -1,6 +1,7 @@
 package org.luvsa.reflect;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,24 @@ import java.util.Objects;
  * @create 2022/7/14 18:34
  */
 public final class Reflections {
+
+	private final static Map<Class<?>, Class<?>> PRIMITIVES = Map.of(
+			byte.class, Byte.class,
+			short.class, Short.class,
+			int.class, Integer.class,
+			long.class, Long.class,
+			float.class, Float.class,
+			double.class, Double.class,
+			char.class, Character.class,
+			boolean.class, Boolean.class
+	);
+
 	private Reflections() {
+	}
+
+
+	public static Class<?> wrap(Class<?> clazz) {
+		return PRIMITIVES.getOrDefault(clazz, clazz);
 	}
 
 	/**

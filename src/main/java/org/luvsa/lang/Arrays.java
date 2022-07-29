@@ -38,4 +38,8 @@ public final class Arrays {
     static boolean have0(CharPredicate predicate, char[] array) {
         return has0(false, predicate, array);
     }
+
+    static boolean has0(CharPredicate predicate, char[] array) {
+        return has0(true, predicate, array);
+    }
 }
