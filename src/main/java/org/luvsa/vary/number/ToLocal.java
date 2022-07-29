@@ -13,7 +13,7 @@ import java.util.function.Function;
  * @create 2022/6/27 16:47
  */
 @Types({LocalDate.class, LocalTime.class, LocalDateTime.class})
-public class ToLocal extends ToInstant implements NProvider {
+public class ToLocal extends ToInstant implements Provider {
 
     @Override
     public Function<Number, ?> get(Type type) {

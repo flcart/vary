@@ -14,5 +14,5 @@ import java.math.BigInteger;
  */
 @Types({Byte.class, byte.class, Short.class, short.class, Integer.class, int.class, Long.class, long.class, Float.class, float.class,
         Double.class, double.class, BigDecimal.class, BigInteger.class})
-public class NFactory extends AbstractFactory<Number, NProvider> {
+public class Factory extends AbstractFactory<Number, Provider> {
 }

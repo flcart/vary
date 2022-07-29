@@ -23,7 +23,7 @@ module vary {
     uses org.luvsa.vary.date.DProvider;
     uses org.luvsa.vary.instant.Provider;
     uses org.luvsa.vary.local.Provider;
-    uses org.luvsa.vary.number.NProvider;
+    uses org.luvsa.vary.number.Provider;
     uses org.luvsa.vary.other.OProvider;
     uses org.luvsa.vary.string.SProvider;
     uses org.luvsa.vary.string.array.AProvider;
@@ -69,7 +69,7 @@ module vary {
             org.luvsa.vary.local.ToString,
             org.luvsa.vary.local.ToZoned;
 
-    provides org.luvsa.vary.number.NProvider with
+    provides org.luvsa.vary.number.Provider with
             org.luvsa.vary.number.ToBool,
             org.luvsa.vary.number.ToByte,
             org.luvsa.vary.number.ToChar,

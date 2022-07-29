@@ -10,7 +10,7 @@ import java.util.function.Function;
  * @create 2022/6/27 13:58
  */
 @Types({Integer.class, int.class})
-public class ToInteger implements NProvider {
+public class ToInteger implements Provider {
 
     @Override
     public Function<Number, ?> get(Type type) {

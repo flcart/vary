@@ -12,7 +12,7 @@ import java.util.function.Function;
  * @create 2022/6/27 13:55
  */
 @Types({Boolean.class, boolean.class})
-public class ToBool implements NProvider {
+public class ToBool implements Provider {
 
     @Override
     public Function<Number, ?> get(Type type) {

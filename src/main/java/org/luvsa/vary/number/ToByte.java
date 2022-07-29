@@ -10,7 +10,7 @@ import java.util.function.Function;
  * @create 2022/6/27 13:57
  */
 @Types({Byte.class, byte.class})
-public class ToByte implements NProvider {
+public class ToByte implements Provider {
 
     @Override
     public Function<Number, ?> get(Type type) {

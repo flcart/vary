@@ -10,7 +10,7 @@ import java.util.function.Function;
  * @create 2022/6/27 13:58
  */
 @Types({Float.class, float.class})
-public class ToFloat implements NProvider {
+public class ToFloat implements Provider {
     @Override
     public Function<Number, ?> get(Type type) {
         return Number::floatValue;

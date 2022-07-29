@@ -4,7 +4,7 @@ org.luvsa.vary.chrono.CFactory
 org.luvsa.vary.date.DFactory
 org.luvsa.vary.instant.Factory
 org.luvsa.vary.local.Factory
-org.luvsa.vary.number.NFactory
+org.luvsa.vary.number.Factory
 org.luvsa.vary.other.OFactory
 org.luvsa.vary.string.array.AFactory
 org.luvsa.vary.string.SFactory

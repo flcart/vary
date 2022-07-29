@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.luvsa.vary.other.Iob;
 import org.luvsa.vary.other.SupportIob;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -132,6 +133,13 @@ class VaryTest {
         var change = Vary.change(LocalDateTime.now(), Date.class);
         System.out.println(change);
     }
+
+    @Test
+    void toBigDecimal() {
+        var change = Vary.change(1, BigDecimal.class);
+        System.out.println(change);
+    }
+
 
 
     @Test

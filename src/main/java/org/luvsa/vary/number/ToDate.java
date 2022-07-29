@@ -11,7 +11,7 @@ import java.util.function.Function;
  * @create 2022/6/27 16:46
  */
 @Types(Date.class)
-public class ToDate extends ToInstant implements NProvider {
+public class ToDate extends ToInstant implements Provider {
     @Override
     public Function<Number, ?> get(Type type) {
         return super.get(type).andThen(found(type));

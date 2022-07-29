@@ -10,7 +10,7 @@ import java.util.function.Function;
  * @create 2022/6/27 13:55
  */
 @Types(String.class)
-public class ToString implements NProvider {
+public class ToString implements Provider {
     @Override
     public Function<Number, ?> get(Type type) {
         return String::valueOf;
