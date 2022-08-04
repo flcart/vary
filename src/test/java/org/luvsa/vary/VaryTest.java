@@ -25,7 +25,7 @@ class VaryTest {
     @DisplayName("字符串转 Date")
     @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30"})
     void strToDate(String txt) {
-        Date date = Vary.change(txt, Date.class);
+        var date = Vary.change(txt, Date.class);
         System.out.println(date);
     }
 
@@ -33,7 +33,7 @@ class VaryTest {
     @DisplayName("字符串转 LocalDate")
     @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30"})
     void strToLocalDate(String txt) {
-        LocalDate date = Vary.change(txt, LocalDate.class);
+        var date = Vary.change(txt, LocalDate.class);
         System.out.println(date);
     }
 
@@ -41,7 +41,7 @@ class VaryTest {
     @DisplayName("字符串转 LocalDateTime")
     @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30"})
     void strToLocalDateTime(String txt) {
-        LocalDateTime dateTime = Vary.change(txt, LocalDateTime.class);
+        var dateTime = Vary.change(txt, LocalDateTime.class);
         System.out.println(dateTime);
     }
 
@@ -49,7 +49,7 @@ class VaryTest {
     @DisplayName("字符串转 LocalTime")
     @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30", "12:51", "12:51:26", "12:51:26:333"})
     void strToLocalTime(String txt) {
-        LocalTime time = Vary.change(txt, LocalTime.class);
+        var time = Vary.change(txt, LocalTime.class);
         System.out.println(time);
     }
 
@@ -57,7 +57,6 @@ class VaryTest {
     @DisplayName("字符串转数字")
     @ValueSource(strings = {"两百", "二百", "50", "72.89", "九亿零八百零八万零六百零三", "三", "十一亿零五百万", "十", "十七", "五十三", "一百零八", "九百五十", "三千零五十四", "一万零三", "七千八百六十三万九千五百八十八", "十万", "一万零三"})
     void strToNumber(String txt) {
-
         var aShort = Vary.change(txt, short.class);
         var bShort = Vary.change(txt, Short.class);
 
@@ -112,6 +111,13 @@ class VaryTest {
         var date = Vary.change(l, LocalDateTime.class);
         var b = Vary.change(null, LocalDateTime.class);
         System.out.println(date);
+    }
+    @Test
+    @DisplayName("LocalDateTime  转 时间戳")
+    void localDateTimeToLong() {
+        var now = LocalDateTime.now();
+        var b = Vary.change(now, long.class);
+        System.out.println(b);
     }
 
     @ParameterizedTest

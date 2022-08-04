@@ -36,4 +36,9 @@ public class ToLocalTime extends BiDate<LocalTime> implements Provider, Function
             return change.toLocalTime();
         }
     }
+
+    @Override
+    public String toString() {
+        return "String-LocalTime-Provider";
+    }
 }

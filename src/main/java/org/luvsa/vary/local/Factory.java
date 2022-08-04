@@ -17,4 +17,10 @@ import java.time.temporal.Temporal;
  */
 @Types({LocalDate.class, LocalTime.class, LocalDateTime.class})
 public class Factory extends AbstractFactory<Temporal, Provider> {
+
+    @Override
+    public String toString() {
+        return "Local-Factory";
+    }
+
 }

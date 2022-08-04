@@ -12,8 +12,8 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/27 17:02
  */
-@Types(Long.class)
-public class ToLong implements DProvider {
+@Types({Long.class})
+public class ToLong implements Provider {
 
     @Override
     public Function<Date, ?> get(Type type) {

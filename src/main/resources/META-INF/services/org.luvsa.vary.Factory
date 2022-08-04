@@ -1,7 +1,7 @@
 org.luvsa.vary.array.Factory
-org.luvsa.vary.bool.BFactory
-org.luvsa.vary.chrono.CFactory
-org.luvsa.vary.date.DFactory
+org.luvsa.vary.bool.Factory
+org.luvsa.vary.chrono.Factory
+org.luvsa.vary.date.Factory
 org.luvsa.vary.instant.Factory
 org.luvsa.vary.local.Factory
 org.luvsa.vary.number.Factory

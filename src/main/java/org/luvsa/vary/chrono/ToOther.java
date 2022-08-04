@@ -15,7 +15,7 @@ import java.util.function.Function;
  * @create 2022/6/27 16:24
  */
 @Types({Instant.class, Date.class, Long.class})
-public class ToOther extends ToZoned implements CProvider {
+public class ToOther extends ToZoned implements Provider {
 
     @Override
     public Function<ChronoLocalDateTime<?>, ?> get(Type type) {

@@ -45,14 +45,17 @@ abstract class BiDate<T> {
     T next(String txt, char[] chars) {
         var value = txt.trim();
         var format = format(chars, value).trim();
-
         if (format.isBlank()) {
             //不支持
             throw new IllegalArgumentException("Unable to convert " + value + " to LocalDate");
         }
-
         return next(txt, format);
     }
 
     abstract T next(String value, String format);
+
+    @Override
+    public String toString() {
+        return "String-Date";
+    }
 }

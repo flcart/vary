@@ -9,7 +9,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/27 13:58
  */
-@Types({Integer.class, int.class})
+@Types({Integer.class})
 public class ToInteger implements Provider {
 
     @Override

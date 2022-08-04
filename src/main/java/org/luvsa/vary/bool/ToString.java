@@ -12,11 +12,15 @@ import java.util.function.Function;
  * @create 2022/6/28 9:28
  */
 @Types(String.class)
-public class ToString implements BProvider {
+public class ToString implements Provider {
 
     @Override
     public Function<Boolean, ?> get(Type type) {
         return String::valueOf;
     }
 
+    @Override
+    public String toString() {
+        return "Boolean-String-Provider";
+    }
 }

@@ -14,7 +14,7 @@ import java.util.function.Function;
  * @create 2022/6/27 17:03
  */
 @Types(Instant.class)
-public class ToInstant implements DProvider {
+public class ToInstant implements Provider {
 
     @Override
     public Function<Date, ?> get(Type type) {

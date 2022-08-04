@@ -11,7 +11,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/27 13:55
  */
-@Types({Boolean.class, boolean.class})
+@Types({Boolean.class})
 public class ToBool implements Provider {
 
     @Override

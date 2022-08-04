@@ -14,7 +14,7 @@ import java.util.function.Function;
  * @create 2022/6/27 17:05
  */
 @Types(ZonedDateTime.class)
-public class ToZoned extends ToInstant implements DProvider {
+public class ToZoned extends ToInstant implements Provider {
 
     @Override
     public Function<Date, ?> get(Type type) {

@@ -13,6 +13,7 @@ import java.util.function.Consumer;
  * @create 2022/7/14 11:44
  */
 public class DefaultLoader implements Loader {
+
     @Override
     public <R extends TypeSupplier> void load(Class<R> clazz, BiConsumer<Class<?>, R> next, Consumer<R> err) {
         var providers = ServiceLoader.load(clazz);

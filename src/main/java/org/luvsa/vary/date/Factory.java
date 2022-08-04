@@ -10,8 +10,10 @@ import java.util.Date;
  * @create 2022/6/27 14:26
  */
 @Types(Date.class)
-public class DFactory extends AbstractFactory<Date, DProvider> {
-
-
+public class Factory extends AbstractFactory<Date, Provider> {
+    @Override
+    public String toString() {
+        return "Date-Factory";
+    }
 
 }

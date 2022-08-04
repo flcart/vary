@@ -9,7 +9,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/27 13:58
  */
-@Types({Double.class, double.class})
+@Types({Double.class})
 public class ToDouble implements Provider {
 
     @Override

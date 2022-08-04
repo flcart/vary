@@ -10,7 +10,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/27 17:31
  */
-@Types({Boolean.class, boolean.class})
+@Types({Boolean.class})
 public class ToBool implements Provider {
 
     /**
@@ -28,5 +28,10 @@ public class ToBool implements Provider {
     @Override
     public Function<String, ?> get(Type type) {
         return function.andThen(index -> index >= 0 && POSITIVE.length > index);
+    }
+
+    @Override
+    public String toString() {
+        return "String-Boolean-Provider";
     }
 }

@@ -10,6 +10,10 @@ import java.time.chrono.ChronoLocalDateTime;
  * @create 2022/6/27 14:26
  */
 @Types(ChronoLocalDateTime.class)
-public class CFactory extends AbstractFactory<ChronoLocalDateTime<?>, CProvider> {
+public class Factory extends AbstractFactory<ChronoLocalDateTime<?>, Provider> {
 
+    @Override
+    public String toString() {
+        return "ChronoLocalDateTime-Factory";
+    }
 }

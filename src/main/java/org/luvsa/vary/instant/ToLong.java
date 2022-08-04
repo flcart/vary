@@ -10,7 +10,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/27 16:07
  */
-@Types(Long.class)
+@Types({Long.class})
 public class ToLong implements Provider {
 
     @Override

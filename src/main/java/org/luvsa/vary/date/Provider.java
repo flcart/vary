@@ -1,7 +1,5 @@
 package org.luvsa.vary.date;
 
-import org.luvsa.vary.Provider;
-
 import java.util.Date;
 
 /**
@@ -10,6 +8,6 @@ import java.util.Date;
  * @author Aglet
  * @create 2022/6/27 14:35
  */
-public interface DProvider extends Provider<Date> {
+public interface Provider extends org.luvsa.vary.Provider<Date> {
 
 }

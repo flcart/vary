@@ -21,4 +21,8 @@ public class ToChars implements Provider {
         return s -> s.strip().toCharArray();
     }
 
+    @Override
+    public String toString() {
+        return "String-char[]-Provider";
+    }
 }

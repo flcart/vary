@@ -1,5 +1,5 @@
-import org.luvsa.vary.string.Factory;
-import org.luvsa.vary.string.Provider;
+import org.luvsa.vary.bool.Factory;
+import org.luvsa.vary.bool.Provider;
 
 /**
  * @author Aglet
@@ -21,39 +21,39 @@ module vary {
     exports org.luvsa.exception;
 
     uses org.luvsa.vary.Factory;
-    uses org.luvsa.vary.bool.BProvider;
-    uses org.luvsa.vary.chrono.CProvider;
-    uses org.luvsa.vary.date.DProvider;
+    uses Provider;
+    uses org.luvsa.vary.chrono.Provider;
+    uses org.luvsa.vary.date.Provider;
     uses org.luvsa.vary.instant.Provider;
     uses org.luvsa.vary.local.Provider;
     uses org.luvsa.vary.number.Provider;
     uses org.luvsa.vary.other.OProvider;
-    uses Provider;
+    uses org.luvsa.vary.string.Factory;
     uses org.luvsa.vary.string.array.AProvider;
     uses org.luvsa.vary.zone.Provider;
 
     provides org.luvsa.vary.Factory with
-            org.luvsa.vary.bool.BFactory,
-            org.luvsa.vary.chrono.CFactory,
+            Factory,
+            org.luvsa.vary.chrono.Factory,
             org.luvsa.vary.date.DFactory,
             org.luvsa.vary.instant.Factory,
             org.luvsa.vary.local.Factory,
             org.luvsa.vary.number.NFactory,
             org.luvsa.vary.other.OFactory,
-            Factory,
+            org.luvsa.vary.string.Factory,
             org.luvsa.vary.string.array.AFactory,
             org.luvsa.vary.zone.Factory;
 
-    provides org.luvsa.vary.bool.BProvider with
+    provides Provider with
             org.luvsa.vary.bool.ToInteger,
             org.luvsa.vary.bool.ToNumber,
             org.luvsa.vary.bool.ToString;
 
-    provides org.luvsa.vary.chrono.CProvider with
+    provides org.luvsa.vary.chrono.Provider with
             org.luvsa.vary.chrono.ToZoned,
             org.luvsa.vary.chrono.ToOther;
 
-    provides org.luvsa.vary.date.DProvider with
+    provides org.luvsa.vary.date.Provider with
             org.luvsa.vary.date.ToInstant,
             org.luvsa.vary.date.ToZoned,
             org.luvsa.vary.date.ToLocal,
@@ -90,7 +90,7 @@ module vary {
             org.luvsa.vary.other.ToMap,
             org.luvsa.vary.proxy.DynamicProxy;
 
-    provides Provider with
+    provides org.luvsa.vary.string.Provider with
             org.luvsa.vary.string.ToBool,
             org.luvsa.vary.string.ToChars,
             org.luvsa.vary.string.ToDate,

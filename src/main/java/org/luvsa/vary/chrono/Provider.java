@@ -1,7 +1,5 @@
 package org.luvsa.vary.chrono;
 
-import org.luvsa.vary.Provider;
-
 import java.time.chrono.ChronoLocalDateTime;
 
 /**
@@ -10,5 +8,5 @@ import java.time.chrono.ChronoLocalDateTime;
  * @author Aglet
  * @create 2022/6/27 15:58
  */
-public interface CProvider extends Provider<ChronoLocalDateTime<?>> {
+public interface Provider extends org.luvsa.vary.Provider<ChronoLocalDateTime<?>> {
 }

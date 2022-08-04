@@ -22,4 +22,9 @@ public class Factory extends AbstractFactory<String, Provider> {
     public Function<String, ?> create(Type type) {
         return barrier.andThen(optional -> optional.map(super.create(type)).orElse(null));
     }
+
+    @Override
+    public String toString() {
+        return "String-Factory";
+    }
 }

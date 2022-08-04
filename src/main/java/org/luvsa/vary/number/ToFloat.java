@@ -9,7 +9,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/27 13:58
  */
-@Types({Float.class, float.class})
+@Types({Float.class})
 public class ToFloat implements Provider {
     @Override
     public Function<Number, ?> get(Type type) {

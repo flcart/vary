@@ -38,4 +38,9 @@ public class ToDate extends BiDate<Date> implements Provider, Function<String, D
             throw new IllegalArgumentException("以[" + format + "]格式解析日期[" + value + "]失败！", e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "String-Date-Provider";
+    }
 }

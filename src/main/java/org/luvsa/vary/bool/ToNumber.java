@@ -13,12 +13,16 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/28 9:32
  */
-@Types({Byte.class, byte.class, Short.class, short.class, Long.class, long.class, Float.class, float.class, Double.class, double.class, BigInteger.class, BigDecimal.class})
-public class ToNumber extends ToInteger implements BProvider {
+@Types({Byte.class, Short.class, Long.class, Float.class, Double.class, BigInteger.class, BigDecimal.class})
+public class ToNumber extends ToInteger implements Provider {
 
     @Override
     public Function<Boolean, ?> get(Type type) {
         return super.get(type).andThen(found(type));
     }
 
+    @Override
+    public String toString() {
+        return "Boolean-Number-Provider";
+    }
 }

@@ -1,5 +1,7 @@
 package org.luvsa.vary;
 
+import org.luvsa.reflect.Reflections;
+
 import java.lang.reflect.Type;
 import java.util.Optional;
 
@@ -22,7 +24,7 @@ public interface Vary {
      */
     @SuppressWarnings("unchecked")
     static <T, R> R change(T value, Class<R> cls) {
-        return (R) convert(value,  cls);
+        return (R) convert(value, Reflections.wrap(cls));
     }
 
     /**
@@ -34,7 +36,19 @@ public interface Vary {
      * @return 目标数据
      */
     static <T> Object convert(T value, Type type) {
-        return DefaultVary.INSTANCE.apply(value, type);
+        Exception exception = null;
+        for (var item : Util.list) {
+            try {
+                return item.apply(value, type);
+            } catch (Exception e) {
+                if (exception == null) {
+                    exception = e;
+                } else {
+                    exception = new RuntimeException(e);
+                }
+            }
+        }
+        throw new RuntimeException(exception);
     }
 
     /**
@@ -83,6 +97,6 @@ public interface Vary {
      * @param <T>   当前数据类型
      * @return 目标数据
      */
-    <T> Object apply(T value, Type type);
+    <T> Object apply(T value, Type type) throws Exception;
 
 }

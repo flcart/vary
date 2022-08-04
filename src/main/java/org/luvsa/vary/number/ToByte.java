@@ -9,7 +9,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/27 13:57
  */
-@Types({Byte.class, byte.class})
+@Types({Byte.class})
 public class ToByte implements Provider {
 
     @Override

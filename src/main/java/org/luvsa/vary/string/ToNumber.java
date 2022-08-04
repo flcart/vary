@@ -10,7 +10,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/27 17:24
  */
-@Types({Byte.class, byte.class, Short.class, short.class, Integer.class, int.class, Long.class, long.class, Float.class, float.class, Double.class, double.class, BigInteger.class})
+@Types({Byte.class,  Short.class, Integer.class, Long.class,  Float.class, Double.class,  BigInteger.class})
 public class ToNumber extends ToDecimal implements Provider {
 
     @Override

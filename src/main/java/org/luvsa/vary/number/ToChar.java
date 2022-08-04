@@ -9,7 +9,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/7/14 15:03
  */
-@Types({char.class, Character.class})
+@Types({ Character.class})
 public class ToChar implements Provider {
 
     @Override

@@ -12,7 +12,11 @@ import java.math.BigInteger;
  * @author Aglet
  * @create 2022/6/27 9:30
  */
-@Types({Byte.class, byte.class, Short.class, short.class, Integer.class, int.class, Long.class, long.class, Float.class, float.class,
-        Double.class, double.class, BigDecimal.class, BigInteger.class})
+@Types({Byte.class, Short.class, Integer.class, Long.class, Float.class, Double.class, BigDecimal.class, BigInteger.class})
 public class Factory extends AbstractFactory<Number, Provider> {
+    @Override
+    public String toString() {
+        return "Number-Factory";
+    }
+
 }

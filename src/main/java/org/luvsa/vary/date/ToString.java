@@ -15,7 +15,7 @@ import java.util.function.Function;
  * @create 2022/6/27 17:00
  */
 @Types(String.class)
-public class ToString implements DProvider {
+public class ToString implements Provider {
 
     private final DateFormat DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
