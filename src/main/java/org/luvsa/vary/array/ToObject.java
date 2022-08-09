@@ -12,7 +12,6 @@ import java.util.function.Function;
  */
 @Types(Object[].class)
 public class ToObject implements Provider {
-
     @Override
     public Function<Object, ?> get(Type type) {
         return o -> {

@@ -35,6 +35,9 @@ public abstract class Manager<T> implements Iterable<Type> {
      */
     protected final Map<Type, T> cache = new ConcurrentHashMap<>();
 
+    /**
+     * 数据转换缓存
+     */
     protected final Map<Type, List<T>> map = new ConcurrentHashMap<>();
 
     protected static final Loader loader = new DefaultLoader();
@@ -57,7 +60,7 @@ public abstract class Manager<T> implements Iterable<Type> {
     }
 
     public T get(Type key) {
-        if (key instanceof ParameterizedType param){
+        if (key instanceof ParameterizedType param) {
             key = param.getRawType();
         }
         var value = cache.get(key);
@@ -66,12 +69,11 @@ public abstract class Manager<T> implements Iterable<Type> {
             if (list == null) {
                 return null;
             }
-//            var moduleA = Reflections.getCallerClass(Vary.class).getModule();
+            //TODO 这块存在一些问题
             for (var item : list) {
-//                var moduleB = item.getClass().getModule();
                 return item;
             }
-            throw new IllegalArgumentException();
+            return null;
         }
         return value;
     }

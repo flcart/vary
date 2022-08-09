@@ -8,5 +8,9 @@ import org.luvsa.vary.TypeSupplier.Types;
  * @create 2022/7/1 13:47
  */
 @Types(String[].class)
-public class AFactory extends AbstractFactory<String[], AProvider> {
+public class Factory extends AbstractFactory<String[], Provider> {
+    @Override
+    public String toString() {
+        return "String[]-Factory";
+    }
 }

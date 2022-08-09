@@ -7,10 +7,15 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/7/14 11:17
  */
-public class ToPath implements AProvider{
+public class ToPath implements Provider {
 
     @Override
     public Function<String[], ?> get(Type type) {
-        return null;
+        throw new RuntimeException();
+    }
+
+    @Override
+    public String toString() {
+        return "String[]-Path";
     }
 }

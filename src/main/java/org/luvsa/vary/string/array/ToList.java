@@ -14,8 +14,7 @@ import java.util.function.Function;
  * @create 2022/6/30 17:24
  */
 @Types(List.class)
-public class ToList implements AProvider {
-
+public class ToList implements Provider {
     @Override
     public Function<String[], ?> get(Type type) {
         return array -> {
@@ -28,5 +27,10 @@ public class ToList implements AProvider {
             });
             return list;
         };
+    }
+
+    @Override
+    public String toString() {
+        return "String[]-List<?>";
     }
 }

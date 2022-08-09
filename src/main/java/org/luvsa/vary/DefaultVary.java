@@ -14,17 +14,6 @@ import java.util.function.Function;
  */
 public class DefaultVary extends Manager<Factory<?>> implements Vary {
 
-//    /**
-//     * 不支持类型的默认转换函数工厂
-//     */
-//    private static final Factory<?> DEFAULT = new OFactory();
-//
-//    /**
-//     * 采取单列模式
-//     */
-//    static final Vary INSTANCE = new DefaultVary();
-//    private final Lock lock = new ReentrantLock();
-
     @Override
     public <T> Object apply(T value, Type type) throws Exception {
         //如果值为空,直接返回默认值
@@ -71,44 +60,25 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
      */
 
     private Factory<?> offer0(Class<?> clazz) throws Exception {
-        //初始化管理器
-        // 解锁之前进入，那就办法了，只能重新初始化一次
-        loader.load(Factory.class, this::put);
         var factory = this.get(clazz);
         if (factory != null) {
             return factory;
         }
-//        if (Proxy.class.isAssignableFrom(clazz)) {
-//            // 动态代理问题， 会取第一个接口， 如果是多个接口，则会有问题
-//            var interfaces = clazz.getInterfaces();
-//            var joiner = new StringJoiner("\n");
-//            for (var item : interfaces) {
-//                var offer = offer(item);
-//                if (offer != null) {
-//                    // 保存下
-//                    this.put(clazz, offer);
-//                    return offer;
-//                }
-//                joiner.add(item.getName());
-//            }
-//            throw new FactoryNotFoundException(joiner.toString());
-//        }
-//
-//        for (var item : this) {
-//            if (checkAssignable(clazz, item)) {
-//                var fact = this.get(item);
-//                this.put(clazz, fact);
-//                return fact;
-//            }
-//        }
+        for (var item : this) {
+            if (checkAssignable(clazz, item)) {
+                var fact = this.get(item);
+                this.put(clazz, fact);
+                return fact;
+            }
+        }
         throw new FactoryNotFoundException();
     }
 
     @Override
-    protected Factory<?> offer(Type type) throws Exception {
-        if (type instanceof Class<?> clazz) {
-            return offer0(clazz);
+    protected Factory<?> offer(Type clazz) throws Exception {
+        if (this.isEmpty()) {
+            loader.load(Factory.class, this::put);
         }
-        throw new UnsupportedOperationException();
+        return offer0((Class<?>) clazz);
     }
 }

@@ -29,7 +29,7 @@ module vary {
     uses org.luvsa.vary.number.Provider;
     uses org.luvsa.vary.other.OProvider;
     uses org.luvsa.vary.string.Factory;
-    uses org.luvsa.vary.string.array.AProvider;
+    uses org.luvsa.vary.string.array.Provider;
     uses org.luvsa.vary.zone.Provider;
 
     provides org.luvsa.vary.Factory with
@@ -100,7 +100,7 @@ module vary {
             org.luvsa.vary.string.ToLocalTime,
             org.luvsa.vary.string.ToNumber;
 
-    provides org.luvsa.vary.string.array.AProvider with
+    provides org.luvsa.vary.string.array.Provider with
             org.luvsa.vary.string.array.ToList;
 
     provides org.luvsa.vary.zone.Provider with

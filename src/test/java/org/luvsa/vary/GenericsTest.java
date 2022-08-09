@@ -1,13 +1,15 @@
 package org.luvsa.vary;
 
 import org.junit.jupiter.api.Test;
-import org.luvsa.reflect.Generics;
 import org.luvsa.reflect.Reflects;
 import org.luvsa.vary.proxy.Lambda;
 import org.luvsa.vary.proxy.ParserImpl;
 
 import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.function.Function;
 
 /**
@@ -18,12 +20,12 @@ class GenericsTest {
 
     @Test
     void accept() {
-        var list = new ArrayList<Map<String, List<String>>>() {
-        };
-        var clazz = list.getClass();
-        Generics.accept(clazz, 0, aClass -> {
-            System.out.println(aClass);
-        });
+//        var list = new ArrayList<Map<String, List<String>>>() {
+//        };
+//        var clazz = list.getClass();
+//        Generics.accept(clazz, 0, aClass -> {
+//            System.out.println(aClass);
+//        });
 
 
     }

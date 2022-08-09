@@ -10,9 +10,8 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/7/29 9:06
  */
-@Types(Character[].class)
+@Types({Character[].class})
 public class ToChars implements Provider {
-
     @Override
     public Function<Object, ?> get(Type type) {
         return o -> {

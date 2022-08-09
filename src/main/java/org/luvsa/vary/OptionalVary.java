@@ -10,8 +10,8 @@ import java.lang.reflect.Type;
  */
 public class OptionalVary implements Vary {
 
-	@Override
-	public <T> Object apply(T value, Type type) {
-		return null;
-	}
+    @Override
+    public <T> Object apply(T value, Type type) throws Exception {
+        throw new UnsupportedOperationException();
+    }
 }

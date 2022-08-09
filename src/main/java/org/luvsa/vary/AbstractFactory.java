@@ -24,6 +24,7 @@ public abstract class AbstractFactory<T, R extends Provider<T>> extends Manager<
         // 获取 转换函数
         try {
             var provider = offer(type);
+
             if (provider == null) {
                 // 缓存中没有指定数据类型的转换函数
                 return next(type);

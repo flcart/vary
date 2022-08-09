@@ -14,13 +14,22 @@ import java.util.function.Consumer;
  */
 public class DefaultLoader implements Loader {
 
+    /**
+     *
+     * @param clazz 指定 Class 对象
+     * @param next  加载成功 指定 Class对象处理器 (指定了 {@link TypeSupplier#getTypes() 类型})
+     * @param err   加载失败 指定 Class对象处理器 (未指定 {@link TypeSupplier#getTypes() 类型})
+     * @param <R>  指定 Class 对象数据类型
+     */
     @Override
     public <R extends TypeSupplier> void load(Class<R> clazz, BiConsumer<Class<?>, R> next, Consumer<R> err) {
         var providers = ServiceLoader.load(clazz);
         for (var item : providers) {
             var aClass = item.getClass();
+
             // 获取 进行数据转换的数据类型
             var types = aClass.getAnnotation(Types.class);
+
             // 如果 注解 Types 没有声明， 则直接调 Provider.getTypes() 方法，
             var classes = types == null ? item.getTypes() : types.value();
             for (var clas : classes) {
@@ -28,6 +37,7 @@ public class DefaultLoader implements Loader {
                 // 一个 被转换数据的类型 对应一个 Provider
                 next.accept(clas, item);
             }
+
             if (classes.length == 0) {
                 // 为载入后续处理
                 err.accept(item);

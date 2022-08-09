@@ -39,9 +39,20 @@ class VaryTest {
 
     @ParameterizedTest
     @DisplayName("字符串转 LocalDateTime")
-    @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30"})
+    @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30", "2022-08-05T00:16:15.987808300"})
     void strToLocalDateTime(String txt) {
         var dateTime = Vary.change(txt, LocalDateTime.class);
+        System.out.println(dateTime);
+    }
+
+    @Test
+    @DisplayName("字符串转 LocalDateTime")
+//    @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30", "2022-08-05T00:16:15.987808300"})
+    void strToLocalDateTime1() {
+//        var txt = "2022-08-05T00:16:15.987808300";
+//        var formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+//        var parse = LocalDateTime.parse(txt, formatter);
+        var dateTime = Vary.change("2022-08-05T00:16:15.987808300", LocalDateTime.class);
         System.out.println(dateTime);
     }
 
@@ -112,12 +123,17 @@ class VaryTest {
         var b = Vary.change(null, LocalDateTime.class);
         System.out.println(date);
     }
+
     @Test
     @DisplayName("LocalDateTime  转 时间戳")
     void localDateTimeToLong() {
         var now = LocalDateTime.now();
+        var s = now.toString();
+        System.out.println(s);
         var b = Vary.change(now, long.class);
+        var change = Vary.change(s, LocalDateTime.class);
         System.out.println(b);
+        System.out.println(change);
     }
 
     @ParameterizedTest
@@ -130,8 +146,11 @@ class VaryTest {
 
     @Test
     void dateToLocal() {
-        var change = Vary.change(new Date(), LocalDateTime.class);
+        var date = new Date();
+        var change = Vary.change(date, LocalDateTime.class);
+        var other = Vary.change(date, long.class);
         System.out.println(change);
+        System.out.println(other);
     }
 
     @Test
@@ -144,11 +163,9 @@ class VaryTest {
     void toBigDecimal() {
         char[] array0 = Vary.change("char", char[].class);
         Character[] array1 = Vary.change("Character", Character[].class);
-
         var change = Vary.change(1, BigDecimal.class);
         System.out.println(change);
     }
-
 
 
     @Test
@@ -197,14 +214,6 @@ class VaryTest {
     @Test
     void strToList() {
 
-
-//        Vary.
-
-//        var future = Vary.change(talent, Tuple.class);
-//        var change = Vary.change(future, Map.class);
-//        System.out.println(change);
-//        var prism = Vary.change(talent, Prism.class);
-//        System.out.println(prism);
     }
 
 

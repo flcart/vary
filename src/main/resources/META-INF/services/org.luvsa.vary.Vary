@@ -1,2 +1,3 @@
 org.luvsa.vary.DefaultVary
 org.luvsa.vary.OptionalVary
+org.luvsa.vary.ProxyVary

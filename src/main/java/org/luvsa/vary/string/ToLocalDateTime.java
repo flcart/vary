@@ -7,6 +7,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -16,9 +17,27 @@ import java.util.function.Function;
 @Types(LocalDateTime.class)
 public class ToLocalDateTime extends BiDate<LocalDateTime> implements Provider, Function<String, LocalDateTime> {
 
+    private final static List<DateTimeFormatter> list = List.of(
+            DateTimeFormatter.ISO_LOCAL_DATE_TIME,
+            DateTimeFormatter.ISO_LOCAL_DATE,
+            DateTimeFormatter.BASIC_ISO_DATE,
+            DateTimeFormatter.RFC_1123_DATE_TIME);
+
     @Override
     public LocalDateTime apply(String s) {
-        return next(s, _DATE_TIME);
+        // TODO　存在问题
+        try {
+            return next(s, _DATE_TIME);
+        } catch (Exception e) {
+            for (var formatter : list) {
+                try {
+                    return LocalDateTime.parse(s, formatter);
+                } catch (Exception exception) {
+                    //
+                }
+            }
+            throw new UnsupportedOperationException(s + " to LocalDateTime");
+        }
     }
 
     @Override
