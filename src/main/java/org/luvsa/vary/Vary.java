@@ -12,7 +12,6 @@ import java.util.Optional;
  * @create 2022/6/29 16:47
  */
 public interface Vary {
-
     /**
      * 转换数据
      *
@@ -38,17 +37,25 @@ public interface Vary {
     static <T> Object convert(T value, Type type) {
         Exception exception = null;
         for (var item : Util.list) {
+            if (!item.enabled()) {
+                continue;
+            }
             try {
                 return item.apply(value, type);
             } catch (Exception e) {
                 if (exception == null) {
                     exception = e;
                 } else {
-                    exception = new RuntimeException(e);
+                    var cause = e.getCause();
+                    exception = new RuntimeException(cause);
                 }
             }
         }
         throw new RuntimeException(exception);
+    }
+
+    default boolean enabled() {
+        return true;
     }
 
     /**

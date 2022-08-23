@@ -15,8 +15,8 @@ class Util {
     static {
         var load = ServiceLoader.load(Vary.class);
         for (var item : load) {
+
             list.add(item);
         }
     }
-
 }

@@ -14,11 +14,9 @@ import java.util.function.Predicate;
  * @create 2022/7/13 18:27
  */
 public final class Reflects {
-
     private Reflects() {
         throw new AssertionError("No org.luvsa.vary.Reflects instances for you!");
     }
-
     public static final Field[] EMPTY_FIELD_ARRAY = new Field[0];
     public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
     private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
@@ -288,7 +286,6 @@ public final class Reflects {
             if (!knownSignature && !isCglibRenamedMethod(method)) {
                 methods.add(method);
             }
-
         }, predicate);
         return methods.toArray(EMPTY_METHOD_ARRAY);
     }

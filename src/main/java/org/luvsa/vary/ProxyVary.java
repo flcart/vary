@@ -18,4 +18,10 @@ public class ProxyVary implements Vary {
         return function.apply(value);
     }
 
+    @Override
+    public boolean enabled() {
+        // 加载配置文件
+        var resource = Thread.currentThread().getContextClassLoader().getResource("vary.proxy");
+        return resource != null;
+    }
 }

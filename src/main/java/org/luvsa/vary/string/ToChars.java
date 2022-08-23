@@ -14,7 +14,7 @@ import java.util.function.Function;
  * @create 2022/7/15 14:05
  */
 @Types(char[].class)
-public class ToChars implements Provider {
+public class  ToChars implements Provider {
 
     @Override
     public Function<String, ?> get(Type type) {
