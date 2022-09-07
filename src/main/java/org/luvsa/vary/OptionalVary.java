@@ -9,9 +9,8 @@ import java.lang.reflect.Type;
  * @create 2022/7/13 15:09
  */
 public class OptionalVary implements Vary {
-
     @Override
-    public <T> Object apply(T value, Type type) throws Exception {
-        throw new UnsupportedOperationException();
+    public <T> Object apply(T value, Class<?> clazz, Type type) throws Exception {
+        return null;
     }
 }

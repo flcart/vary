@@ -42,7 +42,7 @@ public abstract class Manager<T> implements Iterable<Type> {
 
     protected static final Loader loader = new DefaultLoader();
 
-    public void put(Type key, T value) {
+    protected void put(Type key, T value) {
         var list = map.get(key);
         if (list == null) {
             var remove = cache.remove(key);
@@ -59,7 +59,7 @@ public abstract class Manager<T> implements Iterable<Type> {
         }
     }
 
-    public T get(Type key) {
+    protected T get(Type key) {
         if (key instanceof ParameterizedType param) {
             key = param.getRawType();
         }
@@ -114,7 +114,7 @@ public abstract class Manager<T> implements Iterable<Type> {
         return null;
     }
 
-    public boolean containsKey(Type type) {
+    protected boolean containsKey(Type type) {
         return cache.containsKey(type) || map.containsKey(type);
     }
 }

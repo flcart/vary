@@ -13,15 +13,14 @@ public class ProxyVary implements Vary {
     private final static Factory<Object> factory = new OFactory();
 
     @Override
-    public <T> Object apply(T value, Type type) throws Exception {
-        var function = factory.create(type);
-        return function.apply(value);
-    }
-
-    @Override
     public boolean enabled() {
         // 加载配置文件
         var resource = Thread.currentThread().getContextClassLoader().getResource("vary.proxy");
         return resource != null;
+    }
+
+    @Override
+    public <T> Object apply(T value, Class<?> clazz, Type type) throws Exception {
+        return factory.create(type).apply(value);
     }
 }

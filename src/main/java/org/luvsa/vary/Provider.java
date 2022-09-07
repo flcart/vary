@@ -18,4 +18,14 @@ public interface Provider<T> extends TypeSupplier {
      * @return 数据转换函数
      */
     Function<T, ?> get(Type type);
+
+    /**
+     * 默认下一步处理器
+     * 创建
+     * @param type 目标数据类型
+     * @return 数据转换函数
+     */
+    default Function<Object, Object> found(Type type) {
+        return o -> Vary.convert(o, type);
+    }
 }

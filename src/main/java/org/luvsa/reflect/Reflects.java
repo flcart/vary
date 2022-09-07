@@ -17,15 +17,14 @@ public final class Reflects {
     private Reflects() {
         throw new AssertionError("No org.luvsa.vary.Reflects instances for you!");
     }
+
     public static final Field[] EMPTY_FIELD_ARRAY = new Field[0];
     public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
     private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
     private static final Method[] EMPTY_METHOD_ARRAY = new Method[0];
     private static final String CGLIB_RENAMED_METHOD_PREFIX = "CGLIB$";
-
     private static final String GET_METHOD_PREFIX = "get";
     private static final String GET_BOOL_METHOD_PREFIX = "is";
-
     public static final Predicate<Method> USER_DECLARED_METHODS = method -> !method.isBridge() && !method.isSynthetic() && (method.getDeclaringClass() != Object.class);
 
     private final static BiPredicate<String, Method> FIND_GET_METHOD = (name, method) -> {
@@ -128,6 +127,10 @@ public final class Reflects {
             }
         }
         return result;
+    }
+
+    public static Map<String, Object> extract(Object o) {
+        return Collections.emptyMap();
     }
 
     public static boolean isPublicStaticFinal(Field field) {

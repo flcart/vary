@@ -4,8 +4,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Type;
-import java.util.function.Function;
 
 /**
  * 数据转换类型支持
@@ -24,16 +22,6 @@ public interface TypeSupplier {
      */
     default Class<?>[] getTypes() {
         return new Class[0];
-    }
-
-    /**
-     * 默认下一步处理器
-     * 创建
-     * @param type 目标数据类型
-     * @return 数据转换函数
-     */
-    default Function<Object, Object> found(Type type) {
-        return o -> Vary.convert(o, type);
     }
 
     /**
