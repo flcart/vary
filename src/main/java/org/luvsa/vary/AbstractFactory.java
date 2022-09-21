@@ -31,7 +31,7 @@ public abstract class AbstractFactory<T, R extends Provider<T>> extends Manager<
             }
 
             var function = provider.get(type);
-            if (function == null){
+            if (function == null) {
                 return next(type);
             }
 
@@ -48,10 +48,15 @@ public abstract class AbstractFactory<T, R extends Provider<T>> extends Manager<
     protected R offer(Type type) throws Exception {
         if (this.isEmpty()) {
             // 获取 Provider
-            Generics.accept(getClass(), 1, item -> {
-                @SuppressWarnings("unchecked")
-                var clazz = (Class<R>) item;
-                loader.load(clazz, this::put, this::handle);
+            var aClass = this.getClass();
+            Generics.submit(aClass, 1, item -> {
+                if (item instanceof Class<?> c) {
+                    @SuppressWarnings("unchecked")
+                    Class<R> t = (Class<R>) c;
+                    loader.load(t, this::put, this::handle);
+                } else {
+                    throw new IllegalArgumentException(item.getTypeName());
+                }
             });
         }
         return this.get(type);

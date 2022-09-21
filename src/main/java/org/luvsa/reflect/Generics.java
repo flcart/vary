@@ -40,6 +40,7 @@ public final class Generics {
     private static boolean check(Type type, int index, Consumer<Class<?>> consumer) {
         if (type instanceof ParameterizedType param) {
             offer(param, index, arg -> {
+                // 1. 如果泛型
                 if (arg instanceof Class<?> cls) {
                     consumer.accept(cls);
                     return;
@@ -72,7 +73,9 @@ public final class Generics {
             throw new IllegalArgumentException("泛型类型[" + arg + "]错误！");
         });
     }
-
+    public static void submit(Class<?> clazz, int index, Consumer<Type> consumer){
+        submit(clazz.getGenericSuperclass(), index, consumer);
+    }
     /**
      * 处理泛型参数
      *
@@ -95,7 +98,6 @@ public final class Generics {
         var argument = arguments[index];
         consumer.accept(argument);
     }
-
 
     public static Type infer(Class<?> clazz, Type type) {
         if (clazz == type) {

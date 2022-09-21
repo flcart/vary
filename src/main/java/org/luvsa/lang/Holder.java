@@ -8,5 +8,7 @@ public interface Holder<T> {
 
     T get();
 
-    void set(Object o);
+    void set(T value);
+
+    void put(Object value);
 }

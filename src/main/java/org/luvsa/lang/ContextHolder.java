@@ -1,6 +1,8 @@
 package org.luvsa.lang;
 
 import org.luvsa.reflect.Generics;
+import org.luvsa.reflect.Reflections;
+import org.luvsa.vary.TypeSupplier.Types;
 import org.luvsa.vary.Vary;
 
 import java.util.Map;
@@ -9,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 线程缓存工具
+ *
  * @author Aglet
  * @create 2022/9/21 10:27
  */
@@ -20,7 +23,14 @@ public final class ContextHolder {
         var load = ServiceLoader.load(Holder.class);
         for (var item : load) {
             var aClass = item.getClass();
-            Generics.accept(aClass, 0, clazz -> CACHE.put(clazz, item));
+            var types = aClass.getAnnotation(Types.class);
+            if (types == null) {
+                Generics.accept(aClass, 0, type -> CACHE.put(type, item));
+            } else {
+                for (var clas : types.value()) {
+                    CACHE.put(clas, item);
+                }
+            }
         }
     }
 
@@ -28,7 +38,8 @@ public final class ContextHolder {
     }
 
     public static <T> T get(Class<T> clazz) {
-        var holder = CACHE.get(clazz);
+        var wrap = Reflections.wrap(clazz);
+        var holder = CACHE.get(wrap);
         if (holder == null) {
             return null;
         }
@@ -39,12 +50,12 @@ public final class ContextHolder {
     public static void set(Object o) {
         var aClass = o.getClass();
         var holder = CACHE.computeIfAbsent(aClass, DefaultHolder::new);
-        holder.set(o);
+        holder.put(o);
     }
 
-    private static class DefaultHolder implements Holder<Object> {
+    private final static class DefaultHolder implements Holder<Object> {
 
-        private final static ThreadLocal<Object> LOCAL = new ThreadLocal<>();
+        private final ThreadLocal<Object> LOCAL = new ThreadLocal<>();
 
         private final Class<?> type;
 
@@ -59,7 +70,21 @@ public final class ContextHolder {
 
         @Override
         public void set(Object o) {
-            LOCAL.set(o);
+            next(o);
+        }
+
+        private void next(Object o) {
+            var aClass = o.getClass();
+            if (type.isAssignableFrom(aClass)) {
+                LOCAL.set(o);
+            } else {
+                throw new IllegalArgumentException("无法将 [" + aClass.getSimpleName() + " : " + o + "] 数据设置到 " + this + " 容器中");
+            }
+        }
+
+        @Override
+        public void put(Object o) {
+            next(o);
         }
 
         @Override
