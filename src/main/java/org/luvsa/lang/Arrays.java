@@ -14,8 +14,16 @@ public final class Arrays {
         throw new AssertionError("No org.luvsa.lang.Arrays instances for you!");
     }
 
-    public static <T> boolean has(Predicate<T> predicate, T... args){
-        return has1(true, predicate, args);
+    /**
+     * 判断数组中是否有符合条件的元素
+     *
+     * @param predicate 条件
+     * @param args      数组
+     * @param <T>       元素的数据类型
+     * @return true： 表示数组中含有符合条件的元素， false： 数组中没有符合条件的元素
+     */
+    public static <T> boolean has(Predicate<T> predicate, T... args) {
+        return check(true, predicate, args);
     }
 
     /**
@@ -28,8 +36,49 @@ public final class Arrays {
      */
     @SafeVarargs
     public static <T> boolean have(Predicate<T> predicate, T... args) {
-        return has1(false, predicate, args);
+        return check(false, predicate, args);
     }
+
+    public static <T> boolean has(Predicate<Character> predicate, char... args) {
+        return checkChar(true, predicate, args);
+    }
+
+    public static <T> boolean have(Predicate<Character> predicate, char... args) {
+        return checkChar(false, predicate, args);
+    }
+
+    public static <T> boolean has(Predicate<Integer> predicate, int... args) {
+        return checkInt(true, predicate, args);
+    }
+
+    public static <T> boolean have(Predicate<Integer> predicate, int... args) {
+        return checkInt(false, predicate, args);
+    }
+
+    public static <T> boolean has(Predicate<Float> predicate, float... args) {
+        return checkFloat(true, predicate, args);
+    }
+
+    public static <T> boolean have(Predicate<Float> predicate, float... args) {
+        return checkFloat(false, predicate, args);
+    }
+
+    public static <T> boolean has(Predicate<Double> predicate, double... args) {
+        return checkDouble(true, predicate, args);
+    }
+
+    public static <T> boolean have(Predicate<Double> predicate, double... args) {
+        return checkDouble(false, predicate, args);
+    }
+
+    public static <T> boolean has(Predicate<Boolean> predicate, boolean... args) {
+        return checkBool(true, predicate, args);
+    }
+
+    public static <T> boolean have(Predicate<Boolean> predicate, boolean... args) {
+        return checkBool(false, predicate, args);
+    }
+
 
     /**
      * 检查数组对象中是含有元素 满足指定规则
@@ -40,49 +89,106 @@ public final class Arrays {
      * @param <T>       数组数据类型
      * @return true： 数组对象中含有元素满足指定规则
      */
-    private static <T> boolean has1(boolean flag, Predicate<T> predicate, T[] args) {
+    private static <T> boolean check(boolean flag, Predicate<T> predicate, T[] args) {
         for (var item : args) {
             var test = predicate.test(item);
-            if (flag) {
-                if (test) {
-                    return true;
-                }
-            } else if (!test) {
-                return false;
+            var implicit = implicit(flag, test);
+            if (implicit == null) {
+                continue;
             }
+            return implicit;
         }
         return !flag;
     }
 
-
-    private static boolean has0(boolean flag, CharPredicate predicate, char[] args) {
-        for (char item : args) {
+    private static boolean checkChar(boolean flag, Predicate<Character> predicate, char[] args) {
+        for (var item : args) {
             var test = predicate.test(item);
-            if (test) {
-                if (flag) {
-                    // has 有一个满足条件， 直接返回 true
-                    return true;
-                }
-                // hava 需要所有的元素都满足条件
+            var implicit = implicit(flag, test);
+            if (implicit == null) {
                 continue;
             }
-
-            if (flag) {
-                // has， 看下一个是否满足条件
-                continue;
-            }
-
-            // hava 不满足条件， 直接返回 false
-            return false;
+            return implicit;
         }
         return !flag;
     }
 
-    static boolean have0(CharPredicate predicate, char[] array) {
-        return has0(false, predicate, array);
+
+    /**
+     * 判断是否含有符合条件的 int 元素
+     *
+     * @param flag      true： 含有， false ： 全部都是
+     * @param predicate 条件
+     * @param args      int 元素
+     * @return true： 表示 符合条件
+     */
+    private static boolean checkInt(boolean flag, Predicate<Integer> predicate, int[] args) {
+        for (var item : args) {
+            var test = predicate.test(item);
+            var implicit = implicit(flag, test);
+            if (implicit == null) {
+                continue;
+            }
+            return implicit;
+        }
+        return !flag;
     }
 
-    static boolean has0(CharPredicate predicate, char[] array) {
-        return has0(true, predicate, array);
+    private static boolean checkBool(boolean flag, Predicate<Boolean> predicate, boolean[] args) {
+        for (var item : args) {
+            var test = predicate.test(item);
+            var implicit = implicit(flag, test);
+            if (implicit == null) {
+                continue;
+            }
+            return implicit;
+        }
+        return !flag;
+    }
+
+    private static boolean checkFloat(boolean flag, Predicate<Float> predicate, float[] args) {
+        for (var item : args) {
+            var test = predicate.test(item);
+            var implicit = implicit(flag, test);
+            if (implicit == null) {
+                continue;
+            }
+            return implicit;
+        }
+        return !flag;
+    }
+
+    private static boolean checkDouble(boolean flag, Predicate<Double> predicate, double[] args) {
+        for (var item : args) {
+            var test = predicate.test(item);
+            var implicit = implicit(flag, test);
+            if (implicit == null) {
+                continue;
+            }
+            return implicit;
+        }
+        return !flag;
+    }
+
+    /**
+     * @param flag true： has； false： have
+     * @param test 测试结果
+     * @return true： 表示隐含结果为真， false： 表示隐含结果为加， null 表示需要继续测试下一个元素
+     */
+    private static Boolean implicit(boolean flag, boolean test) {
+        if (test) {
+            if (flag) {
+                // has 有一个满足条件， 直接返回 true
+                return true;
+            }
+            // hava 需要继续测试下一个元素，
+            return null;
+        }
+        if (flag) {
+            // has， 看下一个是否满足条件， 直到出现真
+            return null;
+        }
+        // hava 不满足条件， 直接返回 false
+        return false;
     }
 }

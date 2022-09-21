@@ -119,10 +119,25 @@ class VaryTest {
     @DisplayName("时间戳 转 LocalDateTime")
     @ValueSource(longs = {1657109858000L, 946656000000L, 0L})
     void longToLocalDateTime(long l) {
-        var date = Vary.change(l, LocalDateTime.class);
-        var b = Vary.change(null, LocalDateTime.class);
-        System.out.println(date);
+        // 1657109858000L 1667109858000L
+//        var date = Vary.change(l, LocalDateTime.class);
+//        var b = Vary.change(null, LocalDateTime.class);
+//        System.out.println(date);
+
+        var a = Vary.change(1657109858000L, LocalDateTime.class);
+        var b = Vary.change(1667109858000L, LocalDateTime.class);
+
+        System.out.println(a + "  " + b);
     }
+
+    @Test
+    @DisplayName("时间戳 转 LocalDateTime")
+    void longToLocalDateTime0() {
+        var region = new Region<>(1661961600000L, 1663141351621L);
+        var other = region.asLocalDataTime();
+        System.out.println(other);
+    }
+
 
     @Test
     @DisplayName("LocalDateTime  转 时间戳")

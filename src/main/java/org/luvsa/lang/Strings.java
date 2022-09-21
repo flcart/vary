@@ -56,17 +56,17 @@ public final class Strings {
 		return changeFirstChar(str, true);
 	}
 
-
 	/**
 	 * 检测字符串是否全是数字(包括小数点， 即如果含有小数点，也会返回false)
 	 *
 	 * @param text 需检测的字符串
-	 * @return true ： 全是数字； false ： 含有非数字
+	 * @return true ： 字符串为一个数字； false ： 不是数字
 	 */
 	public static boolean isNumber(String text) {
 		if (text == null || text.isBlank()) {
 			return false;
 		}
+		// 1. 去掉正负号
 		var first = text.charAt(0);
 		if (first == '-' || first == '+') {
 			text = text.substring(1);
@@ -74,17 +74,14 @@ public final class Strings {
 		if (text.isEmpty()) {
 			return false;
 		}
-		var index = text.indexOf('.');
-		if (index < 0) {
-			var chars = text.toCharArray();
-			return Arrays.have0(Character::isDigit, chars);
-		}
-		for (int i = 0, size = text.length(); i < size; i++) {
-			if (i == index) {
+		// 小数点的位置， 如果没有 index = -1
+		for (int i = 0, size = text.length(),  index = text.indexOf('.'); i < size; i++) {
+			if (i == index) {// 跳过小数点位置的校验
 				continue;
 			}
 			var c = text.charAt(i);
 			if (!Character.isDigit(c)) {
+				// 出现非数值
 				return false;
 			}
 		}
