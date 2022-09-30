@@ -1,5 +1,9 @@
 package org.luvsa.vary.string;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * @author Aglet
  * @create 2022/6/28 9:04
@@ -18,6 +22,8 @@ abstract class BiDate<T> {
 
     final char[] _DATE_TIME = {'y', 'M', 'd', 'H', 'm', 's', 'S'};
 
+    final Map<String, DateTimeFormatter> formatters = new ConcurrentHashMap<>();
+
     /**
      * 创建一个合适的时间格式 format
      *
@@ -28,14 +34,17 @@ abstract class BiDate<T> {
     String format(char[] array, String text) {
         var chars = text.toCharArray();
         var builder = new StringBuilder();
+        var flag = false;
         for (int i = 0, j = 0; i < chars.length && j < array.length; i++) {
             var aChar = chars[i];
             if (Character.isDigit(aChar)) {
-                builder.append(array[j]);
-            } else {
-                if (aChar != ' ') {
+                if (flag) {
+                    flag = false;
                     j++;
                 }
+                builder.append(array[j]);
+            } else {
+                flag = true;
                 builder.append(aChar);
             }
         }

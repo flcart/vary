@@ -23,6 +23,7 @@ public class ToLocalDateTime extends BiDate<LocalDateTime> implements Provider, 
             DateTimeFormatter.BASIC_ISO_DATE,
             DateTimeFormatter.RFC_1123_DATE_TIME);
 
+
     @Override
     public LocalDateTime apply(String s) {
         // TODO　存在问题
@@ -47,7 +48,7 @@ public class ToLocalDateTime extends BiDate<LocalDateTime> implements Provider, 
 
     @Override
     LocalDateTime next(String value, String format) {
-        var pattern = DateTimeFormatter.ofPattern(format);
+        var pattern = formatters.computeIfAbsent(format, DateTimeFormatter::ofPattern);
         try {
             return LocalDateTime.parse(value, pattern);
         } catch (DateTimeException e) {

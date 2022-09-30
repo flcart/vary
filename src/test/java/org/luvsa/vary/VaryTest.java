@@ -39,7 +39,7 @@ class VaryTest {
 
     @ParameterizedTest
     @DisplayName("字符串转 LocalDateTime")
-    @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30", "2022-08-05T00:16:15.987808300"})
+    @ValueSource(strings = { "2022-09-23 09:44:07:000", "2002/6/28", "2002年12月1日 15:30", "2022-08-05T00:16:15.987808300"})
     void strToLocalDateTime(String txt) {
         var dateTime = Vary.change(txt, LocalDateTime.class);
         System.out.println(dateTime);
