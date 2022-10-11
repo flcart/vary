@@ -22,6 +22,7 @@ public final class Arrays {
      * @param <T>       元素的数据类型
      * @return true： 表示数组中含有符合条件的元素， false： 数组中没有符合条件的元素
      */
+    @SafeVarargs
     public static <T> boolean has(Predicate<T> predicate, T... args) {
         return check(true, predicate, args);
     }

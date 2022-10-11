@@ -53,8 +53,13 @@ public final class ContextHolder {
         holder.put(o);
     }
 
+    /**
+     * Holder 的默认实现方式
+     */
     private final static class DefaultHolder implements Holder<Object> {
-
+        /**
+         * 基于线程的缓存控制
+         */
         private final ThreadLocal<Object> LOCAL = new ThreadLocal<>();
 
         private final Class<?> type;
