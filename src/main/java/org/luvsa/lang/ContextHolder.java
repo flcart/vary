@@ -39,12 +39,27 @@ public final class ContextHolder {
 
     public static <T> T get(Class<T> clazz) {
         var wrap = Reflections.wrap(clazz);
-        var holder = CACHE.get(wrap);
+        var holder = fetch(wrap);
         if (holder == null) {
             return null;
         }
         var o = holder.get();
         return Vary.change(o, clazz);
+    }
+
+    private static Holder<?> fetch(Class<?> clazz) {
+        var holder = CACHE.get(clazz);
+        if (holder != null) {
+            return holder;
+        }
+        for (var item : CACHE.keySet()) {
+            if (clazz.isAssignableFrom(item)) {
+                holder = CACHE.get(item);
+                CACHE.put(clazz, holder);
+                return holder;
+            }
+        }
+        return null;
     }
 
     public static void set(Object o) {

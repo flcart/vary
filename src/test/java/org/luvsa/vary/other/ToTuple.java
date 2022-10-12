@@ -15,7 +15,7 @@ import java.util.function.Function;
  * @create 2022/7/5 17:29
  */
 @Types(Tuple.class)
-public class ToTuple implements OProvider {
+public class ToTuple implements Provider {
 
     @Override
     public Function<Object, ?> get(Type type) {

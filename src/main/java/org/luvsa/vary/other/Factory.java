@@ -1,7 +1,6 @@
 package org.luvsa.vary.other;
 
 import org.luvsa.vary.AbstractFactory;
-import org.luvsa.vary.Factory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,9 +17,9 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/25 10:47
  */
-public class OFactory extends AbstractFactory<Object, OProvider> implements Factory<Object> {
+public class Factory extends AbstractFactory<Object, Provider> {
 
-    private final List<OProvider> list = new ArrayList<>();
+    private final List<Provider> list = new ArrayList<>();
 
     @Override
     protected Function<Object, ?> next(Type type) {
@@ -33,7 +32,7 @@ public class OFactory extends AbstractFactory<Object, OProvider> implements Fact
     }
 
     @Override
-    protected void handle(OProvider item) {
+    protected void handle(Provider item) {
         list.add(item);
     }
 

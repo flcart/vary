@@ -1,8 +1,10 @@
 package org.luvsa.vary;
 
+import org.luvsa.lang.ContextHolder;
 import org.luvsa.reflect.Reflections;
 
 import java.lang.reflect.Type;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -36,7 +38,6 @@ public interface Vary {
      * @return 目标数据
      */
     static <T> Object convert(T value, Type type) {
-        Exception exception = null;
         for (var item : Util.list) {
             if (!item.enabled()) {
                 continue;
@@ -44,17 +45,12 @@ public interface Vary {
             try {
                 return item.infer(value, type);
             } catch (Exception e) {
-                if (exception == null) {
-                    exception = e;
-                } else {
-                    var cause = e.getCause();
-                    exception = new RuntimeException(cause);
-                }
+                ContextHolder.set(e);
             }
         }
-        throw new RuntimeException(exception);
+        var ex = ContextHolder.get(RuntimeException.class);
+        throw Objects.requireNonNull(ex, "未保存的缓存错误！");
     }
-
 
     default boolean enabled() {
         return true;

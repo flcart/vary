@@ -1,4 +1,3 @@
-import org.luvsa.vary.bool.Factory;
 import org.luvsa.vary.bool.Provider;
 
 /**
@@ -7,7 +6,11 @@ import org.luvsa.vary.bool.Provider;
  */
 module vary {
 
+    exports org.luvsa.exception;
+    exports org.luvsa.lang;
+    exports org.luvsa.reflect;
     exports org.luvsa.vary;
+    exports org.luvsa.vary.array;
     exports org.luvsa.vary.bool;
     exports org.luvsa.vary.chrono;
     exports org.luvsa.vary.date;
@@ -15,36 +18,37 @@ module vary {
     exports org.luvsa.vary.local;
     exports org.luvsa.vary.number;
     exports org.luvsa.vary.other;
+    exports org.luvsa.vary.proxy;
     exports org.luvsa.vary.string;
     exports org.luvsa.vary.string.array;
     exports org.luvsa.vary.zone;
-    exports org.luvsa.exception;
 
     uses org.luvsa.vary.Factory;
-    uses Provider;
+    uses org.luvsa.vary.array.Provider;
+    uses org.luvsa.vary.bool.Provider;
     uses org.luvsa.vary.chrono.Provider;
     uses org.luvsa.vary.date.Provider;
     uses org.luvsa.vary.instant.Provider;
     uses org.luvsa.vary.local.Provider;
     uses org.luvsa.vary.number.Provider;
-    uses org.luvsa.vary.other.OProvider;
+    uses org.luvsa.vary.other.Provider;
     uses org.luvsa.vary.string.Factory;
     uses org.luvsa.vary.string.array.Provider;
     uses org.luvsa.vary.zone.Provider;
 
     provides org.luvsa.vary.Factory with
-            Factory,
+            org.luvsa.vary.bool.Factory,
             org.luvsa.vary.chrono.Factory,
             org.luvsa.vary.date.DFactory,
             org.luvsa.vary.instant.Factory,
             org.luvsa.vary.local.Factory,
             org.luvsa.vary.number.NFactory,
-            org.luvsa.vary.other.OFactory,
+            org.luvsa.vary.other.Factory,
             org.luvsa.vary.string.Factory,
             org.luvsa.vary.string.array.AFactory,
             org.luvsa.vary.zone.Factory;
 
-    provides Provider with
+    provides org.luvsa.vary.bool.Provider with
             org.luvsa.vary.bool.ToInteger,
             org.luvsa.vary.bool.ToNumber,
             org.luvsa.vary.bool.ToString;
@@ -86,7 +90,7 @@ module vary {
             org.luvsa.vary.number.ToShort,
             org.luvsa.vary.number.ToString;
 
-    provides org.luvsa.vary.other.OProvider with
+    provides org.luvsa.vary.other.Provider with
             org.luvsa.vary.other.ToMap,
             org.luvsa.vary.proxy.DynamicProxy;
 

@@ -1,6 +1,6 @@
 package org.luvsa.vary;
 
-import org.luvsa.vary.other.OFactory;
+import org.luvsa.vary.other.Factory;
 
 import java.lang.reflect.Type;
 
@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
  */
 public class ProxyVary implements Vary {
 
-    private final static Factory<Object> factory = new OFactory();
+    private final static org.luvsa.vary.Factory<Object> factory = new Factory();
 
     @Override
     public boolean enabled() {

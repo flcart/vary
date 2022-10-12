@@ -3,7 +3,7 @@ package org.luvsa.vary.proxy;
 import org.luvsa.reflect.Reflections;
 import org.luvsa.reflect.Reflects;
 import org.luvsa.vary.Vary;
-import org.luvsa.vary.other.OProvider;
+import org.luvsa.vary.other.Provider;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -20,7 +20,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/30 16:30
  */
-public class DynamicProxy implements OProvider {
+public class DynamicProxy implements Provider {
 
     @Override
     public Function<Object, ?> get(Type type) {

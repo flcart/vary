@@ -22,7 +22,7 @@ import java.util.function.Function;
  * @create 2022/6/28 11:16
  */
 @Types(Map.class)
-public class ToMap implements OProvider, Function<Object, Map<String, Object>> {
+public class ToMap implements Provider, Function<Object, Map<String, Object>> {
 
     private final Map<Class<? extends Annotation>, BiFunction<Class<?>, Object, Map<String, Object>>> map = Map.of(SupportIob.class, (clazz, o) -> {
         var map = new HashMap<String, Object>();

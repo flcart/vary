@@ -2,8 +2,7 @@ package org.luvsa.vary;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.luvsa.vary.other.OProvider;
-import org.luvsa.vary.string.array.Provider;
+import org.luvsa.vary.other.Provider;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +19,7 @@ class GenTest {
 
     @ParameterizedTest
     @ValueSource(classes = {Vary.class, Factory.class, org.luvsa.vary.bool.Provider.class, org.luvsa.vary.chrono.Provider.class, org.luvsa.vary.date.Provider.class, org.luvsa.vary.instant.Provider.class,
-            org.luvsa.vary.local.Provider.class, org.luvsa.vary.number.Provider.class, OProvider.class, org.luvsa.vary.string.Provider.class, Provider.class, org.luvsa.vary.zone.Provider.class})
+            org.luvsa.vary.local.Provider.class, org.luvsa.vary.number.Provider.class, Provider.class, org.luvsa.vary.string.Provider.class, org.luvsa.vary.string.array.Provider.class, org.luvsa.vary.zone.Provider.class})
     void gen(Class<?> service) throws IOException {
 
         var aClass = Vary.class;
