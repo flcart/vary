@@ -4,7 +4,6 @@ import org.luvsa.lang.ContextHolder;
 import org.luvsa.reflect.Reflections;
 
 import java.lang.reflect.Type;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -48,8 +47,11 @@ public interface Vary {
                 ContextHolder.set(e);
             }
         }
-        var ex = ContextHolder.get(RuntimeException.class);
-        throw Objects.requireNonNull(ex, "未保存的缓存错误！");
+        var ex = ContextHolder.get(Exception.class);
+        if (ex instanceof RuntimeException e) {
+            throw e;
+        }
+        throw new RuntimeException(ex);
     }
 
     default boolean enabled() {

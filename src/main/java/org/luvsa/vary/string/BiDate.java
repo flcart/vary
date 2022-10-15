@@ -35,14 +35,16 @@ abstract class BiDate<T> {
         var chars = text.toCharArray();
         var builder = new StringBuilder();
         var flag = false;
-        for (int i = 0, j = 0; i < chars.length && j < array.length; i++) {
+        for (int i = 0, j = 0, size = array.length; i < chars.length && j < size; i++) {
             var aChar = chars[i];
             if (Character.isDigit(aChar)) {
                 if (flag) {
                     flag = false;
                     j++;
                 }
-                builder.append(array[j]);
+                if (j < size) {
+                    builder.append(array[j]);
+                }
             } else {
                 flag = true;
                 builder.append(aChar);

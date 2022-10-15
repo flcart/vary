@@ -1,6 +1,6 @@
-import org.luvsa.vary.bool.Provider;
-
 /**
+ * 数据转换的工具实践，
+ *
  * @author Aglet
  * @create 2022/6/29 17:39
  */
@@ -32,20 +32,25 @@ module vary {
     uses org.luvsa.vary.local.Provider;
     uses org.luvsa.vary.number.Provider;
     uses org.luvsa.vary.other.Provider;
-    uses org.luvsa.vary.string.Factory;
+    uses org.luvsa.vary.string.Provider;
     uses org.luvsa.vary.string.array.Provider;
     uses org.luvsa.vary.zone.Provider;
+    uses org.luvsa.vary.Vary;
+    uses org.luvsa.lang.Holder;
+
+    provides org.luvsa.vary.Vary with
+            org.luvsa.vary.DefaultVary;
 
     provides org.luvsa.vary.Factory with
             org.luvsa.vary.bool.Factory,
             org.luvsa.vary.chrono.Factory,
-            org.luvsa.vary.date.DFactory,
+            org.luvsa.vary.date.Factory,
             org.luvsa.vary.instant.Factory,
             org.luvsa.vary.local.Factory,
-            org.luvsa.vary.number.NFactory,
+            org.luvsa.vary.number.Factory,
             org.luvsa.vary.other.Factory,
             org.luvsa.vary.string.Factory,
-            org.luvsa.vary.string.array.AFactory,
+            org.luvsa.vary.string.array.Factory,
             org.luvsa.vary.zone.Factory;
 
     provides org.luvsa.vary.bool.Provider with
