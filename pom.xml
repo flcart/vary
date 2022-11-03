@@ -27,11 +27,10 @@
             <scope>test</scope>
         </dependency>
 
-        <!--  集成对象转换器 mapstruct     -->
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.4.2</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -64,4 +63,21 @@
             </plugin>
         </plugins>
     </build>
+
+
+
+    <distributionManagement>
+        <repository>
+            <id>yangsiNexus</id>
+            <url>http://192.168.0.8:8081/releases</url>
+        </repository>
+
+
+        <snapshotRepository>
+            <id>yangsiNexus</id>
+            <url>http://192.168.0.8:8081/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+
 </project>
