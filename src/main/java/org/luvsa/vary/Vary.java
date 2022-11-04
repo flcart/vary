@@ -3,7 +3,9 @@ package org.luvsa.vary;
 import org.luvsa.lang.ContextHolder;
 import org.luvsa.reflect.Reflections;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -52,6 +54,18 @@ public interface Vary {
             throw e;
         }
         throw new RuntimeException(ex);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <T, R> R[] transform(List<T> list, Class<R> cls) {
+        var size = list.size();
+        var instance = Array.newInstance(cls, size);
+        for (int i = 0; i < list.size(); i++) {
+            var t = list.get(i);
+            var v = change(t, cls);
+            Array.set(instance, i, v);
+        }
+        return (R[]) instance;
     }
 
     default boolean enabled() {

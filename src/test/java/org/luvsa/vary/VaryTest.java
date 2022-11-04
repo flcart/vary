@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -229,6 +230,16 @@ class VaryTest {
     @Test
     void strToList() {
 
+    }
+
+    @Test
+    void listToArray() {
+        var list = List.of(1657109858000L, 1657103858000L, 1657109878000L,1657109958000L);
+        // 批量 转换
+        var array = Vary.transform(list, LocalDateTime.class);
+        for (LocalDateTime dateTime : array) {
+            System.out.println(dateTime);
+        }
     }
 
 
