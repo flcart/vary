@@ -6,6 +6,7 @@ import org.luvsa.vary.TypeSupplier.Types;
 import org.luvsa.vary.Vary;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -16,7 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @create 2022/9/21 10:27
  */
 public final class ContextHolder {
-
+    /**
+     * 线程缓存器的缓存容器
+     */
     private final static Map<Class<?>, Holder<?>> CACHE = new ConcurrentHashMap<>();
 
     static {
@@ -37,14 +40,45 @@ public final class ContextHolder {
     private ContextHolder() {
     }
 
-    public static <T> T get(Class<T> clazz) {
+    /**
+     * 获取当前线程的缓存
+     *
+     * @param def 如果当前线程缓存为空的默认返回值
+     * @param <T> 数据类型
+     * @return 获取当前线程的缓存
+     */
+    public static <T> T get(T def) {
+        if (def == null) {
+            throw new IllegalArgumentException();
+        }
+        var aClass = def.getClass();
+        var o = get0(aClass);
+        if (o == null) {
+            return def;
+        }
+        @SuppressWarnings("unchecked")
+        var clz = (Class<? extends T>) aClass;
+        return Vary.change(o, clz);
+    }
+
+    private static Object get0(Class<?> clazz) {
         var wrap = Reflections.wrap(clazz);
         var holder = fetch(wrap);
         if (holder == null) {
             return null;
         }
-        var o = holder.get();
-        return Vary.change(o, clazz);
+        return holder.get();
+    }
+
+
+    public static <T> T get(Class<T> clazz) {
+        var t = get0(clazz);
+        return Vary.change(t, clazz);
+    }
+
+    public static <T> T getOrThrow(Class<T> clazz, String message) {
+        var t = get(clazz);
+        return Objects.requireNonNull(t, message);
     }
 
     private static Holder<?> fetch(Class<?> clazz) {

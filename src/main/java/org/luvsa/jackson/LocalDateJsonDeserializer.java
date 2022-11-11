@@ -12,7 +12,13 @@ import java.time.LocalDate;
  * @author Aglet
  * @create 2022/11/2 11:05
  */
-public class LocalDateJsonDeserializer extends JsonDeserializer<LocalDate> {
+class LocalDateJsonDeserializer extends JsonDeserializer<LocalDate> {
+
+    public static final LocalDateJsonDeserializer INSTANCE = new LocalDateJsonDeserializer();
+
+    private LocalDateJsonDeserializer() {
+    }
+
     @Override
     public LocalDate deserialize(JsonParser parser, DeserializationContext deserializationContext) throws IOException {
         var value = parser.readValueAs(String.class);

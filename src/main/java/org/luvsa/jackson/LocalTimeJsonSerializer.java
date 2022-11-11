@@ -12,7 +12,12 @@ import java.time.LocalTime;
  * @author Aglet
  * @create 2022/11/2 11:09
  */
-public class LocalTimeJsonSerializer extends JsonSerializer<LocalTime> {
+class LocalTimeJsonSerializer extends JsonSerializer<LocalTime> {
+
+    public static final LocalTimeJsonSerializer INSTANCE = new LocalTimeJsonSerializer();
+
+    private LocalTimeJsonSerializer() {
+    }
 
     @Override
     public void serialize(LocalTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {

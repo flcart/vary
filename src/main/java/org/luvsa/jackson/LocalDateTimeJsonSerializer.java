@@ -12,8 +12,11 @@ import java.time.LocalDateTime;
  * @author Aglet
  * @create 2022/11/2 11:02
  */
-public class LocalDateTimeJsonSerializer extends JsonSerializer<LocalDateTime> {
+class LocalDateTimeJsonSerializer extends JsonSerializer<LocalDateTime> {
+    public static final LocalDateTimeJsonSerializer INSTANCE = new LocalDateTimeJsonSerializer();
 
+    private LocalDateTimeJsonSerializer() {
+    }
     @Override
     public void serialize(LocalDateTime value, JsonGenerator generator, SerializerProvider serializerProvider) throws IOException {
         var s = Vary.change(value, String.class);

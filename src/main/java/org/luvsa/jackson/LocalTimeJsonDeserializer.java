@@ -11,7 +11,13 @@ import java.time.LocalTime;
  * @author Aglet
  * @create 2022/11/2 11:09
  */
-public class LocalTimeJsonDeserializer extends JsonDeserializer<LocalTime> {
+class LocalTimeJsonDeserializer extends JsonDeserializer<LocalTime> {
+
+    public static final LocalTimeJsonDeserializer INSTANCE = new LocalTimeJsonDeserializer();
+
+    private LocalTimeJsonDeserializer() {
+    }
+
     @Override
     public LocalTime deserialize(com.fasterxml.jackson.core.JsonParser p, DeserializationContext context) throws IOException {
         var value = p.readValueAs(String.class);
