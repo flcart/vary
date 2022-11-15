@@ -15,4 +15,9 @@ public class ToString implements Provider {
     public Function<Number, ?> get(Type type) {
         return String::valueOf;
     }
+
+    @Override
+    public String toString() {
+        return String.class.toString();
+    }
 }

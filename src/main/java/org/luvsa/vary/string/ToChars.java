@@ -1,6 +1,7 @@
 package org.luvsa.vary.string;
 
 import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.vary.Vary;
 
 import java.lang.reflect.Type;
 import java.util.function.Function;
@@ -13,16 +14,22 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/7/15 14:05
  */
-@Types(char[].class)
-public class  ToChars implements Provider {
+@Types({char[].class, Character[].class})
+public class ToChars implements Provider {
 
     @Override
     public Function<String, ?> get(Type type) {
-        return s -> s.strip().toCharArray();
+        return s -> {
+            var chars = s.strip().toCharArray();
+            if (type == chars.getClass()) {
+                return chars;
+            }
+            return Vary.convert(chars, type);
+        };
     }
 
     @Override
     public String toString() {
-        return "String-char[]-Provider";
+        return String.class + " -> [" + char[].class + ", " + Character[].class + "] function provider";
     }
 }

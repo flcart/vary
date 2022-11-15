@@ -39,6 +39,7 @@ public interface Vary {
      * @return 目标数据
      */
     static <T> Object convert(T value, Type type) {
+        // 如果转换器不存在， 一定是报错， 不能返回一空值
         for (var item : Util.list) {
             if (!item.enabled()) {
                 continue;

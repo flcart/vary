@@ -15,4 +15,9 @@ public class ToLong implements Provider {
     public Function<Number, ?> get(Type type) {
         return Number::longValue;
     }
+
+    @Override
+    public String toString() {
+        return Long.class.toString();
+    }
 }

@@ -15,4 +15,9 @@ public class ToFloat implements Provider {
     public Function<Number, ?> get(Type type) {
         return Number::floatValue;
     }
+
+    @Override
+    public String toString() {
+        return Float.class.toString();
+    }
 }

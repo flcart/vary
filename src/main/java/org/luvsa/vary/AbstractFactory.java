@@ -21,31 +21,6 @@ public abstract class AbstractFactory<T, R extends Provider<T>> extends Manager<
 
     @Override
     public Function<T, ?> create(Type type) {
-        // 获取 转换函数
-        try {
-            var provider = offer(type);
-
-            if (provider == null) {
-                // 缓存中没有指定数据类型的转换函数
-                return next(type);
-            }
-
-            var function = provider.get(type);
-            if (function == null) {
-                return next(type);
-            }
-
-            return function;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    protected void handle(R item) {
-    }
-
-    @Override
-    protected R offer(Type type) throws Exception {
         if (this.isEmpty()) {
             // 获取 Provider
             var aClass = this.getClass();
@@ -59,7 +34,15 @@ public abstract class AbstractFactory<T, R extends Provider<T>> extends Manager<
                 }
             });
         }
-        return this.get(type);
+
+        try {
+            return this.get(type, r -> next(type, r));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected void handle(R item) {
     }
 
     /**
@@ -70,5 +53,17 @@ public abstract class AbstractFactory<T, R extends Provider<T>> extends Manager<
      */
     protected Function<T, ?> next(Type type) {
         return item -> error.apply(item, type);
+    }
+
+    protected Function<T, ?> next(Type type, R provider) {
+        if (provider == null) {
+            // 缓存中没有指定数据类型的转换函数
+            return next(type);
+        }
+        var function = provider.get(type);
+        if (function == null) {
+            return next(type);
+        }
+        return function;
     }
 }

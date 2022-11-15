@@ -22,4 +22,8 @@ public class ToArray implements Provider {
         };
     }
 
+    @Override
+    public String toString() {
+        return String.class + " -> " + String[].class + " function provider";
+    }
 }

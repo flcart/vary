@@ -41,6 +41,6 @@ public class ToDate extends BiDate<Date> implements Provider, Function<String, D
 
     @Override
     public String toString() {
-        return "String-Date-Provider";
+        return String.class + " -> " + Date.class + " function provider";
     }
 }

@@ -1,4 +1,5 @@
 org.luvsa.vary.string.ToArray
+org.luvsa.vary.string.ToBigInteger
 org.luvsa.vary.string.ToBool
 org.luvsa.vary.string.ToChars
 org.luvsa.vary.string.ToDate

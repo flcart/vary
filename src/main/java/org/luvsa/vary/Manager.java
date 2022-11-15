@@ -17,10 +17,7 @@ package org.luvsa.vary;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
@@ -47,8 +44,10 @@ public abstract class Manager<T> implements Iterable<Type> {
         if (list == null) {
             var remove = cache.remove(key);
             if (remove == null) {
+                // cache 中没有值， 直接存放
                 cache.put(key, value);
             } else {
+                // 存在值，则形成 列表
                 list = new ArrayList<>();
                 list.add(remove);
                 list.add(value);
@@ -59,7 +58,13 @@ public abstract class Manager<T> implements Iterable<Type> {
         }
     }
 
-    protected T get(Type key) {
+    /**
+     * 根据 类型获取 管理器中的 值
+     *
+     * @param key 数据类型
+     * @return 值
+     */
+    protected <R> R get(Type key, Function<T, R> function) {
         if (key instanceof ParameterizedType param) {
             key = param.getRawType();
         }
@@ -67,15 +72,18 @@ public abstract class Manager<T> implements Iterable<Type> {
         if (value == null) {
             var list = this.map.get(key);
             if (list == null) {
-                return null;
+                throw new NoSuchElementException(this + " not has " + key.getTypeName());
             }
-            //TODO 这块存在一些问题
-            for (var item : list) {
-                return item;
+            for (T item : list) {
+                try {
+                    return function.apply(item);
+                } catch (Exception e) {
+                    //
+                }
             }
             return null;
         }
-        return value;
+        return function.apply(value);
     }
 
     @Override
@@ -86,35 +94,7 @@ public abstract class Manager<T> implements Iterable<Type> {
         return list.iterator();
     }
 
-    /**
-     * 获取转换函数
-     *
-     * @param clazz 目标数据类型
-     * @return 转换函数
-     */
-    protected abstract T offer(Type clazz) throws Exception;
-
     protected boolean isEmpty() {
         return cache.isEmpty() && map.isEmpty();
-    }
-
-    protected T computeIfAbsent(Type type, Function<Type, T> function) {
-        var value = get(type);
-        if (value == null) {
-            var apply = function.apply(type);
-            if (apply == null) {
-                return null;
-            }
-            if (containsKey(type)) {
-                return apply;
-            }
-            put(type, apply);
-            return apply;
-        }
-        return null;
-    }
-
-    protected boolean containsKey(Type type) {
-        return cache.containsKey(type) || map.containsKey(type);
     }
 }

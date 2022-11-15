@@ -15,4 +15,8 @@ public class ToURI implements Provider {
         return URI::create;
     }
 
+    @Override
+    public String toString() {
+        return String.class + " -> [" + URI.class + "] function provider";
+    }
 }

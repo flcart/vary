@@ -32,6 +32,6 @@ public class ToBool implements Provider {
 
     @Override
     public String toString() {
-        return "String-Boolean-Provider";
+        return String.class + " -> " + Boolean.class + " function provider";
     }
 }

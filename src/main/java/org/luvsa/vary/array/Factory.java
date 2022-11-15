@@ -9,4 +9,10 @@ import org.luvsa.vary.TypeSupplier.Types;
  */
 @Types({byte[].class, short[].class, int[].class, long[].class, float[].class, long[].class, char[].class, boolean[].class})
 public class Factory extends AbstractFactory<Object, Provider> {
+
+    @Override
+    public String toString() {
+        return "Primitive array-Factory";
+    }
+
 }

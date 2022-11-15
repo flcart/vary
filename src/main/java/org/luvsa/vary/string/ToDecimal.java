@@ -37,6 +37,11 @@ public class ToDecimal implements Provider {
         };
     }
 
+    @Override
+    public String toString() {
+        return String.class + " -> " + BigDecimal.class + " function provider";
+    }
+
     /**
      * 中文数字解析器
      */

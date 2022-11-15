@@ -16,4 +16,9 @@ public class ToDate extends ToInstant implements Provider {
     public Function<Number, ?> get(Type type) {
         return super.get(type).andThen(found(type));
     }
+
+    @Override
+    public String toString() {
+        return Date.class.toString();
+    }
 }

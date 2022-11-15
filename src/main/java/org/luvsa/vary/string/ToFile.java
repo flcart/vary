@@ -18,4 +18,8 @@ public class ToFile implements Provider {
         return File::new;
     }
 
+    @Override
+    public String toString() {
+        return String.class + " -> " + File.class + " function provider";
+    }
 }

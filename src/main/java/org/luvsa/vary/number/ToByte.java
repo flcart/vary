@@ -17,4 +17,8 @@ public class ToByte implements Provider {
         return Number::byteValue;
     }
 
+    @Override
+    public String toString() {
+        return Byte.class.toString();
+    }
 }

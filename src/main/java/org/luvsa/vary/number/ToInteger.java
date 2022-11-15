@@ -17,4 +17,8 @@ public class ToInteger implements Provider {
         return Number::intValue;
     }
 
+    @Override
+    public String toString() {
+        return Integer.class.toString();
+    }
 }

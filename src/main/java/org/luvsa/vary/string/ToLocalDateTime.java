@@ -59,6 +59,6 @@ public class ToLocalDateTime extends BiDate<LocalDateTime> implements Provider, 
 
     @Override
     public String toString() {
-        return "String-LocalDateTime-Provider";
+        return String.class + " -> " + LocalDateTime.class + " function provider";
     }
 }

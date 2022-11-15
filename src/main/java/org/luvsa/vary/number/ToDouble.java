@@ -3,6 +3,7 @@ package org.luvsa.vary.number;
 import org.luvsa.vary.TypeSupplier.Types;
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.function.Function;
 
 /**
@@ -15,5 +16,10 @@ public class ToDouble implements Provider {
     @Override
     public Function<Number, ?> get(Type type) {
         return Number::doubleValue;
+    }
+
+    @Override
+    public String toString() {
+        return Double.class.toString();
     }
 }

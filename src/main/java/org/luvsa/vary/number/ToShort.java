@@ -16,4 +16,9 @@ public class ToShort implements Provider {
     public Function<Number, ?> get(Type type) {
         return Number::shortValue;
     }
+
+    @Override
+    public String toString() {
+        return Short.class.toString();
+    }
 }

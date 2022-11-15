@@ -33,8 +33,9 @@ public class ToLocalDate extends BiDate<LocalDate> implements Provider, Function
         }
         return LocalDate.parse(value, DateTimeFormatter.ofPattern(format));
     }
+
     @Override
     public String toString() {
-        return "String-LocalDate-Provider";
+        return String.class + " -> " + LocalDate.class + " function provider";
     }
 }

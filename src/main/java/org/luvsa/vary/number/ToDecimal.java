@@ -19,4 +19,8 @@ public class ToDecimal extends ToString implements Provider{
         return super.get(type).andThen(o -> Vary.convert(o, type));
     }
 
+    @Override
+    public String toString() {
+        return BigDecimal.class.toString();
+    }
 }

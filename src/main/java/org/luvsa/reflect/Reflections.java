@@ -33,6 +33,10 @@ public final class Reflections {
         return PRIMITIVES.getOrDefault(clazz, clazz);
     }
 
+    public static boolean isPrimitive(Class<?> clazz){
+        return PRIMITIVES.containsKey(clazz);
+    }
+
     /**
      * 获取 调用目标 类方法的上层 类的 class 对象，
      * 实现 {@link jdk.internal.reflect.Reflection#getCallerClass() 获取调用者的Class} 功能

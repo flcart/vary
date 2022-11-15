@@ -19,4 +19,8 @@ public class ToBool implements Provider {
         return number -> number.doubleValue() > 0;
     }
 
+    @Override
+    public String toString() {
+        return Boolean.class.toString();
+    }
 }

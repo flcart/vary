@@ -20,4 +20,9 @@ public class ToInstant implements Provider {
     public Function<Number, ?> get(Type type) {
         return milli -> Instant.ofEpochMilli(milli.longValue());
     }
+
+    @Override
+    public String toString() {
+        return Instant.class.toString();
+    }
 }

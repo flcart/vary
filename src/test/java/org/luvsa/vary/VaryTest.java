@@ -8,6 +8,7 @@ import org.luvsa.vary.other.Iob;
 import org.luvsa.vary.other.SupportIob;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -24,7 +25,7 @@ class VaryTest {
 
     @ParameterizedTest
     @DisplayName("字符串转 Date")
-    @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30"})
+    @ValueSource(strings = {"2002/6/28", "2002年12月1日 15:30", "Sun Dec 01 15:30:00 CST 2002"})
     void strToDate(String txt) {
         var date = Vary.change(txt, Date.class);
         System.out.println(date);
@@ -40,7 +41,7 @@ class VaryTest {
 
     @ParameterizedTest
     @DisplayName("字符串转 LocalDateTime")
-    @ValueSource(strings = { "2022-09-23 09:44:07:000", "2002/6/28", "2002年12月1日 15:30", "2022-08-05T00:16:15.987808300"})
+    @ValueSource(strings = {"2022-09-23 09:44:07:000", "2002/6/28", "2002年12月1日 15:30", "2022-08-05T00:16:15.987808300"})
     void strToLocalDateTime(String txt) {
         var dateTime = Vary.change(txt, LocalDateTime.class);
         System.out.println(dateTime);
@@ -177,8 +178,8 @@ class VaryTest {
 
     @Test
     void toBigDecimal() {
-        char[] array0 = Vary.change("char", char[].class);
-        Character[] array1 = Vary.change("Character", Character[].class);
+        var array0 = Vary.change("char", char[].class);
+        var array1 = Vary.change("Character", Character[].class);
         var change = Vary.change(1, BigDecimal.class);
         System.out.println(change);
     }
@@ -200,6 +201,13 @@ class VaryTest {
             list.add(change);
         }
         System.out.println(list);
+    }
+
+    @Test
+    void bigInteger() {
+        var v = "12345678910001122336655448763154456123456497563511254567497452165479652456456748976321564794545648730";
+        var change = Vary.change(v, BigInteger.class);
+        System.out.println(change);
     }
 
     @Test
@@ -229,12 +237,13 @@ class VaryTest {
 
     @Test
     void strToList() {
-
+        var guid = Vary.change("1509017093573", long.class);
+        System.out.println(guid);
     }
 
     @Test
     void listToArray() {
-        var list = List.of(1657109858000L, 1657103858000L, 1657109878000L,1657109958000L);
+        var list = List.of(1657109858000L, 1657103858000L, 1657109878000L, 1657109958000L);
         // 批量 转换
         var array = Vary.transform(list, LocalDateTime.class);
         for (LocalDateTime dateTime : array) {
