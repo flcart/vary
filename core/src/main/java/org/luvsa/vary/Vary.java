@@ -5,8 +5,8 @@ import org.luvsa.reflect.Reflections;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Function;
 
 /**
  * 数据转化接口
@@ -28,6 +28,23 @@ public interface Vary {
     @SuppressWarnings("unchecked")
     static <T, R> R change(T value, Class<R> cls) {
         return (R) convert(value, Reflections.wrap(cls));
+    }
+
+    static <K, V> Map<K, V> map(Collection<V> collection, Function<V, K> key) {
+        return map(collection, key, item -> item);
+    }
+
+    static <T, K, V> Map<K, V> map(Collection<T> collection, Function<T, K> key, Function<T, V> value) {
+        if (collection == null || collection.isEmpty()) {
+            return Collections.emptyMap();
+        }
+        var map = new HashMap<K, V>(collection.size());
+        for (var item : collection) {
+            var k = key.apply(item);
+            var v = value.apply(item);
+            map.put(k, v);
+        }
+        return map;
     }
 
     /**

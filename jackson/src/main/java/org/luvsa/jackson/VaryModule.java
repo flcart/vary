@@ -15,7 +15,7 @@ import java.util.Date;
 public class VaryModule extends SimpleModule {
 
     public VaryModule() {
-        super(VersionUtil.parseVersion("0.0.1", "cn.luvsa", "vary"));
+        super(VersionUtil.parseVersion("1.0.0", "cn.luvsa", "vary"));
 
         addSerializer(LocalDate.class, LocalDateJsonSerializer.INSTANCE);
         addSerializer(LocalTime.class, LocalTimeJsonSerializer.INSTANCE);
