@@ -31,7 +31,7 @@ public class DefaultVary extends Manager<Factory<?>> implements Vary {
                     });
                 }
             }
-            throw new FactoryNotFoundException();
+            throw new FactoryNotFoundException(clazz);
         }
     }
 

@@ -10,9 +10,20 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>vary-core</artifactId>
+    <artifactId>vary-struct</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.luvsa</groupId>
+            <artifactId>vary-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.3.23</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -43,4 +54,6 @@
             </plugin>
         </plugins>
     </build>
+
+
 </project>

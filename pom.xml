@@ -12,6 +12,7 @@
     <modules>
         <module>core</module>
         <module>jackson</module>
+        <module>struct</module>
     </modules>
 
     <properties>
