@@ -1,13 +1,33 @@
 package org.luvsa.vary;
 
+import lombok.extern.slf4j.Slf4j;
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
+import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.util.ReflectionUtils;
+
+import java.io.IOException;
 
 /**
  * @author Aglet
  * @create 2022/11/21 15:08
  */
-public class StructMapperScanner {
+@Slf4j
+public class StructMapperScanner extends ClassPathBeanDefinitionScanner {
 
+    public StructMapperScanner(BeanDefinitionRegistry registry) {
+        super(registry);
+    }
+
+    @Override
+    protected boolean isCandidateComponent(MetadataReader reader) throws IOException {
+        var metadata = reader.getClassMetadata();
+        if (metadata.isInterface() && metadata.isIndependent()) {
+            inject(metadata.getClassName());
+        }
+        return false;
+    }
 
     private void inject(String className) {
         try {
@@ -21,7 +41,7 @@ public class StructMapperScanner {
                 }
                 var parameterType = parameterTypes[0];
                 var genericReturnType = method.getGenericReturnType();
-                StructVary.accept(parameterType, genericReturnType,  method, mapper);
+                StructVary.accept(parameterType, genericReturnType, method, mapper);
             });
         } catch (ClassNotFoundException e) {
             //
