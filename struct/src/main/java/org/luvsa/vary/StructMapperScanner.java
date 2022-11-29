@@ -10,6 +10,8 @@ import org.springframework.util.ReflectionUtils;
 import java.io.IOException;
 
 /**
+ * 数据转换器的 扫描器， 用于扫描包中所有 Mapper Converter
+ *
  * @author Aglet
  * @create 2022/11/21 15:08
  */
@@ -29,6 +31,11 @@ public class StructMapperScanner extends ClassPathBeanDefinitionScanner {
         return false;
     }
 
+    /**
+     * 注入到 struct vary 中
+     *
+     * @param className 类名称
+     */
     private void inject(String className) {
         try {
             var aClass = Class.forName(className);
@@ -44,8 +51,7 @@ public class StructMapperScanner extends ClassPathBeanDefinitionScanner {
                 StructVary.accept(parameterType, genericReturnType, method, mapper);
             });
         } catch (ClassNotFoundException e) {
-            //
+            log.error("加载 Mapstruct 报错， 类名： {}", className, e);
         }
     }
-
 }
