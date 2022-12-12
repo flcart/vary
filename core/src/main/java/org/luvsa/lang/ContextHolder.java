@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 /**
  * 线程缓存工具
@@ -60,6 +61,20 @@ public final class ContextHolder {
         var clz = (Class<? extends T>) aClass;
         return Vary.change(o, clz);
     }
+
+    public static <T> T computeIfAbsent(Class<T> clazz, Function<Class<T>, T> function) {
+        var t = get(clazz);
+        if (t == null) {
+            t = function.apply(clazz);
+            if (t == null) {
+                throw new NullPointerException("Thread cache not keep null value!");
+            }
+            set(t);
+            return t;
+        }
+        return t;
+    }
+
 
     private static Object get0(Class<?> clazz) {
         var wrap = Reflections.wrap(clazz);

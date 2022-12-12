@@ -27,6 +27,7 @@
         <org.apache.logging.log4j.version>2.17.2</org.apache.logging.log4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring.version>6.0.2</spring.version>
     </properties>
 
     <dependencies>
@@ -44,6 +45,18 @@
                 <groupId>cn.luvsa</groupId>
                 <artifactId>vary-core</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
