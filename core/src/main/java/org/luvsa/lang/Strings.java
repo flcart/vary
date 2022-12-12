@@ -17,7 +17,7 @@ public final class Strings {
     }
 
     public static boolean safeEquals(String cur, String tar) {
-        return MessageDigest.isEqual(cur.getBytes(), cur.getBytes());
+        return MessageDigest.isEqual(cur.getBytes(), tar.getBytes());
     }
 
     /**
