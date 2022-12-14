@@ -49,7 +49,14 @@ public final class Arrays {
         }, args);
     }
 
-    public static <T> boolean has(Predicate<Character> predicate, char... args) {
+    /**
+     * 判断数组中是否右满足指定条件的元素
+     *
+     * @param predicate 条件
+     * @param args      字符数组
+     * @return true 数组中含有满足条件的元素
+     */
+    public static boolean has(Predicate<Character> predicate, char... args) {
         return check(true, o -> {
             if (o instanceof Character b) {
                 return predicate.test(b);
@@ -58,7 +65,7 @@ public final class Arrays {
         }, args);
     }
 
-    public static <T> boolean have(Predicate<Character> predicate, char... args) {
+    public static boolean have(Predicate<Character> predicate, char... args) {
         return check(false, o -> {
             if (o instanceof Character b) {
                 return predicate.test(b);
@@ -67,7 +74,14 @@ public final class Arrays {
         }, args);
     }
 
-    public static <T> boolean has(Predicate<Integer> predicate, int... args) {
+    /**
+     * 判断数组中是否右满足指定条件的元素
+     *
+     * @param predicate 条件
+     * @param args      int 数组
+     * @return true 数组中含有满足条件的元素
+     */
+    public static boolean has(Predicate<Integer> predicate, int... args) {
         return check(true, o -> {
             if (o instanceof Integer b) {
                 return predicate.test(b);
@@ -76,7 +90,7 @@ public final class Arrays {
         }, args);
     }
 
-    public static <T> boolean have(Predicate<Integer> predicate, int... args) {
+    public static boolean have(Predicate<Integer> predicate, int... args) {
         return check(false, o -> {
             if (o instanceof Integer b) {
                 return predicate.test(b);
@@ -85,7 +99,7 @@ public final class Arrays {
         }, args);
     }
 
-    public static <T> boolean has(Predicate<Float> predicate, float... args) {
+    public static boolean has(Predicate<Float> predicate, float... args) {
         return check(true, o -> {
             if (o instanceof Float b) {
                 return predicate.test(b);
@@ -94,7 +108,7 @@ public final class Arrays {
         }, args);
     }
 
-    public static <T> boolean have(Predicate<Float> predicate, float... args) {
+    public static boolean have(Predicate<Float> predicate, float... args) {
         return check(false, o -> {
             if (o instanceof Float b) {
                 return predicate.test(b);
@@ -103,7 +117,7 @@ public final class Arrays {
         }, args);
     }
 
-    public static <T> boolean has(Predicate<Double> predicate, double... args) {
+    public static boolean has(Predicate<Double> predicate, double... args) {
         return check(true, o -> {
             if (o instanceof Double b) {
                 return predicate.test(b);
@@ -112,7 +126,7 @@ public final class Arrays {
         }, args);
     }
 
-    public static <T> boolean have(Predicate<Double> predicate, double... args) {
+    public static boolean have(Predicate<Double> predicate, double... args) {
         return check(false, o -> {
             if (o instanceof Double b) {
                 return predicate.test(b);
@@ -121,7 +135,7 @@ public final class Arrays {
         }, args);
     }
 
-    public static <T> boolean has(Predicate<Boolean> predicate, boolean... args) {
+    public static boolean has(Predicate<Boolean> predicate, boolean... args) {
         return check(true, o -> {
             if (o instanceof Boolean b) {
                 return predicate.test(b);
@@ -130,7 +144,7 @@ public final class Arrays {
         }, args);
     }
 
-    public static <T> boolean have(Predicate<Boolean> predicate, boolean... args) {
+    public static boolean have(Predicate<Boolean> predicate, boolean... args) {
         return check(false, o -> {
             if (o instanceof Boolean b) {
                 return predicate.test(b);
