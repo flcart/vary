@@ -1,5 +1,6 @@
 package org.luvsa.lang;
 
+import java.lang.reflect.Array;
 import java.util.function.Predicate;
 
 /**
@@ -24,7 +25,11 @@ public final class Arrays {
      */
     @SafeVarargs
     public static <T> boolean has(Predicate<T> predicate, T... args) {
-        return check(true, predicate, args);
+        return check(true, o -> {
+            @SuppressWarnings("unchecked")
+            var val = (T) o;
+            return predicate.test(val);
+        }, args);
     }
 
     /**
@@ -37,47 +42,101 @@ public final class Arrays {
      */
     @SafeVarargs
     public static <T> boolean have(Predicate<T> predicate, T... args) {
-        return check(false, predicate, args);
+        return check(false, o -> {
+            @SuppressWarnings("unchecked")
+            var val = (T) o;
+            return predicate.test(val);
+        }, args);
     }
 
     public static <T> boolean has(Predicate<Character> predicate, char... args) {
-        return checkChar(true, predicate, args);
+        return check(true, o -> {
+            if (o instanceof Character b) {
+                return predicate.test(b);
+            }
+            throw new IllegalStateException();
+        }, args);
     }
 
     public static <T> boolean have(Predicate<Character> predicate, char... args) {
-        return checkChar(false, predicate, args);
+        return check(false, o -> {
+            if (o instanceof Character b) {
+                return predicate.test(b);
+            }
+            throw new IllegalStateException();
+        }, args);
     }
 
     public static <T> boolean has(Predicate<Integer> predicate, int... args) {
-        return checkInt(true, predicate, args);
+        return check(true, o -> {
+            if (o instanceof Integer b) {
+                return predicate.test(b);
+            }
+            throw new IllegalStateException();
+        }, args);
     }
 
     public static <T> boolean have(Predicate<Integer> predicate, int... args) {
-        return checkInt(false, predicate, args);
+        return check(false, o -> {
+            if (o instanceof Integer b) {
+                return predicate.test(b);
+            }
+            throw new IllegalStateException();
+        }, args);
     }
 
     public static <T> boolean has(Predicate<Float> predicate, float... args) {
-        return checkFloat(true, predicate, args);
+        return check(true, o -> {
+            if (o instanceof Float b) {
+                return predicate.test(b);
+            }
+            throw new IllegalStateException();
+        }, args);
     }
 
     public static <T> boolean have(Predicate<Float> predicate, float... args) {
-        return checkFloat(false, predicate, args);
+        return check(false, o -> {
+            if (o instanceof Float b) {
+                return predicate.test(b);
+            }
+            throw new IllegalStateException();
+        }, args);
     }
 
     public static <T> boolean has(Predicate<Double> predicate, double... args) {
-        return checkDouble(true, predicate, args);
+        return check(true, o -> {
+            if (o instanceof Double b) {
+                return predicate.test(b);
+            }
+            throw new IllegalStateException();
+        }, args);
     }
 
     public static <T> boolean have(Predicate<Double> predicate, double... args) {
-        return checkDouble(false, predicate, args);
+        return check(false, o -> {
+            if (o instanceof Double b) {
+                return predicate.test(b);
+            }
+            throw new IllegalStateException();
+        }, args);
     }
 
     public static <T> boolean has(Predicate<Boolean> predicate, boolean... args) {
-        return checkBool(true, predicate, args);
+        return check(true, o -> {
+            if (o instanceof Boolean b) {
+                return predicate.test(b);
+            }
+            throw new IllegalStateException();
+        }, args);
     }
 
     public static <T> boolean have(Predicate<Boolean> predicate, boolean... args) {
-        return checkBool(false, predicate, args);
+        return check(false, o -> {
+            if (o instanceof Boolean b) {
+                return predicate.test(b);
+            }
+            throw new IllegalStateException();
+        }, args);
     }
 
 
@@ -86,87 +145,21 @@ public final class Arrays {
      *
      * @param flag      true： 表示只要数组对象中含有一个元素满足指定规则，则直接返回 true； false：表示只要数组对象中含有一个元素不满足指定规则，则直接返回 false
      * @param predicate 指定规则
-     * @param args      数组对象
-     * @param <T>       数组数据类型
+     * @param array     数组对象
      * @return true： 数组对象中含有元素满足指定规则
      */
-    private static <T> boolean check(boolean flag, Predicate<T> predicate, T[] args) {
-        for (var item : args) {
-            var test = predicate.test(item);
-            var implicit = implicit(flag, test);
-            if (implicit == null) {
-                continue;
-            }
-            return implicit;
+    private static boolean check(boolean flag, Predicate<Object> predicate, Object array) {
+        if (array == null || !array.getClass().isArray()) {
+            throw new IllegalStateException();
         }
-        return !flag;
-    }
-
-    private static boolean checkChar(boolean flag, Predicate<Character> predicate, char[] args) {
-        for (var item : args) {
+        var length = Array.getLength(array);
+        for (int i = 0; i < length; i++) {
+            var item = Array.get(array, i);
             var test = predicate.test(item);
             var implicit = implicit(flag, test);
-            if (implicit == null) {
-                continue;
+            if (implicit != null) {
+                return implicit;
             }
-            return implicit;
-        }
-        return !flag;
-    }
-
-
-    /**
-     * 判断是否含有符合条件的 int 元素
-     *
-     * @param flag      true： 含有， false ： 全部都是
-     * @param predicate 条件
-     * @param args      int 元素
-     * @return true： 表示 符合条件
-     */
-    private static boolean checkInt(boolean flag, Predicate<Integer> predicate, int[] args) {
-        for (var item : args) {
-            var test = predicate.test(item);
-            var implicit = implicit(flag, test);
-            if (implicit == null) {
-                continue;
-            }
-            return implicit;
-        }
-        return !flag;
-    }
-
-    private static boolean checkBool(boolean flag, Predicate<Boolean> predicate, boolean[] args) {
-        for (var item : args) {
-            var test = predicate.test(item);
-            var implicit = implicit(flag, test);
-            if (implicit == null) {
-                continue;
-            }
-            return implicit;
-        }
-        return !flag;
-    }
-
-    private static boolean checkFloat(boolean flag, Predicate<Float> predicate, float[] args) {
-        for (var item : args) {
-            var test = predicate.test(item);
-            var implicit = implicit(flag, test);
-            if (implicit == null) {
-                continue;
-            }
-            return implicit;
-        }
-        return !flag;
-    }
-
-    private static boolean checkDouble(boolean flag, Predicate<Double> predicate, double[] args) {
-        for (var item : args) {
-            var test = predicate.test(item);
-            var implicit = implicit(flag, test);
-            if (implicit == null) {
-                continue;
-            }
-            return implicit;
         }
         return !flag;
     }

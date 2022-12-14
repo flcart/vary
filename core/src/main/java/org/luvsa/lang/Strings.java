@@ -71,4 +71,20 @@ public final class Strings {
         }
         return true;
     }
+
+    public static boolean isNotEmpty(CharSequence str) {
+        return StringUtils.hasText(str);
+    }
+
+    public static boolean isEmpty(CharSequence str) {
+        return !StringUtils.hasText(str);
+    }
+
+    public static boolean isBlank(CharSequence... str) {
+        return Arrays.have(Strings::isEmpty, str);
+    }
+
+    public static boolean hasBlank(CharSequence... str) {
+        return Arrays.has(Strings::isEmpty, str);
+    }
 }
