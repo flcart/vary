@@ -191,7 +191,7 @@ public final class Reflects {
             var name = field.getName();
             var clazz = field.getDeclaringClass();
             var capitalize = Strings.capitalize(name);
-            var method = ReflectionUtils.findMethod(clazz, "set" + capitalize, value.getClass());
+            var method = ReflectionUtils.findMethod(clazz, "set" + capitalize, field.getType());
             if (method == null) {
                 setValue0(field, source, value);
             } else {

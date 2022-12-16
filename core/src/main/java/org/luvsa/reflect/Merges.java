@@ -1,5 +1,7 @@
 package org.luvsa.reflect;
 
+import org.springframework.lang.Nullable;
+
 import java.io.Serial;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -8,6 +10,7 @@ import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * @author Aglet
@@ -49,57 +52,63 @@ public final class Merges {
             }
             var name = field.getName();
             var entry = sources.get(name);
-            if (entry != null) {
-                var target = entry.getValue();
-                var value = Reflects.getValue(field, change);
-                if (notEquals(value, target)) {
-                    var key = entry.getKey();
-                    Reflects.setValue(key, source, value);
-                    set.add(key);
-                }
+            if (entry == null) {
+                return;
             }
+            var target = entry.getValue();
+            var value = Reflects.getValue(field, change);
+            if (equals(value, target, () -> !field.isAnnotationPresent(Nullable.class))) {
+                return;
+            }
+            var key = entry.getKey();
+            Reflects.setValue(key, source, value);
+            set.add(key);
         });
         return !set.isEmpty();
     }
 
     /**
-     * 比较 两个数据是否 ‘不相同’
+     * 比较 两个数据是否 ‘相同’
      *
-     * @param value  值
+     * @param value  标识值
      * @param target 参考值
-     * @return true ： 标识 值 和 参考值 不同
+     * @return true ： ‘标识值’和‘参考值’相同
      */
-    private static boolean notEquals(Object value, Object target) {
+    private static boolean equals(Object value, Object target, Supplier<Boolean> supplier) {
         // 1.如果 值 为空， 会被认为没有改动， 返回 false
         // 2.如果 值 和 参考值 相同， 则没有改动， 返回 false
-        if (value == null || value.equals(target)) {
-            return false;
+        if (value == null) {
+            return target == null || supplier.get();
+        }
+        if (Objects.equals(value, target)) {
+            return true;
         }
         // 3. 值为原始数据类型的默认值， 会被认为没有改动， 返回 false
+        // 默认值 看作 null
         if (value instanceof Boolean b) {
-            return b;
+            // false 为 默认值
+            return !b && supplier.get();
         }
         if (value instanceof Byte i) {
-            return i != 0;
+            return i == 0 && supplier.get();
         }
         if (value instanceof Short i) {
-            return i != 0;
+            return i == 0 && supplier.get();
         }
         if (value instanceof Integer i) {
-            return i != 0;
+            return i == 0 && supplier.get();
         }
         if (value instanceof Long i) {
-            return i != 0;
+            return i == 0 && supplier.get();
         }
         if (value instanceof Float f) {
-            return f != 0;
+            return f == 0 && supplier.get();
         }
         if (value instanceof Double f) {
-            return f != 0;
+            return f == 0 && supplier.get();
         }
-        return true;
+        return false;
     }
-
 
     private static class KeyValue implements Entry<Field, Object> {
         private final Field key;
@@ -144,4 +153,6 @@ public final class Merges {
             return key + " = " + value;
         }
     }
+
+
 }

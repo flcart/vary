@@ -1,5 +1,9 @@
 package org.luvsa.sys;
 
+import org.springframework.lang.Nullable;
+
+import java.util.Objects;
+
 /**
  * 用户信息
  *
@@ -11,6 +15,7 @@ public class Userinfo {
     /**
      * 用户id
      */
+
     private String guid;
 
     /**
@@ -20,6 +25,7 @@ public class Userinfo {
 
     private String phone;
 
+    @Nullable
     private String email;
 
     /**
@@ -91,5 +97,31 @@ public class Userinfo {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    @Override
+    public String toString() {
+        return "Userinfo{" +
+                "guid='" + guid + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", expired=" + expired +
+                ", locked=" + locked +
+                ", admin=" + admin +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Userinfo userinfo = (Userinfo) o;
+        return expired == userinfo.expired && locked == userinfo.locked && admin == userinfo.admin && Objects.equals(guid, userinfo.guid) && Objects.equals(name, userinfo.name) && Objects.equals(phone, userinfo.phone) && Objects.equals(email, userinfo.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(guid, name, phone, email, expired, locked, admin);
     }
 }
