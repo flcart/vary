@@ -1,10 +1,12 @@
 package org.luvsa.reflect;
 
-import org.springframework.lang.Nullable;
+import org.luvsa.lang.Arrays;
 
 import java.io.Serial;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
@@ -16,6 +18,7 @@ import java.util.function.Supplier;
  * @author Aglet
  * @create 2022/11/8 14:16
  */
+@SuppressWarnings("all")
 public final class Merges {
 
     private final static Predicate<Field> filters = field -> {
@@ -23,6 +26,22 @@ public final class Merges {
         return (Modifier.isStatic(modifiers) && Modifier.isFinal(modifiers)) ||
                 field.isAnnotationPresent(Serial.class);
     };
+
+    private final static Class<? extends Annotation>[] annotations;
+
+    static {
+        String[] array = {"org.luvsa.lang.Nullable", "org.jetbrains.annotations.Nullable", "org.springframework.lang.Nullable"};
+        var list = new ArrayList<Class<? extends Annotation>>();
+        for (var s : array) {
+            try {
+                var clazz = (Class<? extends Annotation>) Class.forName(s);
+                list.add(clazz);
+            } catch (ClassNotFoundException e) {
+                //
+            }
+        }
+        annotations = list.toArray(new Class[0]);
+    }
 
 
     private Merges() {
@@ -57,7 +76,7 @@ public final class Merges {
             }
             var target = entry.getValue();
             var value = Reflects.getValue(field, change);
-            if (equals(value, target, () -> !field.isAnnotationPresent(Nullable.class))) {
+            if (equals(value, target, () -> check0(field))) {
                 return;
             }
             var key = entry.getKey();
@@ -65,6 +84,10 @@ public final class Merges {
             set.add(key);
         });
         return !set.isEmpty();
+    }
+
+    private static boolean check0(Field field) {
+        return !Arrays.has(item -> field.isAnnotationPresent(item), annotations);
     }
 
     /**

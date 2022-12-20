@@ -12,6 +12,7 @@
     <modules>
         <module>core</module>
         <module>jackson</module>
+        <module>mate</module>
         <module>struct</module>
     </modules>
 
@@ -31,6 +32,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>

@@ -167,7 +167,7 @@ public final class Arrays {
             throw new IllegalStateException();
         }
         var length = Array.getLength(array);
-        for (int i = 0; i < length; i++) {
+         for (int i = 0; i < length; i++) {
             var item = Array.get(array, i);
             var test = predicate.test(item);
             var implicit = implicit(flag, test);
