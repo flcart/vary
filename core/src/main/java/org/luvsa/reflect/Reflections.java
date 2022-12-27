@@ -9,6 +9,9 @@ import java.util.Objects;
  * @create 2022/7/14 18:34
  */
 public final class Reflections {
+    /**
+     * 原始数据类型
+     */
     private final static Map<Class<?>, Class<?>> PRIMITIVES = Map.of(
             byte.class, Byte.class,
             short.class, Short.class,
@@ -21,6 +24,7 @@ public final class Reflections {
     );
 
     private Reflections() {
+        throw new AssertionError("No org.luvsa.reflect.Reflections instances for you!");
     }
 
     /**
@@ -61,6 +65,23 @@ public final class Reflections {
             }
         }
         throw new IllegalArgumentException("无法找到调用 " + clazz + " 的类对象！");
+    }
+
+    /**
+     * 创建指定类名的实列对象
+     * @param name 类名
+     * @return 实例对象
+     */
+    public static Object newInstance(String name) {
+        if (name == null || name.isBlank()){
+            return null;
+        }
+        try {
+            var clazz = Class.forName(name);
+            return newInstance(clazz);
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
     }
 
     public static <T> T newInstance(Class<T> clazz) {

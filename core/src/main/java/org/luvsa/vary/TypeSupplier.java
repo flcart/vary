@@ -7,9 +7,10 @@ import java.lang.annotation.Target;
 
 /**
  * 数据转换类型支持
- *
+ * <p>
  * 自动转换
  * conversion
+ *
  * @author Aglet
  * @create 2022/6/29 16:44
  */
@@ -21,7 +22,7 @@ public interface TypeSupplier {
      * @return 数据类型
      */
     default Class<?>[] getTypes() {
-        return new Class[0];
+        return Util.EMPTY;
     }
 
     /**

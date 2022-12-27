@@ -7,6 +7,8 @@ import java.lang.reflect.Type;
 import java.util.function.Function;
 
 /**
+ * {@link String} 转 {@link File}
+ *
  * @author Aglet
  * @create 2022/7/14 11:03
  */

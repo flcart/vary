@@ -1,8 +1,10 @@
 package org.luvsa.sys;
 
+import lombok.Data;
 import org.springframework.lang.Nullable;
 
-import java.util.Objects;
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 用户信息
@@ -10,24 +12,57 @@ import java.util.Objects;
  * @author Dale
  * @create 2022/10/18 11:10
  */
-public class Userinfo {
-
+@Data
+public class Userinfo implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 6398678505579131105L;
     /**
      * 用户id
      */
-
     private String guid;
-
     /**
-     * 用户名称
+     * 用户账号名称， 注意不是用户名
      */
     private String name;
-
+    /**
+     * 账号头像
+     */
+    private String avatar;
+    /**
+     * 电话
+     */
     private String phone;
-
+    /**
+     * 邮箱
+     */
     @Nullable
     private String email;
 
+    /**
+     * 性别， 需用到数据字典， 可以考虑使用 Boolean 值来标识
+     */
+    private Integer sex;
+    /**
+     * 年龄
+     */
+    private Integer age;
+    /**
+     * 用户简介
+     */
+    private String description;
+    /**
+     * 微信小程序登录的 session 唯一标识码
+     */
+    private String union;
+    /**
+     * 微信小程序登录的 session 的 appid
+     */
+    private String appid;
+
+    /**
+     * 微信小程序登录的 session 的 openid
+     */
+    private String openid;
     /**
      * 是否过期
      */
@@ -38,90 +73,12 @@ public class Userinfo {
      */
     private boolean locked;
 
-	/**
-	 * 是否为系统管理员
-	 */
+    private boolean enabled = true;
+
+    private boolean valid;
+
+    /**
+     * 是否为系统管理员
+     */
     private boolean admin;
-
-    public String getGuid() {
-        return guid;
-    }
-
-    public void setGuid(String guid) {
-        this.guid = guid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isExpired() {
-        return expired;
-    }
-
-    public void setExpired(boolean expired) {
-        this.expired = expired;
-    }
-
-    public boolean isLocked() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
-    @Override
-    public String toString() {
-        return "Userinfo{" +
-                "guid='" + guid + '\'' +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", expired=" + expired +
-                ", locked=" + locked +
-                ", admin=" + admin +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Userinfo userinfo = (Userinfo) o;
-        return expired == userinfo.expired && locked == userinfo.locked && admin == userinfo.admin && Objects.equals(guid, userinfo.guid) && Objects.equals(name, userinfo.name) && Objects.equals(phone, userinfo.phone) && Objects.equals(email, userinfo.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(guid, name, phone, email, expired, locked, admin);
-    }
 }

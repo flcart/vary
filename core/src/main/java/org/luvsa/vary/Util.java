@@ -10,6 +10,8 @@ import java.util.ServiceLoader;
  */
 class Util {
 
+    final static Class<?>[] EMPTY = new Class<?>[0];
+
     final static List<Vary> list = new ArrayList<>();
 
     static {
