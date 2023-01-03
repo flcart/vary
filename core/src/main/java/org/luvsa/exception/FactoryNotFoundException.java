@@ -1,10 +1,15 @@
 package org.luvsa.exception;
 
+import java.io.Serial;
+
 /**
  * @author Aglet
  * @create 2022/7/13 11:07
  */
 public class FactoryNotFoundException extends Exception {
+
+    @Serial
+    private static final long serialVersionUID = -7448270884351058056L;
 
     public FactoryNotFoundException(Class<?> clazz) {
         this("Type of " + clazz + " factory not found!");

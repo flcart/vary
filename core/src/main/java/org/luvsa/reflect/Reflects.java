@@ -3,6 +3,8 @@ package org.luvsa.reflect;
 import org.luvsa.exception.ValueException;
 import org.luvsa.lang.Strings;
 import org.luvsa.vary.Vary;
+import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Array;
@@ -28,6 +30,8 @@ public final class Reflects {
     public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
     private static final String GET_METHOD_PREFIX = "get";
     private static final String GET_BOOL_METHOD_PREFIX = "is";
+
+    private static final ParameterNameDiscoverer DISCOVERER = new DefaultParameterNameDiscoverer();
 
     /**
      * 查询 get 方法
@@ -234,5 +238,9 @@ public final class Reflects {
 
     public static Object getField(Field field, Object target) {
         return ReflectionUtils.getField(field, target);
+    }
+
+    public static String[] discover(Method method) {
+        return DISCOVERER.getParameterNames(method);
     }
 }
