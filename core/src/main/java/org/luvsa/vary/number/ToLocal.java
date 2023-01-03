@@ -1,6 +1,6 @@
 package org.luvsa.vary.number;
 
-import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.annotation.Types;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;

@@ -1,7 +1,7 @@
 package org.luvsa.vary.zone;
 
+import org.luvsa.annotation.Types;
 import org.luvsa.vary.AbstractFactory;
-import org.luvsa.vary.TypeSupplier.Types;
 
 import java.time.ZonedDateTime;
 

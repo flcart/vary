@@ -1,13 +1,14 @@
-package org.luvsa.lang;
+package org.luvsa.annotation;
 
 import java.lang.annotation.*;
 
 /**
  * @author Aglet
- * @create 2022/12/16 10:45
+ * @create 2023/1/3 10:09
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
 public @interface Nullable {
+
 }

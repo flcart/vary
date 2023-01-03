@@ -1,7 +1,7 @@
 package org.luvsa.vary.array;
 
 import org.luvsa.vary.AbstractFactory;
-import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.annotation.Types;
 
 /**
  * @author Aglet

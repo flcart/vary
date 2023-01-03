@@ -1,6 +1,6 @@
 package org.luvsa.vary.string;
 
-import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.annotation.Types;
 
 import java.io.File;
 import java.lang.reflect.Type;

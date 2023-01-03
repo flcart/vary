@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>annotation</module>
         <module>core</module>
         <module>jackson</module>
         <module>lang</module>
@@ -51,7 +52,19 @@
         <dependencies>
             <dependency>
                 <groupId>cn.luvsa</groupId>
+                <artifactId>vary-annotation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.luvsa</groupId>
                 <artifactId>vary-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.luvsa</groupId>
+                <artifactId>vary-lang</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

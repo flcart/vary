@@ -1,6 +1,6 @@
 package org.luvsa.vary.array;
 
-import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.annotation.Types;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;

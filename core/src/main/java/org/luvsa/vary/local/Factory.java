@@ -1,7 +1,7 @@
 package org.luvsa.vary.local;
 
 import org.luvsa.vary.AbstractFactory;
-import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.annotation.Types;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

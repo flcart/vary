@@ -1,7 +1,7 @@
 package org.luvsa.vary.string;
 
 import org.luvsa.vary.AbstractFactory;
-import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.annotation.Types;
 
 import java.lang.reflect.Type;
 import java.util.Optional;

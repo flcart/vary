@@ -1,7 +1,7 @@
 package org.luvsa.vary.number;
 
 import org.luvsa.vary.AbstractFactory;
-import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.annotation.Types;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

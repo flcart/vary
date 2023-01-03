@@ -1,6 +1,6 @@
 package org.luvsa.vary;
 
-import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.annotation.Types;
 
 import java.util.ServiceLoader;
 import java.util.function.BiConsumer;

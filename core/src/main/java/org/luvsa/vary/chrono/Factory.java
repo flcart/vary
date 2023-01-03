@@ -1,7 +1,7 @@
 package org.luvsa.vary.chrono;
 
 import org.luvsa.vary.AbstractFactory;
-import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.annotation.Types;
 
 import java.time.chrono.ChronoLocalDateTime;
 

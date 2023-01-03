@@ -1,7 +1,7 @@
 package org.luvsa.vary.other;
 
 import org.luvsa.lang.Strings;
-import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.annotation.Types;
 import org.luvsa.vary.Vary;
 
 import java.lang.annotation.Annotation;
