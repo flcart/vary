@@ -2,7 +2,7 @@ package org.luvsa.lang;
 
 import org.luvsa.reflect.Generics;
 import org.luvsa.reflect.Reflections;
-import org.luvsa.vary.TypeSupplier.Types;
+import org.luvsa.annotation.Types;
 import org.luvsa.vary.Vary;
 
 import java.util.Map;

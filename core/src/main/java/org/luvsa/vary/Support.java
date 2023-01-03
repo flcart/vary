@@ -4,12 +4,11 @@ package org.luvsa.vary;
  * 数据转换类型支持
  * <p>
  * 自动转换
- * conversion
  *
  * @author Aglet
  * @create 2022/6/29 16:44
  */
-public interface TypeSupplier {
+public interface Support {
 
     /**
      * 可供数据转换的数据类型

@@ -9,7 +9,7 @@ import java.util.function.Function;
  * @author Aglet
  * @create 2022/6/25 10:31
  */
-public interface Factory<T> extends TypeSupplier {
+public interface Factory<T> extends Support {
     /**
      * 创建转换函数
      *

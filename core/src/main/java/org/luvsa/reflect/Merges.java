@@ -15,6 +15,8 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
+ * 合并工具
+ *
  * @author Aglet
  * @create 2022/11/8 14:16
  */
@@ -30,7 +32,7 @@ public final class Merges {
     private final static Class<? extends Annotation>[] annotations;
 
     static {
-        String[] array = {"org.luvsa.lang.Nullable", "org.jetbrains.annotations.Nullable", "org.springframework.lang.Nullable"};
+        String[] array = {"org.luvsa.annotation.Nullable", "org.jetbrains.annotations.Nullable", "org.springframework.lang.Nullable"};
         var list = new ArrayList<Class<? extends Annotation>>();
         for (var s : array) {
             try {
@@ -133,9 +135,18 @@ public final class Merges {
         return false;
     }
 
+    /**
+     * 键-值
+     */
     private static class KeyValue implements Entry<Field, Object> {
+        /**
+         * 类的成员属性
+         */
         private final Field key;
 
+        /**
+         * 属性值
+         */
         private final Object value;
 
         public KeyValue(Field field, Object value) {
@@ -176,6 +187,4 @@ public final class Merges {
             return key + " = " + value;
         }
     }
-
-
 }

@@ -9,7 +9,7 @@ import java.util.function.Function;
  * @author Dale
  * @create 2022/5/5 1:45
  */
-public interface Provider<T> extends TypeSupplier {
+public interface Provider<T> extends Support {
 
     /**
      * 获取数据转换函数
