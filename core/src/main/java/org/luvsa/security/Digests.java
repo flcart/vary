@@ -3,6 +3,7 @@ package org.luvsa.security;
 import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 /**
@@ -24,9 +25,20 @@ public final class Digests {
      * @param array 字符串树
      * @return 加密后的字符串
      */
-    public static String md5AsHex(String... array) {
+    public static String md5AsHex(CharSequence... array) {
         var join = String.join("", array);
         var bytes = join.getBytes(StandardCharsets.UTF_8);
+        return DigestUtils.md5DigestAsHex(bytes);
+    }
+
+    /**
+     * 将 uuid 采用md5加密
+     *
+     * @param joiner UUID
+     * @return 加密的字符串
+     */
+    public static String md5AsHex(StringJoiner joiner) {
+        var bytes = joiner.toString().getBytes(StandardCharsets.UTF_8);
         return DigestUtils.md5DigestAsHex(bytes);
     }
 

@@ -89,7 +89,14 @@ public final class Merges {
     }
 
     private static boolean check0(Field field) {
-        return !Arrays.has(item -> field.isAnnotationPresent(item), annotations);
+        if (Arrays.has(item -> field.isAnnotationPresent(item), annotations)) {
+            return false;
+        }
+        var type = field.getType();
+        if (Reflections.PRIMITIVES.values().contains(type)) {
+            return false;
+        }
+        return true;
     }
 
     /**

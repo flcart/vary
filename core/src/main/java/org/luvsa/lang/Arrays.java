@@ -11,6 +11,9 @@ import java.util.function.Predicate;
  */
 public final class Arrays {
 
+    /**
+     * 私有化构造函数，不允许构造 Arrays 的实列对象
+     */
     private Arrays() {
         throw new AssertionError("No org.luvsa.lang.Arrays instances for you!");
     }

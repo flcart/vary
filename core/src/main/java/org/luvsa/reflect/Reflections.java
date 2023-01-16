@@ -12,7 +12,7 @@ public final class Reflections {
     /**
      * 原始数据类型
      */
-    private final static Map<Class<?>, Class<?>> PRIMITIVES = Map.of(
+    final static Map<Class<?>, Class<?>> PRIMITIVES = Map.of(
             byte.class, Byte.class,
             short.class, Short.class,
             int.class, Integer.class,
@@ -37,7 +37,7 @@ public final class Reflections {
         return PRIMITIVES.getOrDefault(clazz, clazz);
     }
 
-    public static boolean isPrimitive(Class<?> clazz){
+    public static boolean isPrimitive(Class<?> clazz) {
         return PRIMITIVES.containsKey(clazz);
     }
 
@@ -69,11 +69,12 @@ public final class Reflections {
 
     /**
      * 创建指定类名的实列对象
+     *
      * @param name 类名
      * @return 实例对象
      */
     public static Object newInstance(String name) {
-        if (name == null || name.isBlank()){
+        if (name == null || name.isBlank()) {
             return null;
         }
         try {

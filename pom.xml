@@ -12,8 +12,10 @@
     <modules>
         <module>annotation</module>
         <module>core</module>
+        <module>html</module>
         <module>jackson</module>
         <module>lang</module>
+        <module>lunar</module>
         <module>mate</module>
         <module>struct</module>
     </modules>

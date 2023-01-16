@@ -89,7 +89,13 @@ public final class Reflects {
         return null;
     }
 
-
+    /**
+     * 尝试在 {@link Class} 的 name 上查找。 field搜索所有Object超类，最多 。
+     *
+     * @param clazz 类对象
+     * @param name  成员名称
+     * @return Field 或 null
+     */
     public static Field findField(Class<?> clazz, String name) {
         return ReflectionUtils.findField(clazz, name);
     }
@@ -111,7 +117,6 @@ public final class Reflects {
             return Vary.change(value, Field.class);
         }
     }
-
 
     public static Map<String, Object> extract(Object o) {
         return Collections.emptyMap();

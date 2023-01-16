@@ -3,6 +3,8 @@ package org.luvsa.exception;
 import java.io.Serial;
 
 /**
+ * 值异常， 用于携带参数
+ *
  * @author Aglet
  * @create 2022/12/7 15:19
  */

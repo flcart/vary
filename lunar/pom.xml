@@ -10,7 +10,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>vary-core</artifactId>
+    <artifactId>vary-lunar</artifactId>
 
     <dependencies>
         <dependency>
@@ -19,9 +19,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <scope>provided</scope>
+            <groupId>cn.luvsa</groupId>
+            <artifactId>vary-core</artifactId>
         </dependency>
     </dependencies>
 
