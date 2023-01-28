@@ -8,8 +8,8 @@ import java.util.Collection;
  * @create 2023/1/11 13:45
  */
 public class Document extends Node {
-
     private String[] array;
+    private Node html;
 
     public Document(Collection<String> values, String... array) {
         var list = new ArrayList<String>();
@@ -34,12 +34,19 @@ public class Document extends Node {
     }
 
     @Override
+    public boolean add(Node item) {
+        super.add(item);
+        this.html = item;
+        return true;
+    }
+
+    @Override
     public String getName() {
         return "Doc";
     }
 
     @Override
     public String toString() {
-        return "<!doctype " + String.join(" ", array) + ">";
+        return "<!doctype " + String.join(" ", array) + ">\r\n" + html;
     }
 }

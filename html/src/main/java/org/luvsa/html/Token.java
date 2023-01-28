@@ -34,8 +34,8 @@ class Token {
         if (doctype) {
             return new Document(attributes.keySet(), current, s);
         }
-        var attr = Collections.unmodifiableMap(attributes);
-        var label = Label.get(s);
+        var attr = Map.copyOf(this.attributes);
+        var label = Label.get(Objects.requireNonNullElse(this.name, s));
         if (label == null) {
             return new Unknown(name, finish, attr);
         }

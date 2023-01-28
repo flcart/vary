@@ -1,8 +1,6 @@
 package org.luvsa.html;
 
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
 
 /**
  * @author Aglet
@@ -13,6 +11,7 @@ public class Element extends Node {
      * 元素标签
      */
     private Label label;
+
     /**
      * 元素属性
      */
@@ -23,7 +22,7 @@ public class Element extends Node {
      */
     private List<Node> children;
 
-    private boolean finish;
+    private final boolean finish;
 
     public Element(Label label, Map<String, Object> attributes, boolean finish) {
         this.label = label;
@@ -47,29 +46,54 @@ public class Element extends Node {
     }
 
     @Override
+    public boolean isFinished() {
+        return finish;
+    }
+
+    @Override
+    public boolean match(Node item) {
+        return Objects.equals(item.getName(), getName());
+    }
+
+    @Override
+    public boolean add(Node item) {
+        super.add(item);
+        if (this.children == null) {
+            this.children = new ArrayList<>();
+        }
+        this.children.add(item);
+        return true;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return label.isEmpty();
+    }
+
+    @Override
     public String toString() {
         var suffix = "</" + label + '>';
         if (finish) {
             return suffix;
         }
-        var attr = new StringJoiner(" ");
-        attributes.forEach((s, o) -> attr.add(s + "=" + o));
-        var trim = attr.toString();
-        var prefix = '<' + this.label.toString() + (trim.isBlank() ? "" : " " + trim);
+        var prefix = '<' + this.label.toString() + this.getAttr();
         if (children == null) {
             return prefix + "/>";
         }
-        var builder = new StringBuilder(prefix + '>');
-        if (label.isBlock()) {
-            builder.append("\r\n");
-        }
+        var builder = new StringBuilder();
         for (var child : children) {
             builder.append(child);
         }
-        if (label.isBlock()) {
-            builder.append("\r\n");
+        return prefix + '>' + builder + suffix;
+    }
+
+
+    private String getAttr() {
+        if (attributes.isEmpty()) {
+            return "";
         }
-        builder.append(suffix);
-        return builder.toString();
+        var attr = new StringJoiner(" ");
+        attributes.forEach((s, o) -> attr.add(s + "='" + o + '\''));
+        return " " + attr;
     }
 }

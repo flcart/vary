@@ -93,7 +93,7 @@ public class Label {
     }
 
     public static Label get(String s) {
-        return LABELS.get(s);
+        return LABELS.computeIfAbsent(s, Label::new);
     }
 
     @Override

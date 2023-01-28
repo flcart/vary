@@ -11,8 +11,6 @@ public class Scope implements Resource {
     @Override
     public void accept(String s) {
         var label = Label.get(s);
-        if (label != null) {
-            label.setAutism(true);
-        }
+        label.setAutism(true);
     }
 }

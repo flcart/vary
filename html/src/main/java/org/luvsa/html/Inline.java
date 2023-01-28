@@ -10,9 +10,8 @@ import jdk.jfr.Name;
 public class Inline implements Resource {
     @Override
     public void accept(String s) {
-        var tag = new Label(s);
+        var tag = Label.get(s);
         tag.setBlock(false);
         tag.setFormatted(false);
-        Label.register(tag);
     }
 }

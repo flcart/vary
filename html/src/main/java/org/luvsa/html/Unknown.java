@@ -1,5 +1,6 @@
 package org.luvsa.html;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,22 @@ public class Unknown extends Node {
     public Map<String, Object> attributes() {
         return attributes;
     }
+
+    @Override
+    public boolean isFinished() {
+        return finish;
+    }
+
+    @Override
+    public boolean add(Node item) {
+        super.add(item);
+        if (this.children == null) {
+            this.children = new ArrayList<>();
+        }
+        this.children.add(item);
+        return true;
+    }
+
 
     @Override
     public String getName() {

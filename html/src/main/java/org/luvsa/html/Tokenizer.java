@@ -15,6 +15,7 @@ import java.util.concurrent.Flow.Subscriber;
  * @create 2023/1/11 13:47
  */
 class Tokenizer implements Publisher<Token> {
+
     private final static Map<Character, Handler> CACHE = new HashMap<>();
 
     static {
@@ -30,14 +31,13 @@ class Tokenizer implements Publisher<Token> {
             var o = (Handler) Proxy.newProxyInstance(loader, interfaces, (proxy, meth, args) -> {
                 var name = meth.getName();
                 if (Objects.equals(name, "apply")) {
-                    return  method.invoke(args[0], args[1]);
+                    return method.invoke(args[0], args[1]);
                 }
                 if (Objects.equals(name, "toString")) {
                     return "Proxy-" + method.getName();
                 }
                 throw new UnsupportedOperationException();
             });
-
             for (var c : value) {
                 CACHE.put(c, o);
             }
@@ -45,9 +45,23 @@ class Tokenizer implements Publisher<Token> {
     }
 
     private final StringBuilder builder = new StringBuilder();
+    /**
+     * 符号栈
+     */
     private final Stack<Character> stack = new Stack<>();
+
+    /**
+     * 字符读取器
+     */
     private final Token.Reader reader; // html input
+    /**
+     * 处理报错
+     */
     private final Publisher<Throwable> publisher;
+
+    /**
+     * Node 属性暂存器
+     */
     private final Token token = new Token();
 
     Tokenizer(Token.Reader reader, Publisher<Throwable> publisher) {
@@ -59,7 +73,7 @@ class Tokenizer implements Publisher<Token> {
     public void subscribe(Subscriber<? super Token> subscriber) {
     }
 
-    Node read() {
+    Node next() {
         while (true) {
             var current = reader.consume();
             if (current == Character.MIN_VALUE) {
@@ -167,6 +181,7 @@ class Tokenizer implements Publisher<Token> {
             var peek = stack.peek();
             if (peek == '<') {
                 var s = builder.toString();
+                builder.setLength(0);
                 token.setCurrent(s);
             } else if (peek == '\'' || peek == '"') {
                 builder.append(item);
@@ -183,6 +198,7 @@ class Tokenizer implements Publisher<Token> {
         }
         var peek = stack.peek();
         if (peek == '<') {
+            stack.push(item);
             return Result.next;
         }
         if (peek == item) {
@@ -205,6 +221,8 @@ class Tokenizer implements Publisher<Token> {
         var peek = stack.peek();
         if (peek == '<') {
             token.setFinish(true);
+        } else if (peek == '\'' || peek == '"') {
+            builder.append(item);
         }
         return Result.next;
     }
