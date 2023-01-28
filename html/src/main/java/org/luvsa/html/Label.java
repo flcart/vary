@@ -3,6 +3,7 @@ package org.luvsa.html;
 import jdk.jfr.Name;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.luvsa.html.res.Resource;
 import org.luvsa.io.Files;
 
 import java.util.Map;

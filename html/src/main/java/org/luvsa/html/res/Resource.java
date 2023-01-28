@@ -1,4 +1,4 @@
-package org.luvsa.html;
+package org.luvsa.html.res;
 
 import java.util.function.Consumer;
 

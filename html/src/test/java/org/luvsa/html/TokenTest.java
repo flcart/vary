@@ -14,9 +14,16 @@ class TokenTest {
 
     @Test
     void indexOf() {
-        var builder = new Builder("index.html");
-        var node = builder.create();
-        System.out.println(node);
+        var parser = new FileParser("index.html");
+        var node = parser.resolve();
+        if (node instanceof Document document) {
+            var content = document.getElementById("content");
+            var list = document.getElementsByClass("footer_link");
+            var a = document.getElementsByTag("a");
+            System.out.println(content);
+        } else {
+            System.out.println(node);
+        }
     }
 
 }

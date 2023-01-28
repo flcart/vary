@@ -86,6 +86,27 @@ public interface Vary {
         return (R[]) instance;
     }
 
+    static <T> List<T> asList(Object target, Class<T> clazz) {
+        if (target == null) {
+            return null;
+        }
+        List<T> rest = new ArrayList<>();
+        var aClass = target.getClass();
+        if (target instanceof List<?> list) {
+            for (var o : list) {
+                var change = Vary.change(o, clazz);
+                rest.add(change);
+            }
+        } else if (aClass.isArray()) {
+            for (int i = 0, size = Array.getLength(target); i < size; i++) {
+                var item = Array.get(target, i);
+                var change = Vary.change(item, clazz);
+                rest.add(change);
+            }
+        }
+        return rest;
+    }
+
     default boolean enabled() {
         return true;
     }

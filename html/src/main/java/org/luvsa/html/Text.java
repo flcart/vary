@@ -13,6 +13,11 @@ public class Text extends Node {
     }
 
     @Override
+    public void visit(Visitor visitor, int depth) {
+        visitor.accept(this);
+    }
+
+    @Override
     protected boolean hasAttributes() {
         return false;
     }

@@ -1,6 +1,7 @@
-package org.luvsa.html;
+package org.luvsa.html.res;
 
 import jdk.jfr.Name;
+import org.luvsa.html.Label;
 
 /**
  * @author Aglet

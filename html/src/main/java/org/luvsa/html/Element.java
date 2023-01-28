@@ -1,5 +1,8 @@
 package org.luvsa.html;
 
+import org.luvsa.lang.ContextHolder;
+import org.luvsa.vary.Vary;
+
 import java.util.*;
 
 /**
@@ -10,12 +13,12 @@ public class Element extends Node {
     /**
      * 元素标签
      */
-    private Label label;
+    private final Label label;
 
     /**
      * 元素属性
      */
-    private Map<String, Object> attributes;
+    private final Map<String, Object> attributes;
 
     /**
      * 元素子标签
@@ -66,8 +69,36 @@ public class Element extends Node {
     }
 
     @Override
+    public void visit(Visitor visitor, int depth) {
+        visitor.accept(this);
+        if (this.children != null){
+            for (var child : this.children) {
+                child.visit(visitor, depth + 1);
+            }
+        }
+    }
+
+    @Override
     public boolean isEmpty() {
         return label.isEmpty();
+    }
+
+    @Override
+    protected String getId() {
+        if (attributes == null) {
+            return null;
+        }
+        var id = attributes.get("id");
+        return Vary.change(id, String.class);
+    }
+
+    @Override
+    protected String getClazz() {
+        if (attributes == null) {
+            return null;
+        }
+        var aClass = attributes.get("class");
+        return Vary.change(aClass, String.class);
     }
 
     @Override
@@ -80,13 +111,16 @@ public class Element extends Node {
         if (children == null) {
             return prefix + "/>";
         }
-        var builder = new StringBuilder();
-        for (var child : children) {
-            builder.append(child);
+        var formatter = ContextHolder.get(Formatter.class);
+        if (formatter == null) {
+            var builder = new StringBuilder();
+            for (var child : children) {
+                builder.append(child);
+            }
+            return prefix + '>' + builder + suffix;
         }
-        return prefix + '>' + builder + suffix;
+        return formatter.build(prefix + '>', children, suffix);
     }
-
 
     private String getAttr() {
         if (attributes.isEmpty()) {

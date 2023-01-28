@@ -137,10 +137,6 @@ class Token {
             forward();
         }
 
-        public static Disposer newBuilder() {
-            return null;
-        }
-
         /**
          * 向后推进
          */

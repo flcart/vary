@@ -13,15 +13,19 @@ import java.util.concurrent.SubmissionPublisher;
  * @author Aglet
  * @create 2023/1/16 8:57
  */
-public class Builder {
+public class FileParser implements Parser {
     private final Stack<Node> stack = new Stack<>();
     private final String resource;
-
-    public Builder(String resource) {
+    public FileParser(String resource) {
         this.resource = resource;
     }
 
-    public Node create() {
+    /**
+     * 解析 resolve
+     *
+     * @return 将代码解析成 node
+     */
+    public Node resolve() {
         try (var stream = Resources.asStream(resource); var streamReader = new InputStreamReader(stream);
              var bufferedReader = new BufferedReader(streamReader)) {
             var reader = new Reader(bufferedReader);

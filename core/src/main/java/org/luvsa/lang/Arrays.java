@@ -1,6 +1,9 @@
 package org.luvsa.lang;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -170,7 +173,7 @@ public final class Arrays {
             throw new IllegalStateException();
         }
         var length = Array.getLength(array);
-         for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             var item = Array.get(array, i);
             var test = predicate.test(item);
             var implicit = implicit(flag, test);
@@ -201,5 +204,21 @@ public final class Arrays {
         }
         // hava 不满足条件， 直接返回 false
         return false;
+    }
+
+    @SafeVarargs
+    public static <T> List<T> merge(Collection<T> collection, Predicate<T> predicate, T... array) {
+        var list = new ArrayList<T>();
+        for (T t : collection) {
+            if (predicate.test(t)) {
+                list.add(t);
+            }
+        }
+        for (T t : array) {
+            if (predicate.test(t)) {
+                list.add(t);
+            }
+        }
+        return list;
     }
 }
