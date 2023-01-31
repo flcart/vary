@@ -18,18 +18,13 @@ public class Text extends Node {
     }
 
     @Override
-    protected boolean hasAttributes() {
-        return false;
-    }
-
-    @Override
     public String getName() {
         return "TEXT";
     }
 
     @Override
     public String toString() {
-        return value;
+        return value.trim().replace("&nbsp;", "");
     }
 
     @Override

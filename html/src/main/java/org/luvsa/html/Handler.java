@@ -7,7 +7,6 @@ import java.util.concurrent.Flow.Publisher;
  * @create 2023/1/12 9:00
  */
 public interface Handler {
-
     Result apply(Publisher<Token> publisher, char current);
 
 }

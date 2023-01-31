@@ -91,6 +91,14 @@ public final class ContextHolder {
         return Vary.change(t, clazz);
     }
 
+    public static <T> T getOrDefualt(Class<T> clazz, T def) {
+        var t = get0(clazz);
+        if (t == null){
+            return def;
+        }
+        return Vary.change(t, clazz);
+    }
+
     public static <T> T getOrThrow(Class<T> clazz, String message) {
         var t = get(clazz);
         return Objects.requireNonNull(t, message);
@@ -109,6 +117,11 @@ public final class ContextHolder {
             }
         }
         return null;
+    }
+
+    public static void set(Class<?> clazz, Object o) {
+        var holder = CACHE.computeIfAbsent(clazz, DefaultHolder::new);
+        holder.put(o);
     }
 
     public static void set(Object o) {

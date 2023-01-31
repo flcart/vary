@@ -2,8 +2,11 @@ package org.luvsa.html;
 
 import org.luvsa.lang.ContextHolder;
 import org.luvsa.vary.Vary;
+import org.springframework.util.ObjectUtils;
 
+import java.nio.charset.Charset;
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * @author Aglet
@@ -34,13 +37,46 @@ public class Element extends Node {
     }
 
     @Override
-    protected boolean hasAttributes() {
-        return false;
+    public Charset getCharset() {
+        if (ContextHolder.get(false)) {
+            return super.getCharset();
+        }
+        if (Objects.equals(label.getName(), "meta")) {
+            var content = getAttribute("content");
+            if (ObjectUtils.isEmpty(content)) {
+                return null;
+            }
+            var change = Vary.change(content, String.class);
+            var index = change.indexOf("charset");
+            if (index < 0) {
+                return null;
+            }
+            int from = -1, to = -1;
+            for (int size = change.length(); index < size; index++) {
+                var c = change.charAt(index);
+                if (c == '=') {
+                    from = index + 1;
+                } else if (from > 0) {
+                    if (c == ';' || c == ' ') {
+                        to = index;
+                        break;
+                    }
+                }
+            }
+            if (from > 0) {
+                var s = to > from ? change.substring(from, to) : change.substring(from);
+                return Charset.forName(s);
+            }
+        }
+        return super.getCharset();
     }
 
     @Override
-    public Map<String, Object> attributes() {
-        return attributes;
+    public Object getAttribute(String key) {
+        if (attributes == null) {
+            return super.getAttribute(key);
+        }
+        return attributes.get(key);
     }
 
     @Override
@@ -50,7 +86,10 @@ public class Element extends Node {
 
     @Override
     public boolean isFinished() {
-        return finish;
+        if (label.isEmpty()) {
+            return false;
+        }
+        return finish && isBlank();
     }
 
     @Override
@@ -69,9 +108,47 @@ public class Element extends Node {
     }
 
     @Override
+    public List<String> texts() {
+        if (children == null || children.isEmpty()) {
+            return super.texts();
+        }
+        if (label.isBlock()) {
+            var list = new ArrayList<String>();
+            collect(node -> {
+                if (node instanceof Text text) {
+                    list.add(text.toString());
+                } else {
+                    list.addAll(node.texts());
+                }
+            });
+            return list;
+        }
+        var joiner = new StringJoiner(" ");
+        collect(node -> {
+            if (node instanceof Text text) {
+                joiner.add(text.toString());
+            } else {
+                for (String text : node.texts()) {
+                    joiner.add(text);
+                }
+            }
+        });
+        return List.of(joiner.toString());
+    }
+
+    private void collect(Consumer<Node> consumer) {
+        if (children == null || children.isEmpty()) {
+            return;
+        }
+        for (var child : children) {
+            consumer.accept(child);
+        }
+    }
+
+    @Override
     public void visit(Visitor visitor, int depth) {
         visitor.accept(this);
-        if (this.children != null){
+        if (this.children != null) {
             for (var child : this.children) {
                 child.visit(visitor, depth + 1);
             }
@@ -105,7 +182,12 @@ public class Element extends Node {
     public String toString() {
         var suffix = "</" + label + '>';
         if (finish) {
-            return suffix;
+            if (isEmpty()) {
+                return "<" + label + " />";
+            }
+            if (isBlank()) {
+                return suffix;
+            }
         }
         var prefix = '<' + this.label.toString() + this.getAttr();
         if (children == null) {
@@ -122,8 +204,12 @@ public class Element extends Node {
         return formatter.build(prefix + '>', children, suffix);
     }
 
+    private boolean isBlank() {
+        return attributes == null || attributes.isEmpty();
+    }
+
     private String getAttr() {
-        if (attributes.isEmpty()) {
+        if (isBlank()) {
             return "";
         }
         var attr = new StringJoiner(" ");

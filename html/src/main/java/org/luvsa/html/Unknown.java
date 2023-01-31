@@ -28,16 +28,6 @@ public class Unknown extends Node {
     }
 
     @Override
-    protected boolean hasAttributes() {
-        return attributes.isEmpty();
-    }
-
-    @Override
-    public Map<String, Object> attributes() {
-        return attributes;
-    }
-
-    @Override
     public boolean isFinished() {
         return finish;
     }
@@ -55,13 +45,13 @@ public class Unknown extends Node {
     @Override
     public void visit(Visitor visitor, int depth) {
         visitor.accept(this);
-        if (this.children != null){
-            for (var child : this.children) {
-                child.visit(visitor, depth + 1);
-            }
+        if (children == null) {
+            return;
+        }
+        for (var child : this.children) {
+            child.visit(visitor, depth + 1);
         }
     }
-
 
     @Override
     public String getName() {

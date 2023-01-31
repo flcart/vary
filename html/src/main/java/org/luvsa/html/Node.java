@@ -1,8 +1,8 @@
 package org.luvsa.html;
 
+import java.nio.charset.Charset;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  * @author Aglet
@@ -13,16 +13,6 @@ public abstract class Node {
      * 父节点
      */
     private Node parent;
-
-    public boolean hasParent() {
-        return parent != null;
-    }
-
-    protected abstract boolean hasAttributes();
-
-    public Map<String, Object> attributes() {
-        throw new UnsupportedOperationException();
-    }
 
     public abstract String getName();
 
@@ -56,22 +46,23 @@ public abstract class Node {
 
     public abstract void visit(Node.Visitor visitor, int depth);
 
+    public List<String> texts() {
+        return Collections.emptyList();
+    }
+
+    public Object getAttribute(String key) {
+        return null;
+    }
+
+    public Charset getCharset() {
+        return null;
+    }
+
     public interface Visitor {
         void accept(Node node);
 
     }
 
-
-    protected void forEach(Consumer<Node> action) {
-    }
-
-    protected boolean hasChildren() {
-        return false;
-    }
-
-    private Node next() {
-        return null;
-    }
 
     public int size() {
         return 0;
