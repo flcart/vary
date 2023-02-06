@@ -221,4 +221,8 @@ public final class Arrays {
         }
         return list;
     }
+
+    public static byte[] copyOf(byte[] bytes, int size) {
+        return java.util.Arrays.copyOf(bytes, size);
+    }
 }

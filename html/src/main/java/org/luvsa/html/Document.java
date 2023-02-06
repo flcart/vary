@@ -48,6 +48,16 @@ public class Document extends Node {
     }
 
     @Override
+    protected boolean hasAttributes() {
+        return false;
+    }
+
+    @Override
+    public String baseUri() {
+        return null;
+    }
+
+    @Override
     public String toString() {
         var text = "<!doctype " + String.join(" ", attr) + '>';
         if (html == null) {

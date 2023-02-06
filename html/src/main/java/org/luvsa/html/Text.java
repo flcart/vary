@@ -8,6 +8,9 @@ public class Text extends Node {
 
     private final String value;
 
+    public Text(char[] chars) {
+        this.value = new String(chars);
+    }
     public Text(String s) {
         this.value = s;
     }
@@ -20,6 +23,16 @@ public class Text extends Node {
     @Override
     public String getName() {
         return "TEXT";
+    }
+
+    @Override
+    protected boolean hasAttributes() {
+        return false;
+    }
+
+    @Override
+    public String baseUri() {
+        return null;
     }
 
     @Override

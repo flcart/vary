@@ -23,6 +23,19 @@ public final class Reflections {
             boolean.class, Boolean.class
     );
 
+    final static Map<String, Class<?>> cache = Map.of(
+            "byte", Byte.class,
+            "short", Short.class,
+            "int", Integer.class,
+            "integer", Integer.class,
+            "long", Long.class,
+            "float", Float.class,
+            "double", Double.class,
+            "char", Character.class,
+            "boolean", Boolean.class,
+            "bool", Boolean.class
+    );
+
     private Reflections() {
         throw new AssertionError("No org.luvsa.reflect.Reflections instances for you!");
     }
@@ -35,6 +48,18 @@ public final class Reflections {
      */
     public static Class<?> wrap(Class<?> clazz) {
         return PRIMITIVES.getOrDefault(clazz, clazz);
+    }
+
+    public static Class<?> type(String type) {
+        var aClass = cache.get(type.toLowerCase());
+        if (aClass != null) {
+            return aClass;
+        }
+        try {
+            return Class.forName(type);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("无法识别类型 【" + type + "】", e);
+        }
     }
 
     public static boolean isPrimitive(Class<?> clazz) {

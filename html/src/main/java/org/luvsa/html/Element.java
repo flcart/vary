@@ -85,6 +85,16 @@ public class Element extends Node {
     }
 
     @Override
+    protected boolean hasAttributes() {
+        return false;
+    }
+
+    @Override
+    public String baseUri() {
+        return null;
+    }
+
+    @Override
     public boolean isFinished() {
         if (label.isEmpty()) {
             return false;

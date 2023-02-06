@@ -57,4 +57,14 @@ public class Unknown extends Node {
     public String getName() {
         return name;
     }
+
+    @Override
+    protected boolean hasAttributes() {
+        return false;
+    }
+
+    @Override
+    public String baseUri() {
+        return null;
+    }
 }

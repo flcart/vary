@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public class Charsets {
 
+    private final static Charset GBK = Charset.forName("GBK");
+
     private final static Map<String, Charset> map = Map.of(
             "EFBBBF", StandardCharsets.UTF_8,
             "FEFF", StandardCharsets.UTF_16BE,
@@ -22,10 +24,10 @@ public class Charsets {
 
     public static Charset guess(byte[] bytes) {
         if (bytes == null || bytes.length < 1) {
-            return null;
+            return Charset.defaultCharset();
         }
         //如果含有bom头信息的话
-        var string = binary(bytes);
+        var string = binary(Arrays.copyOf(bytes, Math.min(bytes.length, 6)));
         var upper = string.toUpperCase();
         var entries = map.entrySet();
         for (var entry : entries) {
@@ -46,9 +48,9 @@ public class Charsets {
             if (upper.startsWith("E")) {
                 return StandardCharsets.UTF_8;
             }
-            return Charset.forName("GBK");
+            return GBK;
         }
-        return Charset.forName("GBK");
+        return GBK;
     }
 
 
