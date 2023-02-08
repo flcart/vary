@@ -5,8 +5,6 @@ import org.luvsa.sys.Userinfo;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Aglet
  * @create 2022/12/16 9:45

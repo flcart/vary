@@ -37,7 +37,7 @@ public final class Reflections {
     );
 
     private Reflections() {
-        throw new AssertionError("No org.luvsa.reflect.Reflections instances for you!");
+        throw new AssertionError("No " + Reflections.class + " instances for you!");
     }
 
     /**

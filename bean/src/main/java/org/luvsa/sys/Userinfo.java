@@ -1,7 +1,7 @@
 package org.luvsa.sys;
 
 import lombok.Data;
-import org.springframework.lang.Nullable;
+import org.luvsa.annotation.Nullable;
 
 import java.io.Serial;
 import java.io.Serializable;

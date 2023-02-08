@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 public final class Generics {
 
     private Generics() {
-        throw new AssertionError("No org.luvsa.reflect.Generics instances for you!");
+        throw new AssertionError("No " + Generics.class + " instances for you!");
     }
 
     /**
@@ -73,9 +73,11 @@ public final class Generics {
             throw new IllegalArgumentException("泛型类型[" + arg + "]错误！");
         });
     }
-    public static void submit(Class<?> clazz, int index, Consumer<Type> consumer){
+
+    public static void submit(Class<?> clazz, int index, Consumer<Type> consumer) {
         submit(clazz.getGenericSuperclass(), index, consumer);
     }
+
     /**
      * 处理泛型参数
      *

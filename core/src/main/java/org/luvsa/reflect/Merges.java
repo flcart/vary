@@ -47,7 +47,7 @@ public final class Merges {
 
 
     private Merges() {
-        throw new AssertionError("No com.jdy.angel.utils.Merges instances for you!");
+        throw new AssertionError("No " + Merges.class + " instances for you!");
     }
 
     /**

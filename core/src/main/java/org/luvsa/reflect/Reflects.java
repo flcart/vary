@@ -24,7 +24,7 @@ import java.util.function.Predicate;
  */
 public final class Reflects {
     private Reflects() {
-        throw new AssertionError("No org.luvsa.vary.Reflects instances for you!");
+        throw new AssertionError("No " + Reflects.class + " instances for you!");
     }
 
     public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];

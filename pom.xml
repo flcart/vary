@@ -11,6 +11,7 @@
 
     <modules>
         <module>annotation</module>
+        <module>bean</module>
         <module>core</module>
         <module>html</module>
         <module>jackson</module>
@@ -55,6 +56,12 @@
             <dependency>
                 <groupId>cn.luvsa</groupId>
                 <artifactId>vary-annotation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.luvsa</groupId>
+                <artifactId>vary-bean</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
