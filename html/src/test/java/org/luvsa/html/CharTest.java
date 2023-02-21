@@ -4,15 +4,12 @@ import org.junit.jupiter.api.Test;
 
 /**
  * @author Aglet
- * @create 2023/1/11 16:23
+ * @create 2023/2/17 14:34
  */
-class TokenTest {
-
+class CharTest {
 
     @Test
-    void reset() {
+    void get() {
+
     }
-
-
-
 }

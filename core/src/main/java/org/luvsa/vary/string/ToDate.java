@@ -6,6 +6,9 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -19,6 +22,14 @@ import java.util.function.Function;
 @Types(Date.class)
 public class ToDate extends BiDate<Date> implements Provider, Function<String, Date> {
 
+    private final Map<String, SimpleDateFormat> map = new HashMap<>();
+
+    private final static String DEFAULT_FORMAT = "EEE MMM dd HH:mm:ss zzz yyyy";
+
+    public ToDate() {
+        map.put(DEFAULT_FORMAT, new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH));
+    }
+
     @Override
     public Function<String, ?> get(Type type) {
         return this;
@@ -26,14 +37,22 @@ public class ToDate extends BiDate<Date> implements Provider, Function<String, D
 
     @Override
     public Date apply(String s) {
-
-
-        return next(s, _DATE_TIME);
+        try {
+            return next(s, _DATE_TIME);
+        } catch (Exception e) {
+            return next(s, DEFAULT_FORMAT);
+        }
     }
 
     @Override
     Date next(String value, String format) {
-        var formatter = new SimpleDateFormat(format);
+        var formatter = map.computeIfAbsent(format, s -> {
+            try {
+                return new SimpleDateFormat(format);
+            } catch (Exception e) {
+                throw new IllegalArgumentException(format, e);
+            }
+        });
         try {
             return formatter.parse(value);
         } catch (ParseException e) {
