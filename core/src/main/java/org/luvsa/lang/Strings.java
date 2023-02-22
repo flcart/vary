@@ -2,6 +2,7 @@ package org.luvsa.lang;
 
 import org.springframework.util.StringUtils;
 
+import java.lang.Character.UnicodeBlock;
 import java.security.MessageDigest;
 
 /**
@@ -70,6 +71,26 @@ public final class Strings {
             }
         }
         return true;
+    }
+
+    /**
+     * 判断一个字符串是否全部为汉字
+     * @param text 字符串
+     * @return true ： 全部为汉字字符串
+     */
+    public static boolean isChinese(String text) {
+        return Arrays.have(Strings::isChinese, text.toCharArray());
+    }
+
+    private static boolean isChinese(char c) {
+        var of = UnicodeBlock.of(c);
+        return of == UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                || of == UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                || of == UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
+                || of == UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_C
+                || of == UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_D
+                || of == UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+                || of == UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS_SUPPLEMENT;
     }
 
     public static boolean isNotEmpty(CharSequence str) {
