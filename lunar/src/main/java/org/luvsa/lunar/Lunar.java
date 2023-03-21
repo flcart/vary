@@ -317,7 +317,6 @@ public class Lunar {
         TempYear(int year) {
             // 以正月初一开始
             this.year = year;
-
             // 节气(中午12点)， 24节气为一年， 每个节气所在的 儒略日
             var jq = new double[27];
             // 合朔，即每月初一(中午12点) ， 每个合朔的儒略日, (从前一年冬月初一的儒略日开始， 向后计算16个月的儒略日)

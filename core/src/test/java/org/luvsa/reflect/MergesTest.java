@@ -19,13 +19,23 @@ class MergesTest {
         a.setName("张三");
         a.setGuid(UUID.randomUUID().toString());
 
-        var b = new Userinfo();
-        b.setName("李四");
 
-        if (Merges.check(a, b)){
-            System.out.println(a);
-        } else {
-            System.out.println(b);
-        }
+
+//        var b = new Userinfo();
+//        b.setName("李四");
+//
+//        if (Merges.check(a, b)) {
+//            System.out.println(a);
+//        } else {
+//            System.out.println(b);
+//        }
+
+
+//        var list = new ArrayList<String>();
+//        list.add("ddddd");
+//        Generics.accept(list.getClass(), 0, aClass -> {
+//            System.out.println(aClass);
+//        });
+        // 存在泛型参数类型擦除问题 java.lang.RuntimeException: 泛型类型[E]错误！
     }
 }

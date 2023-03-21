@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.luvsa.vary.Vary;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author Aglet
@@ -20,6 +21,7 @@ class LunarTest {
     void from() {
 //        var from = Lunar.now();
 //        System.out.println(from);
+        var date = new Date();
         var now = LocalDateTime.now();
         var change = Vary.change(now, Lunar.class);
         System.out.println(change);

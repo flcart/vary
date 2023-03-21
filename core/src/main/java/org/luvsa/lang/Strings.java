@@ -4,6 +4,8 @@ import org.springframework.util.StringUtils;
 
 import java.lang.Character.UnicodeBlock;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 字符串工具
@@ -75,6 +77,7 @@ public final class Strings {
 
     /**
      * 判断一个字符串是否全部为汉字
+     *
      * @param text 字符串
      * @return true ： 全部为汉字字符串
      */
@@ -107,5 +110,24 @@ public final class Strings {
 
     public static boolean hasBlank(CharSequence... str) {
         return Arrays.has(Strings::isEmpty, str);
+    }
+
+    public static List<String> pick(String text, String key, String next, String until) {
+        var list = new ArrayList<String>();
+        for (int i = -1, size = text.length(); i < size; ) {
+            i = text.indexOf(key, i);
+            if (i < 0) {
+                break;
+            }
+            i = text.indexOf(next, i);
+            if (i < 0) {
+                continue;
+            }
+            var start = i + next.length();
+            var index = text.indexOf(until, start);
+            var sub = index < i ? text.substring(start) : text.substring(start, index);
+            list.add(sub);
+        }
+        return list;
     }
 }

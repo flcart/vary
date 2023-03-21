@@ -58,7 +58,6 @@ public class Gan implements Zurich {
         return new Gan(index);
     }
 
-
     /**
      * 获取天干元素的下标
      *

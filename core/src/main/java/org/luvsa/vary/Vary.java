@@ -87,6 +87,10 @@ public interface Vary {
     }
 
     static <T> List<T> asList(Object target, Class<T> clazz) {
+        return asList(target, o -> Vary.change(o, clazz));
+    }
+
+    static <T> List<T> asList(Object target, Function<Object, T> function) {
         if (target == null) {
             return null;
         }
@@ -94,13 +98,13 @@ public interface Vary {
         var aClass = target.getClass();
         if (target instanceof List<?> list) {
             for (var o : list) {
-                var change = Vary.change(o, clazz);
+                var change = function.apply(o);
                 rest.add(change);
             }
         } else if (aClass.isArray()) {
             for (int i = 0, size = Array.getLength(target); i < size; i++) {
                 var item = Array.get(target, i);
-                var change = Vary.change(item, clazz);
+                var change = function.apply(item);
                 rest.add(change);
             }
         }

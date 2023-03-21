@@ -30,7 +30,5 @@ public class VaryModule extends SimpleModule {
         addDeserializer(LocalTime.class, LocalTimeJsonDeserializer.INSTANCE);
         addDeserializer(LocalDateTime.class, LocalDateTimeJsonDeserializer.INSTANCE);
         addDeserializer(Date.class, DateJsonDeserializer.INSTANCE);
-
-
     }
 }

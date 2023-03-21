@@ -59,6 +59,7 @@ public final class Merges {
      */
     public static boolean check(Object source, Object change) {
         var sources = new HashMap<String, Entry<Field, Object>>();
+        // 收集源数据所有字段
         Reflects.doWithFields(source.getClass(), field -> {
             if (filters.test(field)) {
                 return;
@@ -67,6 +68,7 @@ public final class Merges {
             sources.put(field.getName(), new KeyValue(field, value));
         });
         var set = new HashSet<Field>();
+        // 数据校验
         Reflects.doWithFields(change.getClass(), field -> {
             if (filters.test(field)) {
                 return;
@@ -74,13 +76,19 @@ public final class Merges {
             var name = field.getName();
             var entry = sources.get(name);
             if (entry == null) {
+                // 源数据不存在这个字段， 所以最好使用相同类对象
                 return;
             }
+            // 源数据字段值
             var target = entry.getValue();
+            // 目标数据字段值
             var value = Reflects.getValue(field, change);
+
             if (equals(value, target, () -> check0(field))) {
+                // 如果'源数据字段值'与'目标数据字段值'相同，则认为未发生字段改动，直接跳过
                 return;
             }
+            // 收集改动的字段
             var key = entry.getKey();
             Reflects.setValue(key, source, value);
             set.add(key);
@@ -107,12 +115,13 @@ public final class Merges {
      * @return true ： ‘标识值’和‘参考值’相同
      */
     private static boolean equals(Object value, Object target, Supplier<Boolean> supplier) {
-        // 1.如果 值 为空， 会被认为没有改动， 返回 false
-        // 2.如果 值 和 参考值 相同， 则没有改动， 返回 false
         if (value == null) {
+            //1. '标识值' 为空， '目标值' 也为空， 认为没有改动
+            //2. '标识值' 为空， '目标值' 为 '初始值', 认为没有改动
             return target == null || supplier.get();
         }
         if (Objects.equals(value, target)) {
+            // '标识值' 与 '目标值' 相同， 认为没有改动， 直接返回
             return true;
         }
         // 3. 值为原始数据类型的默认值， 会被认为没有改动， 返回 false

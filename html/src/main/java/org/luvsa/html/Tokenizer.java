@@ -22,6 +22,7 @@ public final class Tokenizer {
     Token.Doctype doctypePending = new Token.Doctype();
 
     StringBuilder dataBuffer = new StringBuilder(1024);
+
     static {
         var load = ServiceLoader.load(CharHandler.class);
         for (var handler : load) {

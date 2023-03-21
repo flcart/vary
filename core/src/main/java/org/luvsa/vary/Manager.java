@@ -77,8 +77,7 @@ public abstract class Manager<T> implements Iterable<Type> {
             for (T item : list) {
                 try {
                     return function.apply(item);
-                } catch (Exception e) {
-                    //
+                } catch (Exception ignore) {
                 }
             }
             return null;

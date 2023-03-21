@@ -1,5 +1,6 @@
 package org.luvsa.reflect;
 
+import org.luvsa.annotation.Types;
 import org.luvsa.exception.ValueException;
 import org.luvsa.lang.Strings;
 import org.luvsa.vary.Vary;
@@ -10,12 +11,11 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -23,14 +23,9 @@ import java.util.function.Predicate;
  * @create 2022/7/13 18:27
  */
 public final class Reflects {
-    private Reflects() {
-        throw new AssertionError("No " + Reflects.class + " instances for you!");
-    }
-
     public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
     private static final String GET_METHOD_PREFIX = "get";
     private static final String GET_BOOL_METHOD_PREFIX = "is";
-
     private static final ParameterNameDiscoverer DISCOVERER = new DefaultParameterNameDiscoverer();
 
     /**
@@ -57,8 +52,24 @@ public final class Reflects {
         }
         return false;
     };
-
     private static final Map<Class<?>, Field[]> declaredFieldsCache = new ConcurrentHashMap<>(256);
+    private static final Map<Class<?>, Function<Object, Object>> functions = new ConcurrentHashMap<>(256);
+
+    static {
+        var adapters = ServiceLoader.load(Represent.class);
+        for (var item : adapters) {
+            var aClass = item.getClass();
+            var types = aClass.getAnnotation(Types.class);
+            var array = types == null ? item.getTypes() : types.value();
+            for (var key : array) {
+                functions.put(key, item::next);
+            }
+        }
+    }
+
+    private Reflects() {
+        throw new AssertionError("No " + Reflects.class + " instances for you!");
+    }
 
     /**
      * 在指定类中查找指定【名称】的方法
@@ -118,8 +129,13 @@ public final class Reflects {
         }
     }
 
-    public static Map<String, Object> extract(Object o) {
-        return Collections.emptyMap();
+    public static Object extract(Object o) {
+        var aClass = o.getClass();
+        var function = functions.get(aClass);
+        if (function != null) {
+            return function.apply(o);
+        }
+        return asMap(o);
     }
 
     public static boolean isPublicStaticFinal(Field field) {
@@ -231,6 +247,7 @@ public final class Reflects {
             var name = field.getName();
             Reflects.doWithMethods(clazz, method -> {
                 if (Reflects.FIND_GET_METHOD.test(name, method)) {
+                    // 通过异常来返回数据，不知道是否对系统造成影响
                     var o = Reflects.invokeMethod(method, target);
                     throw new ValueException(o);
                 }
@@ -248,4 +265,40 @@ public final class Reflects {
     public static String[] discover(Method method) {
         return DISCOVERER.getParameterNames(method);
     }
+
+    public static Map<String, Object> asMap(Object o) {
+        if (o == null) {
+            return Collections.emptyMap();
+        }
+        if (o instanceof Map<?, ?> map) {
+            var newMap = new HashMap<String, Object>();
+            map.forEach((key, value) -> {
+                if (value != null && key instanceof String s) {
+                    newMap.put(s, extract(value));
+                }
+            });
+            return newMap;
+        }
+        if (o instanceof Collection<?>) {
+            throw new UnsupportedOperationException();
+        }
+        var aClass = o.getClass();
+        if (functions.containsKey(aClass)) {
+            throw new UnsupportedOperationException();
+        }
+        var map = new HashMap<String, Object>();
+        doWithFields(aClass, field -> {
+            var name = field.getName();
+            if (Objects.equals(name, "serialVersionUID")) {
+                return;
+            }
+            var value = getValue(field, o);
+            if (value != null) {
+                map.put(name, extract(value));
+            }
+        });
+        return map;
+    }
+
+
 }

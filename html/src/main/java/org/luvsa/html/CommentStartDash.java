@@ -21,7 +21,7 @@ public class CommentStartDash implements CharHandler{
                 t.transition("Data");
             }
             case eof -> {
-                t.eofError(this);
+                t.eofError(this); 
                 t.emitCommentPending();
                 t.transition("Data");
             }

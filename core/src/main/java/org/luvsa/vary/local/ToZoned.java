@@ -11,9 +11,11 @@ import java.time.temporal.Temporal;
 import java.util.function.Function;
 
 /**
- * {@link  Temporal}, TemporalAdjuster, ChronoLocalDate, Serializable
- * {@link  Temporal}, TemporalAdjuster, Comparable<LocalTime>, Serializable
- * {@link  Temporal}, TemporalAdjuster, ChronoLocalDateTime<LocalDate>, Serializable
+ * <ul>
+ *     <li>{@link  Temporal}, TemporalAdjuster, ChronoLocalDate, Serializable</li>
+ *     <li>{@link  Temporal}, TemporalAdjuster, Comparable<LocalTime>, Serializable</li>
+ *     <li>{@link  Temporal}, TemporalAdjuster, ChronoLocalDateTime<LocalDate>, Serializable</li>
+ * </ul>
  *
  * @author Aglet
  * @create 2022/7/25 15:06

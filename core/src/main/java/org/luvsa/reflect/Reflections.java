@@ -63,7 +63,7 @@ public final class Reflections {
     }
 
     public static boolean isPrimitive(Class<?> clazz) {
-        return PRIMITIVES.containsKey(clazz);
+        return PRIMITIVES.containsKey(clazz) || PRIMITIVES.containsValue(clazz);
     }
 
     /**
@@ -119,4 +119,6 @@ public final class Reflections {
             return null;
         }
     }
+
+
 }

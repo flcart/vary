@@ -4,6 +4,7 @@ import org.luvsa.vary.Vary;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
+import java.util.Objects;
 
 /**
  * @author Aglet
@@ -27,7 +28,19 @@ public final class Proxies {
         if (!clazz.isInterface()) {
             throw new IllegalArgumentException();
         }
-        var o = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, handler);
+        var o = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, (proxy, method, args) -> {
+            var methodName = method.getName();
+            if (Objects.equals(methodName, "toString") && args.length == 0) {
+                return "Proxy-" + handler.toString();
+            }
+//            if (Objects.equals(methodName, "hashCode") && args.length == 0) {
+//                return handler.hashCode();
+//            }
+//            if (Objects.equals(methodName, "equals") && args.length == 1) {
+//                return handler.invoke(proxy, method, args);
+//            }
+            return handler.invoke(proxy, method, args);
+        });
         return Vary.change(o, clazz);
     }
 }
