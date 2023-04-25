@@ -8,6 +8,14 @@ package org.luvsa.node;
  */
 public class Text extends Leaf {
 
+    public Text(String s) {
+        this.value = s;
+    }
+
+    public static Text of(String s) {
+        return new Text(s);
+    }
+
     @Override
     public String getName() {
         return "#text";

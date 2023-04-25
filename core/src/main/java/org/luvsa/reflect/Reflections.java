@@ -46,7 +46,7 @@ public final class Reflections {
      * @param clazz Class 对象
      * @return 装箱或者原来的数据类型
      */
-    public static Class<?> wrap(Class<?> clazz) {
+    public static Class<?>  wrap(Class<?> clazz) {
         return PRIMITIVES.getOrDefault(clazz, clazz);
     }
 

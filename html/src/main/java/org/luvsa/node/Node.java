@@ -4,13 +4,21 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
- *  节点
+ * 节点
  *
  * @author Aglet
  * @create 2023/2/18 10:29
  */
 public abstract class Node {
     static final List<Node> EMPTY = Collections.emptyList();
+
+    static {
+        var load = ServiceLoader.load(Nodule.class);
+        for (var nodule : load) {
+            Nodule.list.add(nodule);
+        }
+    }
+
     /**
      * 父节点
      */
@@ -21,6 +29,12 @@ public abstract class Node {
     int index;
 
     protected Node() {
+    }
+
+    public static Node from(String html) {
+        var tokenizer = new Tokenizer(html);
+        tokenizer.run();
+        return null;
     }
 
     protected abstract List<Node> getNodes();

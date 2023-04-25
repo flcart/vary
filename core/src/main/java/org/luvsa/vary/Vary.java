@@ -2,6 +2,7 @@ package org.luvsa.vary;
 
 import org.luvsa.lang.ContextHolder;
 import org.luvsa.reflect.Reflections;
+import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
@@ -27,7 +28,15 @@ public interface Vary {
      */
     @SuppressWarnings("unchecked")
     static <T, R> R change(T value, Class<R> cls) {
-        return (R) convert(value, Reflections.wrap(cls));
+        if (value == null) {
+            return null;
+        }
+        var target = Objects.requireNonNull(cls, "Target type can't be null!");
+        var wrap = Reflections.wrap(target);
+        if (wrap.isInstance(value)) {
+            return (R) value;
+        }
+        return (R) convert(value, wrap);
     }
 
     static <K, V> Map<K, V> map(Collection<V> collection, Function<V, K> key) {
@@ -44,7 +53,7 @@ public interface Vary {
             var v = value.apply(item);
             map.put(k, v);
         }
-        return map;
+        return Collections.unmodifiableMap(map);
     }
 
     /**
@@ -55,7 +64,7 @@ public interface Vary {
      * @param <T>   当前数据类型
      * @return 目标数据
      */
-    static <T> Object convert(T value, Type type) {
+    static <T> Object convert(@NonNull T value, Type type) {
         // 如果转换器不存在， 一定是报错， 不能返回一空值
         for (var item : Util.list) {
             if (!item.enabled()) {
